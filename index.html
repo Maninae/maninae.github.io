@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Owen Wang | Computer Vision ML Engineer</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Configure Tailwind for custom colors and font -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'background-dark': '#0F172A', // Slate-900
+                        'text-light': '#F1F5F9', // Slate-100
+                        'text-muted': '#94A3B8', // Slate-400
+                        'accent-cyan': '#2DD4BF', // Teal-400
+                        'accent-dark': '#064E3B', // Dark teal
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'Liberation Mono', 'Courier New', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html {
+            scroll-behavior: smooth; 
+        }
+
+        body {
+            background-color: #0F172A; 
+            color: #F1F5F9;
+        }
+
+        /* Desktop Layout (LG and up) */
+        @media (min-width: 1024px) {
+            .portfolio-container {
+                display: grid;
+                grid-template-columns: 2fr 3fr;
+                column-gap: 3rem;
+            }
+            .fixed-sidebar {
+                align-self: start;
+                display: flex;
+                flex-direction: column;
+            }
+            .content-area section {
+                margin-bottom: 8rem; 
+            }
+        }
+
+        /* Navigation Links Styles */
+        .nav-link-item {
+            display: flex;
+            align-items: center;
+            padding-left: 0;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link-item:hover, .nav-link-item.active { 
+            transform: translateX(0.5rem);
+        }
+        
+        .nav-link-item:hover .nav-line, .nav-link-item.active .nav-line { 
+            width: 2rem;
+            background-color: #2DD4BF;
+        }
+        .nav-link-item:hover .nav-text, .nav-link-item.active .nav-text { 
+            color: #2DD4BF;
+        }
+        .nav-line {
+            height: 1px;
+            width: 2rem;
+            background-color: #94A3B8;
+            transition: all 0.3s ease;
+            margin-right: 1rem;
+        }
+        .nav-text {
+            color: #F1F5F9;
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        /* Social Icons Styles */
+        .social-icon {
+            display: inline-block;
+            width: 1.5rem;
+            height: 1.5rem;
+            color: #F1F5F9;
+            transition: all 0.3s ease;
+        }
+        .social-icon:hover {
+            color: #2DD4BF;
+            transform: translateY(-3px);
+        }
+
+        /* Content Card Hover Effects */
+        .card-group:hover {
+            transform: translateX(0.5rem); 
+            background-color: #1E293B;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-group {
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 1;
+        }
+        
+        .group-hover\/list:opacity-50:not(:hover) {
+            opacity: 0.5;
+        }
+    </style>
+    <!-- Load Inter font from Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+</head>
+<body class="font-sans antialiased text-text-light">
+
+    <div class="portfolio-container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <!-- LEFT STICKY COLUMN (Sidebar/Intro/Nav) -->
+        <div class="fixed-sidebar lg:sticky lg:top-0 lg:h-screen lg:py-24 pt-8 pb-12 lg:pl-0">
+            
+            <!-- Top Section: Profile Picture, Name and Title -->
+            <div class="mb-8 text-left">
+                <img src="owen profile picture.png" alt="Owen Wang Profile" class="w-48 h-48 rounded-full mb-6 object-cover border-2 border-accent-cyan block">
+                <h1 class="text-5xl font-extrabold mb-4 text-text-light">Owen Wang</h1>
+                <p class="text-xl font-medium text-text-light mb-2">Computer Vision ML Engineer</p>
+                <p class="text-text-muted text-lg mb-6">I build robust, production-ready deep learning systems.</p>
+
+                <div class="flex flex-col gap-4">
+                    <div class="flex space-x-5 justify-start">
+                        <!-- GitHub Icon -->
+                        <a href="https://github.com/Maninae" target="_blank" aria-label="GitHub">
+                            <svg class="social-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.802 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.087-.731.084-.67.084-.67 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.492.998.108-.77.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.046.138 3.003.404 2.292-1.552 3.3-1.23 3.3-1.23.653 1.652.242 2.873.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.923.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.79 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+                            </svg>
+                        </a>
+                        
+                        <!-- LinkedIn Icon -->
+                        <a href="https://www.linkedin.com/in/ojwang/" target="_blank" aria-label="LinkedIn">
+                            <svg class="social-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.568-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                            </svg>
+                        </a>
+                    </div>
+
+                    <!-- Resume Link -->
+                    <div>
+                        <a href="./resume.pdf" target="_blank" rel="noopener noreferrer" class="inline-flex items-center font-medium leading-tight text-text-light hover:text-accent-cyan group">
+                            <span class="border-b border-transparent pb-px transition group-hover:border-accent-cyan motion-reduce:transition-none">View Full Résumé</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="ml-1 inline-block h-4 w-4 shrink-0 -translate-y-px transition-transform group-hover:translate-x-2 group-focus-visible:translate-x-2 motion-reduce:transition-none" aria-hidden="true"><path fill-rule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L10.22 5.22a.75.75 0 011.06-1.06l5.5 5.5a.75.75 0 010 1.06l-5.5 5.5a.75.75 0 11-1.06-1.06l4.168-4.167H3.75A.75.75 0 013 10z" clip-rule="evenodd"></path></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation -->
+            <nav class="hidden lg:block space-y-3 mt-12 mb-auto">
+                <a href="#about" class="nav-link-item group justify-start">
+                    <span class="nav-line group-hover:bg-accent-cyan group-hover:w-8"></span>
+                    <span class="nav-text group-hover:text-accent-cyan">About</span>
+                </a>
+                <a href="#resume" class="nav-link-item group justify-start">
+                    <span class="nav-line group-hover:bg-accent-cyan group-hover:w-8"></span>
+                    <span class="nav-text group-hover:text-accent-cyan">Experience</span>
+                </a>
+                <a href="#projects" class="nav-link-item group justify-start">
+                    <span class="nav-line group-hover:bg-accent-cyan group-hover:w-8"></span>
+                    <span class="nav-text group-hover:text-accent-cyan">Projects</span>
+                </a>
+                <a href="#contact" class="nav-link-item group justify-start">
+                    <span class="nav-line group-hover:bg-accent-cyan group-hover:w-8"></span>
+                    <span class="nav-text group-hover:text-accent-cyan">Contact</span>
+                </a>
+            </nav>
+
+            <!-- Mobile-only Navigation -->
+            <nav class="lg:hidden w-full flex justify-around py-4 mt-6 border-t border-text-muted/20">
+                <a href="#about" class="text-xs font-semibold uppercase tracking-wider text-text-muted hover:text-accent-cyan transition duration-150">About</a>
+                <a href="#resume" class="text-xs font-semibold uppercase tracking-wider text-text-muted hover:text-accent-cyan transition duration-150">Experience</a>
+                <a href="#projects" class="text-xs font-semibold uppercase tracking-wider text-text-muted hover:text-accent-cyan transition duration-150">Projects</a>
+                <a href="#contact" class="text-xs font-semibold uppercase tracking-wider text-text-muted hover:text-accent-cyan transition duration-150">Contact</a>
+            </nav>
+
+        </div>
+
+        <!-- RIGHT SCROLLABLE CONTENT COLUMN -->
+        <div class="content-area max-w-2xl mx-auto lg:mx-0 lg:py-24 pt-8 pb-12 lg:pr-16">
+
+            <!-- About/Summary Section -->
+            <section id="about">
+                <h2 class="lg:hidden text-lg font-bold uppercase tracking-widest text-accent-cyan mb-8">About</h2>
+                <div class="text-lg text-text-muted space-y-4">
+                    <p>I am a Computer Vision and Machine Learning Engineer with 7 years of experience building robust AI solutions. While my background is grounded in core tasks like object detection and segmentation, my recent focus has centered on leveraging modern diffusion-based methods for generative modeling.</p>
+                    <p>Beyond the algorithms, I care deeply about the engineering craft. I love writing well-architected, structured code that turns experimental ideas into reliable systems. I thrive on applied research—taking state-of-the-art papers and adapting them to new problem domains—and I have a particular knack for optimizing models for fast inference in constrained, real-world environments.</p>
+                </div>
+            </section>
+
+            <!-- Resume/Experience Section -->
+            <section id="resume" class="pt-24 lg:pt-0">
+                <h2 class="lg:hidden text-lg font-bold uppercase tracking-widest text-accent-cyan mb-8">Experience</h2>
+
+                <div class="space-y-4">
+                    <!-- Meta Reality Labs - Codec Avatars -->
+                    <div class="card-group group relative grid pb-1 sm:grid-cols-8 sm:gap-8 md:gap-4 group-hover/list:opacity-50">
+                        <header class="z-10 mb-2 mt-1 text-xs font-semibold uppercase tracking-wide text-text-muted sm:col-span-2">
+                            Mar 2024 — Current
+                        </header>
+                        <div class="sm:col-span-6">
+                            <h3 class="font-medium leading-snug text-text-light">
+                                <div>
+                                    <a class="inline-flex items-baseline font-medium leading-tight text-text-light hover:text-accent-cyan focus-visible:text-accent-cyan group/link text-base" href="#" target="_blank" aria-label="Meta Reality Labs">
+                                        <span class="absolute -inset-x-4 -inset-y-2.5 hidden rounded md:-inset-x-6 md:-inset-y-4 lg:block"></span>
+                                        <span>Meta Reality Labs · <span class="text-text-muted group-hover/link:text-accent-cyan transition duration-150">Codec Avatars, DataGen</span></span>
+                                    </a>
+                                </div>
+                            </h3>
+                            <p class="mt-2 text-sm leading-normal text-text-muted">
+                                Used DiT- and U-Net-based diffusion models to generate 8m+ frames of HMC synthetic datasets, powering downstream avatar models such as face expression encoding, eye tracking, and face bio-authentication for ‘26+ ARVR devices.
+                            </p>
+                            <p class="mt-2 text-sm leading-normal text-text-muted">
+                                <a href="https://arxiv.org/abs/2507.05620" target="_blank" class="text-text-light hover:text-accent-cyan font-medium z-20 relative">Published Research: GenHMC (arXiv 2025) ↗</a><br>
+                                Novel method to improve codec avatar encoder’s SoTA accuracy + data efficiency by leveraging diffusion models to generate HMC camera images with controllable lighting, glasses/Rx, and subject appearance.
+                            </p>
+                            <div class="mt-2 flex flex-wrap" aria-label="Technologies used">
+                                <div class="mr-2 mb-2 rounded-full bg-accent-dark/50 px-3 py-1 text-xs font-medium leading-5 text-accent-cyan">Diffusion Models</div>
+                                <div class="mr-2 mb-2 rounded-full bg-accent-dark/50 px-3 py-1 text-xs font-medium leading-5 text-accent-cyan">U-Net</div>
+                                <div class="mr-2 mb-2 rounded-full bg-accent-dark/50 px-3 py-1 text-xs font-medium leading-5 text-accent-cyan">Synthetic Data</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Cruise - Perception -->
+                    <div class="card-group group relative grid pb-1 sm:grid-cols-8 sm:gap-8 md:gap-4 group-hover/list:opacity-50">
+                        <header class="z-10 mb-2 mt-1 text-xs font-semibold uppercase tracking-wide text-text-muted sm:col-span-2">
+                            Sept 2022 — Dec 2023
+                        </header>
+                        <div class="sm:col-span-6">
+                            <h3 class="font-medium leading-snug text-text-light">
+                                <div>
+                                    <a class="inline-flex items-baseline font-medium leading-tight text-text-light hover:text-accent-cyan focus-visible:text-accent-cyan group/link text-base" href="#" target="_blank" aria-label="Cruise">
+                                        <span class="absolute -inset-x-4 -inset-y-2.5 hidden rounded md:-inset-x-6 md:-inset-y-4 lg:block"></span>
+                                        <span>Cruise · <span class="text-text-muted group-hover/link:text-accent-cyan transition duration-150">Perception, Detection Core</span></span>
+                                    </a>
+                                </div>
+                            </h3>
+                            <p class="mt-2 text-sm leading-normal text-text-muted">
+                                Boosted multi-task LiDAR perception model training efficiency 5x, driving an estimated $3.8M annual savings by optimizing GT target generation, GPU memory/backprop flow, hyperparameters (batch size, prefetching), and experimenting with 2nd-order optimizers and LR schedules. Independently led migration of two critical-path LiDAR perception models from legacy repos’ training loops to a structured, reproducible PyTorch Lightning framework. Diagnosed bottlenecks in a multi-platform modeling library developed by 20+ engineers.
+                            </p>
+                            <div class="mt-2 flex flex-wrap" aria-label="Technologies used">
+                                <div class="mr-2 mb-2 rounded-full bg-accent-dark/50 px-3 py-1 text-xs font-medium leading-5 text-accent-cyan">LiDAR</div>
+                                <div class="mr-2 mb-2 rounded-full bg-accent-dark/50 px-3 py-1 text-xs font-medium leading-5 text-accent-cyan">PyTorch Lightning</div>
+                                <div class="mr-2 mb-2 rounded-full bg-accent-dark/50 px-3 py-1 text-xs font-medium leading-5 text-accent-cyan">GPU Optimization</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Meta Reality Labs - Holograms -->
+                    <div class="card-group group relative grid pb-1 sm:grid-cols-8 sm:gap-8 md:gap-4 group-hover/list:opacity-50">
+                        <header class="z-10 mb-2 mt-1 text-xs font-semibold uppercase tracking-wide text-text-muted sm:col-span-2">
+                            Dec 2020 — July 2022
+                        </header>
+                        <div class="sm:col-span-6">
+                            <h3 class="font-medium leading-snug text-text-light">
+                                <div>
+                                    <a class="inline-flex items-baseline font-medium leading-tight text-text-light hover:text-accent-cyan focus-visible:text-accent-cyan group/link text-base" href="#" target="_blank" aria-label="Meta Reality Labs">
+                                        <span class="absolute -inset-x-4 -inset-y-2.5 hidden rounded md:-inset-x-6 md:-inset-y-4 lg:block"></span>
+                                        <span>Meta Reality Labs · <span class="text-text-muted group-hover/link:text-accent-cyan transition duration-150">Holograms</span></span>
+                                    </a>
+                                </div>
+                            </h3>
+                            <p class="mt-2 text-sm leading-normal text-text-muted">
+                                Designed and prototyped a real-time, neural re-rendering model for AR glasses, refining imperfectly rendered 2D inputs due to occlusion and sensor sparsity (e.g. jointly solving inpainting & denoising) for remote calling features. Led cross-org collaboration (8 engineers) to unify two ML model training stacks—Meta’s custom silicon research codebases and Detectron2Go—which cut research-to-deployment lead time by 4 months.
+                            </p>
+                            <div class="mt-2 flex flex-wrap" aria-label="Technologies used">
+                                <div class="mr-2 mb-2 rounded-full bg-accent-dark/50 px-3 py-1 text-xs font-medium leading-5 text-accent-cyan">Neural Rendering</div>
+                                <div class="mr-2 mb-2 rounded-full bg-accent-dark/50 px-3 py-1 text-xs font-medium leading-5 text-accent-cyan">AR</div>
+                                <div class="mr-2 mb-2 rounded-full bg-accent-dark/50 px-3 py-1 text-xs font-medium leading-5 text-accent-cyan">Detectron2Go</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Meta Reality Labs - AR Authentic Presence -->
+                    <div class="card-group group relative grid pb-1 sm:grid-cols-8 sm:gap-8 md:gap-4 group-hover/list:opacity-50">
+                        <header class="z-10 mb-2 mt-1 text-xs font-semibold uppercase tracking-wide text-text-muted sm:col-span-2">
+                            Sep 2019 — Dec 2020
+                        </header>
+                        <div class="sm:col-span-6">
+                            <h3 class="font-medium leading-snug text-text-light">
+                                <div>
+                                    <a class="inline-flex items-baseline font-medium leading-tight text-text-light hover:text-accent-cyan focus-visible:text-accent-cyan group/link text-base" href="#" target="_blank" aria-label="Meta Reality Labs">
+                                        <span class="absolute -inset-x-4 -inset-y-2.5 hidden rounded md:-inset-x-6 md:-inset-y-4 lg:block"></span>
+                                        <span>Meta Reality Labs · <span class="text-text-muted group-hover/link:text-accent-cyan transition duration-150">AR Authentic Presence</span></span>
+                                    </a>
+                                </div>
+                            </h3>
+                            <p class="mt-2 text-sm leading-normal text-text-muted">
+                                Delivered 3 CV ML models (hand detection/keypoints/gestures, person segmentation, foot keypoints) powering high-traffic (100k daily impressions) AR effects and virtual backgrounds on Messenger, Facebook, and Instagram. Optimized PyTorch models’ inference time from 20-25s native to 20-40ms on int8-quantized CPU hardware. Owned creation of a 400k+ sample real-world dataset.
+                            </p>
+                            <div class="mt-2 flex flex-wrap" aria-label="Technologies used">
+                                <div class="mr-2 mb-2 rounded-full bg-accent-dark/50 px-3 py-1 text-xs font-medium leading-5 text-accent-cyan">CV ML</div>
+                                <div class="mr-2 mb-2 rounded-full bg-accent-dark/50 px-3 py-1 text-xs font-medium leading-5 text-accent-cyan">PyTorch</div>
+                                <div class="mr-2 mb-2 rounded-full bg-accent-dark/50 px-3 py-1 text-xs font-medium leading-5 text-accent-cyan">Quantization</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Education: Stanford University -->
+                    <div class="card-group group relative grid pb-1 sm:grid-cols-8 sm:gap-8 md:gap-4 group-hover/list:opacity-50">
+                        <header class="z-10 mb-2 mt-1 text-xs font-semibold uppercase tracking-wide text-text-muted sm:col-span-2">
+                            Sept 2014 — June 2019
+                        </header>
+                        <div class="sm:col-span-6">
+                            <h3 class="font-medium leading-snug text-text-light">
+                                <div>
+                                    <a class="inline-flex items-baseline font-medium leading-tight text-text-light hover:text-accent-cyan focus-visible:text-accent-cyan group/link text-base" href="#" aria-label="Stanford University">
+                                        <span class="absolute -inset-x-4 -inset-y-2.5 hidden rounded md:-inset-x-6 md:-inset-y-4 lg:block"></span>
+                                        <span>M.S. & B.S. Computer Science · <span class="text-text-muted group-hover/link:text-accent-cyan transition duration-150">Stanford University</span></span>
+                                    </a>
+                                </div>
+                            </h3>
+                            <p class="mt-2 text-sm leading-normal text-text-muted">
+                                B.S. Computer Science (June 2018) • M.S. Computer Science (June 2019)<br>
+                                Teaching Assistant: Convolutional Neural Networks for Visual Recognition (CS 231N), Spring 2019.
+                            </p>
+                            <div class="mt-2 flex flex-wrap" aria-label="Coursework topics">
+                                <div class="mr-2 mb-2 rounded-full bg-accent-dark/50 px-3 py-1 text-xs font-medium leading-5 text-accent-cyan">Computer Vision</div>
+                                <div class="mr-2 mb-2 rounded-full bg-accent-dark/50 px-3 py-1 text-xs font-medium leading-5 text-accent-cyan">Deep Learning</div>
+                                <div class="mr-2 mb-2 rounded-full bg-accent-dark/50 px-3 py-1 text-xs font-medium leading-5 text-accent-cyan">Teaching</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- Projects Section -->
+            <!-- ADDED: pt-24 for mobile top padding, lg:pt-0 to reset on desktop -->
+            <section id="projects" class="pt-24 lg:pt-0">
+                <h2 class="lg:hidden text-lg font-bold uppercase tracking-widest text-accent-cyan mb-8">Projects</h2>
+
+                <div class="space-y-4"> 
+                    <!-- Project Card 1: Object Detection Model -->
+                    <div class="card-group group relative grid pb-1 sm:grid-cols-8 sm:gap-8 md:gap-4 group-hover/list:opacity-50">
+                        <header class="z-10 mb-2 mt-1 text-xs font-semibold uppercase tracking-wide text-text-muted sm:col-span-2">
+                             
+                        </header>
+                        <div class="sm:col-span-6">
+                            <h3 class="font-medium leading-snug text-text-light">
+                                <div>
+                                    <a class="inline-flex items-baseline font-medium leading-tight text-text-light hover:text-accent-cyan focus-visible:text-accent-cyan group/link text-base" href="https://github.com/Maninae/object-detector" target="_blank" aria-label="Real-time Object Detector (Link)">
+                                        <span class="absolute -inset-x-4 -inset-y-2.5 hidden rounded md:-inset-x-6 md:-inset-y-4 lg:block"></span>
+                                        <span>Real-time Object Detector</span>
+                                        <!-- External Link Icon (inline SVG) -->
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-4 w-4 ml-1 translate-y-px transition-transform group-hover/link:translate-x-1 group-hover/link:-translate-y-1">
+                                            <path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 001.06 0l7.22-7.22v5.69a.75.75 0 001.5 0v-7.5a.75.75 0 00-.75-.75h-7.5a.75.75 0 000 1.5h5.69l-7.22 7.22a.75.75 0 000 1.06z" clip-rule="evenodd"/>
+                                        </svg>
+                                    </a>
+                                </div>
+                            </h3>
+                            <p class="mt-2 text-sm leading-normal text-text-muted">Developed and deployed a YOLO-based object detection model for identifying traffic signs in real-time video streams. Optimized inference speed for edge devices.</p>
+                            <div class="mt-2 flex flex-wrap" aria-label="Technologies used">
+                                <div class="mr-2 mb-2 rounded-full bg-accent-dark/50 px-3 py-1 text-xs font-medium leading-5 text-accent-cyan">PyTorch</div>
+                                <div class="mr-2 mb-2 rounded-full bg-accent-dark/50 px-3 py-1 text-xs font-medium leading-5 text-accent-cyan">OpenCV</div>
+                                <div class="mr-2 mb-2 rounded-full bg-accent-dark/50 px-3 py-1 text-xs font-medium leading-5 text-accent-cyan">CUDA</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project Card 2: Image Segmentation Tool -->
+                    <div class="card-group group relative grid pb-1 sm:grid-cols-8 sm:gap-8 md:gap-4 group-hover/list:opacity-50">
+                        <header class="z-10 mb-2 mt-1 text-xs font-semibold uppercase tracking-wide text-text-muted sm:col-span-2">
+                             
+                        </header>
+                        <div class="sm:col-span-6">
+                            <h3 class="font-medium leading-snug text-text-light">
+                                <div>
+                                    <a class="inline-flex items-baseline font-medium leading-tight text-text-light hover:text-accent-cyan focus-visible:text-accent-cyan group/link text-base" href="https://github.com/Maninae/segmentation-cli" target="_blank" aria-label="Semantic Segmentation CLI (Link)">
+                                        <span class="absolute -inset-x-4 -inset-y-2.5 hidden rounded md:-inset-x-6 md:-inset-y-4 lg:block"></span>
+                                        <span>Semantic Segmentation CLI</span>
+                                        <!-- External Link Icon (inline SVG) -->
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-4 w-4 ml-1 translate-y-px transition-transform group-hover/link:translate-x-1 group-hover/link:-translate-y-1">
+                                            <path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 001.06 0l7.22-7.22v5.69a.75.75 0 001.5 0v-7.5a.75.75 0 00-.75-.75h-7.5a.75.75 0 000 1.5h5.69l-7.22 7.22a.75.75 0 000 1.06z" clip-rule="evenodd"/>
+                                        </svg>
+                                    </a>
+                                </div>
+                            </h3>
+                            <p class="mt-2 text-sm leading-normal text-text-muted">A command-line tool for performing semantic segmentation on medical images using a custom U-Net architecture. Integrated with DICOM format handling.</p>
+                            <div class="mt-2 flex flex-wrap" aria-label="Technologies used">
+                                <div class="mr-2 mb-2 rounded-full bg-accent-dark/50 px-3 py-1 text-xs font-medium leading-5 text-accent-cyan">TensorFlow</div>
+                                <div class="mr-2 mb-2 rounded-full bg-accent-dark/50 px-3 py-1 text-xs font-medium leading-5 text-accent-cyan">Keras</div>
+                                <div class="mr-2 mb-2 rounded-full bg-accent-dark/50 px-3 py-1 text-xs font-medium leading-5 text-accent-cyan">DICOM</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project Card 3: Deepfake Detection -->
+                    <div class="card-group group relative grid pb-1 sm:grid-cols-8 sm:gap-8 md:gap-4 group-hover/list:opacity-50">
+                        <header class="z-10 mb-2 mt-1 text-xs font-semibold uppercase tracking-wide text-text-muted sm:col-span-2">
+                             
+                        </header>
+                        <div class="sm:col-span-6">
+                            <h3 class="font-medium leading-snug text-text-light">
+                                <div>
+                                    <a class="inline-flex items-baseline font-medium leading-tight text-text-light hover:text-accent-cyan focus-visible:text-accent-cyan group/link text-base" href="https://github.com/Maninae/deepfake-detector" target="_blank" aria-label="Deepfake Detection Framework (Link)">
+                                        <span class="absolute -inset-x-4 -inset-y-2.5 hidden rounded md:-inset-x-6 md:-inset-y-4 lg:block"></span>
+                                        <span>Deepfake Detection Framework</span>
+                                        <!-- External Link Icon (inline SVG) -->
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-4 w-4 ml-1 translate-y-px transition-transform group-hover/link:translate-x-1 group-hover/link:-translate-y-1">
+                                            <path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 001.06 0l7.22-7.22v5.69a.75.75 0 001.5 0v-7.5a.75.75 0 00-.75-.75h-7.5a.75.75 0 000 1.5h5.69l-7.22 7.22a.75.75 0 000 1.06z" clip-rule="evenodd"/>
+                                        </svg>
+                                    </a>
+                                </div>
+                            </h3>
+                            <p class="mt-2 text-sm leading-normal text-text-muted">A robust model utilizing temporal inconsistency analysis in video feeds to detect synthetically generated media (deepfakes). Achieved 94% AUC on public benchmark datasets.</p>
+                            <div class="mt-2 flex flex-wrap" aria-label="Technologies used">
+                                <div class="mr-2 mb-2 rounded-full bg-accent-dark/50 px-3 py-1 text-xs font-medium leading-5 text-accent-cyan">PyTorch</div>
+                                <div class="mr-2 mb-2 rounded-full bg-accent-dark/50 px-3 py-1 text-xs font-medium leading-5 text-accent-cyan">ffmpeg</div>
+                                <div class="mr-2 mb-2 rounded-full bg-accent-dark/50 px-3 py-1 text-xs font-medium leading-5 text-accent-cyan">GCP</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Contact/Footer Section -->
+            <section id="contact" class="pt-8">
+                <h2 class="lg:hidden text-lg font-bold uppercase tracking-widest text-accent-cyan mb-8">Contact</h2>
+                <div class="text-lg text-text-muted space-y-4">
+                    <p>
+                        I am always open to discussing new challenges, research collaborations, or career opportunities. Feel free to connect on <a href="https://www.linkedin.com/in/ojwang/" target="_blank" class="text-accent-cyan hover:underline font-medium">LinkedIn</a>.
+                    </p>
+                </div>
+            </section>
+            
+        </div>
+
+    </div>
+
+    <!-- JavaScript for Scroll Spy -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-link-item');
+
+            const observerOptions = {
+                root: null,
+                rootMargin: '-20% 0px -70% 0px', // Active zone is near top-middle
+                threshold: 0
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // Remove active class from all links
+                        navLinks.forEach(link => {
+                            link.classList.remove('active');
+                        });
+
+                        // Add active class to corresponding link
+                        const id = entry.target.getAttribute('id');
+                        const activeLink = document.querySelector(`.nav-link-item[href="#${id}"]`);
+                        if (activeLink) {
+                            activeLink.classList.add('active');
+                        }
+                    }
+                });
+            }, observerOptions);
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+        });
+    </script>
+</body>
+</html>
