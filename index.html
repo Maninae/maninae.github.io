@@ -65,8 +65,9 @@
             transform: translateX(0.5rem);
         }
         
+        /* Subtle scroll spy line width (3rem) */
         .nav-link-item:hover .nav-line, .nav-link-item.active .nav-line { 
-            width: 2rem;
+            width: 3rem;
             background-color: #2DD4BF;
         }
         .nav-link-item:hover .nav-text, .nav-link-item.active .nav-text { 
@@ -206,6 +207,7 @@
             </section>
 
             <!-- Resume/Experience Section -->
+            <!-- pt-24 added for mobile spacing -->
             <section id="resume" class="pt-24 lg:pt-0">
                 <h2 class="lg:hidden text-lg font-bold uppercase tracking-widest text-accent-cyan mb-8">Experience</h2>
 
@@ -330,7 +332,8 @@
                             </h3>
                             <p class="mt-2 text-sm leading-normal text-text-muted">
                                 B.S. Computer Science (June 2018) • M.S. Computer Science (June 2019)<br>
-                                Teaching Assistant: Convolutional Neural Networks for Visual Recognition (CS 231N), Spring 2019.
+                                Teaching Assistant: Convolutional Neural Networks for Visual Recognition (CS 231N), Spring 2019.<br>
+                                Teaching Assistant: Probabilistic Graphical Models (CS 228) with Prof. Stefano Ermon, Winter 2018-19.
                             </p>
                             <div class="mt-2 flex flex-wrap" aria-label="Coursework topics">
                                 <div class="mr-2 mb-2 rounded-full bg-accent-dark/50 px-3 py-1 text-xs font-medium leading-5 text-accent-cyan">Computer Vision</div>
@@ -344,22 +347,22 @@
             </section>
 
             <!-- Projects Section -->
-            <!-- ADDED: pt-24 for mobile top padding, lg:pt-0 to reset on desktop -->
+            <!-- pt-24 added for mobile spacing -->
             <section id="projects" class="pt-24 lg:pt-0">
                 <h2 class="lg:hidden text-lg font-bold uppercase tracking-widest text-accent-cyan mb-8">Projects</h2>
 
                 <div class="space-y-4"> 
-                    <!-- Project Card 1: Object Detection Model -->
+                    <!-- Project Card: COCO Convolutional Person Segmentation -->
                     <div class="card-group group relative grid pb-1 sm:grid-cols-8 sm:gap-8 md:gap-4 group-hover/list:opacity-50">
                         <header class="z-10 mb-2 mt-1 text-xs font-semibold uppercase tracking-wide text-text-muted sm:col-span-2">
-                             
+                            Research Project
                         </header>
                         <div class="sm:col-span-6">
                             <h3 class="font-medium leading-snug text-text-light">
                                 <div>
-                                    <a class="inline-flex items-baseline font-medium leading-tight text-text-light hover:text-accent-cyan focus-visible:text-accent-cyan group/link text-base" href="https://github.com/Maninae/object-detector" target="_blank" aria-label="Real-time Object Detector (Link)">
+                                    <a class="inline-flex items-baseline font-medium leading-tight text-text-light hover:text-accent-cyan focus-visible:text-accent-cyan group/link text-base" href="https://github.com/Maninae/segmentation-191" target="_blank" aria-label="COCO Convolutional Person Segmentation (Link)">
                                         <span class="absolute -inset-x-4 -inset-y-2.5 hidden rounded md:-inset-x-6 md:-inset-y-4 lg:block"></span>
-                                        <span>Real-time Object Detector</span>
+                                        <span>COCO Convolutional Person Segmentation</span>
                                         <!-- External Link Icon (inline SVG) -->
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-4 w-4 ml-1 translate-y-px transition-transform group-hover/link:translate-x-1 group-hover/link:-translate-y-1">
                                             <path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 001.06 0l7.22-7.22v5.69a.75.75 0 001.5 0v-7.5a.75.75 0 00-.75-.75h-7.5a.75.75 0 000 1.5h5.69l-7.22 7.22a.75.75 0 000 1.06z" clip-rule="evenodd"/>
@@ -367,65 +370,14 @@
                                     </a>
                                 </div>
                             </h3>
-                            <p class="mt-2 text-sm leading-normal text-text-muted">Developed and deployed a YOLO-based object detection model for identifying traffic signs in real-time video streams. Optimized inference speed for edge devices.</p>
+                            <p class="mt-2 text-sm leading-normal text-text-muted">
+                                Developed a semantic segmentation model ("Diamondback") for human body segmentation as a senior research project (CS 191). The architecture leverages dense convolutional connections and a DenseNet-161 encoder to achieve high-resolution predictions. Trained on the MS COCO dataset.
+                            </p>
                             <div class="mt-2 flex flex-wrap" aria-label="Technologies used">
-                                <div class="mr-2 mb-2 rounded-full bg-accent-dark/50 px-3 py-1 text-xs font-medium leading-5 text-accent-cyan">PyTorch</div>
-                                <div class="mr-2 mb-2 rounded-full bg-accent-dark/50 px-3 py-1 text-xs font-medium leading-5 text-accent-cyan">OpenCV</div>
-                                <div class="mr-2 mb-2 rounded-full bg-accent-dark/50 px-3 py-1 text-xs font-medium leading-5 text-accent-cyan">CUDA</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Project Card 2: Image Segmentation Tool -->
-                    <div class="card-group group relative grid pb-1 sm:grid-cols-8 sm:gap-8 md:gap-4 group-hover/list:opacity-50">
-                        <header class="z-10 mb-2 mt-1 text-xs font-semibold uppercase tracking-wide text-text-muted sm:col-span-2">
-                             
-                        </header>
-                        <div class="sm:col-span-6">
-                            <h3 class="font-medium leading-snug text-text-light">
-                                <div>
-                                    <a class="inline-flex items-baseline font-medium leading-tight text-text-light hover:text-accent-cyan focus-visible:text-accent-cyan group/link text-base" href="https://github.com/Maninae/segmentation-cli" target="_blank" aria-label="Semantic Segmentation CLI (Link)">
-                                        <span class="absolute -inset-x-4 -inset-y-2.5 hidden rounded md:-inset-x-6 md:-inset-y-4 lg:block"></span>
-                                        <span>Semantic Segmentation CLI</span>
-                                        <!-- External Link Icon (inline SVG) -->
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-4 w-4 ml-1 translate-y-px transition-transform group-hover/link:translate-x-1 group-hover/link:-translate-y-1">
-                                            <path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 001.06 0l7.22-7.22v5.69a.75.75 0 001.5 0v-7.5a.75.75 0 00-.75-.75h-7.5a.75.75 0 000 1.5h5.69l-7.22 7.22a.75.75 0 000 1.06z" clip-rule="evenodd"/>
-                                        </svg>
-                                    </a>
-                                </div>
-                            </h3>
-                            <p class="mt-2 text-sm leading-normal text-text-muted">A command-line tool for performing semantic segmentation on medical images using a custom U-Net architecture. Integrated with DICOM format handling.</p>
-                            <div class="mt-2 flex flex-wrap" aria-label="Technologies used">
-                                <div class="mr-2 mb-2 rounded-full bg-accent-dark/50 px-3 py-1 text-xs font-medium leading-5 text-accent-cyan">TensorFlow</div>
+                                <div class="mr-2 mb-2 rounded-full bg-accent-dark/50 px-3 py-1 text-xs font-medium leading-5 text-accent-cyan">Python</div>
                                 <div class="mr-2 mb-2 rounded-full bg-accent-dark/50 px-3 py-1 text-xs font-medium leading-5 text-accent-cyan">Keras</div>
-                                <div class="mr-2 mb-2 rounded-full bg-accent-dark/50 px-3 py-1 text-xs font-medium leading-5 text-accent-cyan">DICOM</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Project Card 3: Deepfake Detection -->
-                    <div class="card-group group relative grid pb-1 sm:grid-cols-8 sm:gap-8 md:gap-4 group-hover/list:opacity-50">
-                        <header class="z-10 mb-2 mt-1 text-xs font-semibold uppercase tracking-wide text-text-muted sm:col-span-2">
-                             
-                        </header>
-                        <div class="sm:col-span-6">
-                            <h3 class="font-medium leading-snug text-text-light">
-                                <div>
-                                    <a class="inline-flex items-baseline font-medium leading-tight text-text-light hover:text-accent-cyan focus-visible:text-accent-cyan group/link text-base" href="https://github.com/Maninae/deepfake-detector" target="_blank" aria-label="Deepfake Detection Framework (Link)">
-                                        <span class="absolute -inset-x-4 -inset-y-2.5 hidden rounded md:-inset-x-6 md:-inset-y-4 lg:block"></span>
-                                        <span>Deepfake Detection Framework</span>
-                                        <!-- External Link Icon (inline SVG) -->
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-4 w-4 ml-1 translate-y-px transition-transform group-hover/link:translate-x-1 group-hover/link:-translate-y-1">
-                                            <path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 001.06 0l7.22-7.22v5.69a.75.75 0 001.5 0v-7.5a.75.75 0 00-.75-.75h-7.5a.75.75 0 000 1.5h5.69l-7.22 7.22a.75.75 0 000 1.06z" clip-rule="evenodd"/>
-                                        </svg>
-                                    </a>
-                                </div>
-                            </h3>
-                            <p class="mt-2 text-sm leading-normal text-text-muted">A robust model utilizing temporal inconsistency analysis in video feeds to detect synthetically generated media (deepfakes). Achieved 94% AUC on public benchmark datasets.</p>
-                            <div class="mt-2 flex flex-wrap" aria-label="Technologies used">
-                                <div class="mr-2 mb-2 rounded-full bg-accent-dark/50 px-3 py-1 text-xs font-medium leading-5 text-accent-cyan">PyTorch</div>
-                                <div class="mr-2 mb-2 rounded-full bg-accent-dark/50 px-3 py-1 text-xs font-medium leading-5 text-accent-cyan">ffmpeg</div>
-                                <div class="mr-2 mb-2 rounded-full bg-accent-dark/50 px-3 py-1 text-xs font-medium leading-5 text-accent-cyan">GCP</div>
+                                <div class="mr-2 mb-2 rounded-full bg-accent-dark/50 px-3 py-1 text-xs font-medium leading-5 text-accent-cyan">TensorFlow</div>
+                                <div class="mr-2 mb-2 rounded-full bg-accent-dark/50 px-3 py-1 text-xs font-medium leading-5 text-accent-cyan">MS COCO</div>
                             </div>
                         </div>
                     </div>
