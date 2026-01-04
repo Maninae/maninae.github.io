@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-Time Neural Rendering for AR Glasses | Owen Wang</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'background-dark': '#0F172A',
+                        'text-light': '#F1F5F9',
+                        'text-muted': '#94A3B8',
+                        'accent-cyan': '#2DD4BF',
+                        'accent-dark': '#064E3B',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html { scroll-behavior: smooth; }
+        body { background-color: #0F172A; color: #F1F5F9; }
+        .article-container { max-width: 720px; margin: 0 auto; padding: 2rem; }
+        .back-link { display: inline-flex; align-items: center; gap: 0.5rem; color: #94A3B8; transition: all 0.3s ease; margin-bottom: 3rem; font-size: 0.95rem; }
+        .back-link:hover { color: #2DD4BF; transform: translateX(-4px); }
+        .article-header { margin-bottom: 3rem; padding-bottom: 2rem; border-bottom: 1px solid rgba(148, 163, 184, 0.2); }
+        .article-title { font-size: 2.75rem; font-weight: 900; line-height: 1.2; margin-bottom: 1.5rem; color: #F1F5F9; }
+        .article-meta { display: flex; align-items: center; gap: 1rem; color: #94A3B8; font-size: 0.95rem; margin-bottom: 1.5rem; }
+        .article-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+        .tag { background: rgba(6, 78, 59, 0.5); color: #2DD4BF; padding: 0.35rem 0.75rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 600; }
+        .article-content { font-size: 1.125rem; line-height: 1.8; color: #CBD5E1; }
+        .article-content h2 { font-size: 1.875rem; font-weight: 700; color: #F1F5F9; margin-top: 3rem; margin-bottom: 1.25rem; }
+        .article-content p { margin-bottom: 1.5rem; }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+</head>
+<body class="font-sans antialiased">
+    <article class="article-container">
+        <a href="../index.html" class="back-link">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+            </svg>
+            Back to Writing
+        </a>
+
+        <header class="article-header">
+            <h1 class="article-title">Real-Time Neural Rendering for AR Glasses</h1>
+            <div class="article-meta">
+                <span>August 30, 2025</span>
+                <span>•</span>
+                <span>9 min read</span>
+            </div>
+            <div class="article-tags">
+                <span class="tag">Neural Rendering</span>
+                <span class="tag">AR/VR</span>
+                <span class="tag">Real-time ML</span>
+            </div>
+        </header>
+
+        <div class="article-content">
+            <p>
+                AR glasses present unique challenges: limited compute, imperfect sensors, and the need for real-time performance. Neural rendering can help—if you design for these constraints from day one.
+            </p>
+
+            <h2>Architecture for Constrained Environments</h2>
+            <p>
+                This post explores the neural re-rendering pipeline we built at Meta Reality Labs to handle occlusion and sensor sparsity, covering architectural choices, latency tradeoffs, and the path from prototype to shipping product.
+            </p>
+
+            <p><em>[Full article coming soon...]</em></p>
+        </div>
+    </article>
+</body>
+</html>
