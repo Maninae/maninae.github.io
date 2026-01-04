@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scaling Diffusion Models for Production | Owen Wang</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Configure Tailwind for custom colors and font -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'background-dark': '#0F172A',
+                        'text-light': '#F1F5F9',
+                        'text-muted': '#94A3B8',
+                        'accent-cyan': '#2DD4BF',
+                        'accent-dark': '#064E3B',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'Liberation Mono', 'Courier New', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: #0F172A;
+            color: #F1F5F9;
+        }
+
+        .article-container {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #94A3B8;
+            transition: all 0.3s ease;
+            margin-bottom: 3rem;
+            font-size: 0.95rem;
+        }
+
+        .back-link:hover {
+            color: #2DD4BF;
+            transform: translateX(-4px);
+        }
+
+        .article-header {
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+        }
+
+        .article-title {
+            font-size: 2.75rem;
+            font-weight: 900;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            color: #F1F5F9;
+        }
+
+        .article-meta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: #94A3B8;
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .article-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .tag {
+            background: rgba(6, 78, 59, 0.5);
+            color: #2DD4BF;
+            padding: 0.35rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.025em;
+        }
+
+        .article-content {
+            font-size: 1.125rem;
+            line-height: 1.8;
+            color: #CBD5E1;
+        }
+
+        .article-content h2 {
+            font-size: 1.875rem;
+            font-weight: 700;
+            color: #F1F5F9;
+            margin-top: 3rem;
+            margin-bottom: 1.25rem;
+            line-height: 1.3;
+        }
+
+        .article-content h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #F1F5F9;
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .article-content p {
+            margin-bottom: 1.5rem;
+        }
+
+        .article-content ul, .article-content ol {
+            margin-bottom: 1.5rem;
+            padding-left: 1.5rem;
+        }
+
+        .article-content li {
+            margin-bottom: 0.75rem;
+        }
+
+        .article-content code {
+            background: rgba(30, 41, 59, 0.8);
+            color: #2DD4BF;
+            padding: 0.2rem 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 0.95rem;
+            font-family: ui-monospace, monospace;
+        }
+
+        .article-content pre {
+            background: rgba(30, 41, 59, 0.8);
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            overflow-x: auto;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(148, 163, 184, 0.2);
+        }
+
+        .article-content pre code {
+            background: transparent;
+            padding: 0;
+        }
+
+        .article-content blockquote {
+            border-left: 4px solid #2DD4BF;
+            padding-left: 1.5rem;
+            margin: 2rem 0;
+            font-style: italic;
+            color: #94A3B8;
+        }
+
+        .article-content a {
+            color: #2DD4BF;
+            text-decoration: underline;
+            text-decoration-color: rgba(45, 212, 191, 0.3);
+            text-underline-offset: 3px;
+            transition: all 0.3s ease;
+        }
+
+        .article-content a:hover {
+            text-decoration-color: #2DD4BF;
+        }
+
+        .article-footer {
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(148, 163, 184, 0.2);
+        }
+
+        .author-section {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .author-image {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 2px solid #2DD4BF;
+        }
+
+        .author-info h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #F1F5F9;
+            margin-bottom: 0.5rem;
+        }
+
+        .author-info p {
+            color: #94A3B8;
+            font-size: 0.95rem;
+        }
+    </style>
+    <!-- Load Inter font from Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+</head>
+<body class="font-sans antialiased text-text-light">
+
+    <article class="article-container">
+        <!-- Back to Blog -->
+        <a href="../index.html" class="back-link">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+            </svg>
+            Back to Writing
+        </a>
+
+        <!-- Article Header -->
+        <header class="article-header">
+            <h1 class="article-title">Scaling Diffusion Models for Production</h1>
+
+            <div class="article-meta">
+                <span>January 15, 2026</span>
+                <span>•</span>
+                <span>8 min read</span>
+            </div>
+
+            <div class="article-tags">
+                <span class="tag">Diffusion Models</span>
+                <span class="tag">Production ML</span>
+                <span class="tag">PyTorch</span>
+            </div>
+        </header>
+
+        <!-- Article Content -->
+        <div class="article-content">
+            <p>
+                When we set out to generate 8 million frames of synthetic HMC (head-mounted camera) data at Meta Reality Labs, I knew the theoretical foundations of diffusion models were solid. What I didn't anticipate was the engineering complexity of scaling these models from research prototypes to production systems.
+            </p>
+
+            <p>
+                This post shares the lessons learned from deploying DiT-based (Diffusion Transformer) models at scale—covering everything from inference optimization to maintaining generation quality when you're producing millions of samples.
+            </p>
+
+            <h2>The Production Reality Gap</h2>
+
+            <p>
+                Research papers typically focus on sample quality metrics: FID scores, LPIPS distances, and visual comparisons on validation sets. Production systems care about different things:
+            </p>
+
+            <ul>
+                <li><strong>Throughput:</strong> Can we generate enough samples to meet downstream training requirements?</li>
+                <li><strong>Consistency:</strong> Do we maintain quality across millions of generations, not just cherry-picked examples?</li>
+                <li><strong>Controllability:</strong> Can we reliably control generation parameters like lighting, appearance, and accessories?</li>
+                <li><strong>Cost:</strong> What's the GPU-hour cost per generated frame, and how does that scale?</li>
+            </ul>
+
+            <h2>Inference Optimization: The 3x Speedup</h2>
+
+            <p>
+                Our first production run was painfully slow. The baseline DiT model took ~2.5 seconds per frame on A100 GPUs. At that rate, generating 8M frames would take months of compute time.
+            </p>
+
+            <h3>1. Sampling Strategy Refinement</h3>
+
+            <p>
+                We started with DDPM's default 1000-step sampling. Through careful experimentation, we found that:
+            </p>
+
+            <ul>
+                <li>DPM-Solver++ with 25 steps achieved 98% of the quality of 1000-step DDPM</li>
+                <li>Heun's method provided a sweet spot between speed and quality for our use case</li>
+                <li>Carefully tuned noise schedules eliminated the need for excessive steps</li>
+            </ul>
+
+            <p>
+                This alone gave us a <strong>40x reduction in sampling steps</strong> with negligible quality loss.
+            </p>
+
+            <h3>2. Batching and Memory Optimization</h3>
+
+            <p>
+                DiT models are transformer-based, which means they benefit heavily from batching. We implemented:
+            </p>
+
+            <pre><code>def optimized_batch_generation(prompts, batch_size=32):
+    # Smart batching with memory management
+    for batch in chunk_prompts(prompts, batch_size):
+        with torch.cuda.amp.autocast():  # Mixed precision
+            latents = model.encode(batch)
+            # Gradient checkpointing for memory efficiency
+            samples = diffusion_sampler(
+                latents,
+                use_checkpoint=True,
+                compile=True  # torch.compile for 20% speedup
+            )
+        yield post_process(samples)</code></pre>
+
+            <h3>3. Model Compilation and Quantization</h3>
+
+            <p>
+                PyTorch 2.0's <code>torch.compile()</code> gave us an additional 20% speedup. For non-critical generations, we used INT8 quantization on the decoder, which provided 1.8x speedup with acceptable quality degradation.
+            </p>
+
+            <blockquote>
+                "The final optimized pipeline ran at 0.8 seconds per frame—a 3.1x speedup over baseline. This brought our 8M frame generation from months to weeks."
+            </blockquote>
+
+            <h2>Quality Assurance at Scale</h2>
+
+            <p>
+                Generating millions of samples introduces a new problem: how do you ensure quality when you can't manually inspect every output?
+            </p>
+
+            <p>
+                We built an automated quality monitoring system that:
+            </p>
+
+            <ul>
+                <li>Computed FID scores on batches of 10k samples throughout the generation process</li>
+                <li>Used pre-trained vision models to detect artifacts (blur, color shifts, anatomical errors)</li>
+                <li>Implemented outlier detection to flag unusual generations for manual review</li>
+                <li>Tracked conditioning parameter distributions to ensure balanced coverage</li>
+            </ul>
+
+            <h2>Controllable Generation in Practice</h2>
+
+            <p>
+                One of our key requirements was generating data with controllable attributes: lighting conditions, eyewear (including prescription glasses), and subject appearance variations.
+            </p>
+
+            <p>
+                We found that simple conditioning approaches (concatenation, cross-attention) weren't sufficient for fine-grained control. Instead, we developed a hybrid approach combining:
+            </p>
+
+            <ol>
+                <li><strong>Latent space guidance:</strong> Training a small MLP to map desired attributes to latent space directions</li>
+                <li><strong>Classifier-free guidance:</strong> Strengthening conditioning through null-conditioning comparisons</li>
+                <li><strong>Post-hoc verification:</strong> Running lightweight classifiers to verify generated attributes matched specifications</li>
+            </ol>
+
+            <h2>Key Takeaways</h2>
+
+            <p>
+                If you're planning to deploy diffusion models in production, here's what I wish someone had told me:
+            </p>
+
+            <ul>
+                <li><strong>Sampling speed matters more than you think.</strong> Don't wait until production to optimize inference—start early.</li>
+                <li><strong>Quality monitoring can't be an afterthought.</strong> Build automated QA into your pipeline from day one.</li>
+                <li><strong>Controllability is hard.</strong> Budget extra research time for getting reliable conditioning working at scale.</li>
+                <li><strong>Cost modeling is crucial.</strong> Know your GPU-hour-per-sample cost and have a plan to reduce it.</li>
+            </ul>
+
+            <p>
+                Diffusion models are incredibly powerful, but the path from research paper to production system is filled with engineering challenges. The good news? With careful optimization and robust quality controls, these models can absolutely deliver value at scale.
+            </p>
+
+        </div>
+
+        <!-- Article Footer / Author Section -->
+        <footer class="article-footer">
+            <div class="author-section">
+                <img src="../../owen profile picture.png" alt="Owen Wang" class="author-image">
+                <div class="author-info">
+                    <h3>Owen Wang</h3>
+                    <p>Computer Vision ML Engineer at Meta Reality Labs, focused on diffusion models and production ML systems.</p>
+                </div>
+            </div>
+        </footer>
+
+    </article>
+
+</body>
+</html>
