@@ -16,13 +16,13 @@
             theme: {
                 extend: {
                     colors: {
-                        'deep': '#06060A',
-                        'surface': '#111116',
-                        'surface-hover': '#1a1a20',
-                        'txt': '#F2F0ED',
-                        'txt-dim': '#71717A',
-                        'accent': '#E8734A',
-                        'bdr': '#1f1f26',
+                        'deep': '#0B1121',
+                        'surface': '#131D2E',
+                        'surface-hover': '#1A2740',
+                        'txt': '#E2E8F0',
+                        'txt-dim': '#64748B',
+                        'accent': '#38BDF8',
+                        'bdr': '#1E293B',
                     },
                     fontFamily: {
                         display: ['Syne', 'sans-serif'],
@@ -38,8 +38,8 @@
         html { scroll-behavior: smooth; }
 
         body {
-            background-color: #06060A;
-            color: #F2F0ED;
+            background-color: #0B1121;
+            color: #E2E8F0;
             font-family: 'Outfit', sans-serif;
         }
 
@@ -73,7 +73,7 @@
         .nav-item .bar {
             width: 1.5rem;
             height: 1px;
-            background: #71717A;
+            background: #64748B;
             transition: all 0.3s ease;
         }
         .nav-item .label {
@@ -82,17 +82,17 @@
             font-weight: 500;
             letter-spacing: 0.16em;
             text-transform: uppercase;
-            color: #71717A;
+            color: #64748B;
             transition: all 0.3s ease;
         }
         .nav-item:hover .bar,
         .nav-item.active .bar {
             width: 3rem;
-            background: #E8734A;
+            background: #38BDF8;
         }
         .nav-item:hover .label,
         .nav-item.active .label {
-            color: #F2F0ED;
+            color: #E2E8F0;
         }
 
         /* Cards */
@@ -104,8 +104,8 @@
             position: relative;
         }
         .card:hover {
-            background: #111116;
-            border-color: #1f1f26;
+            background: #131D2E;
+            border-color: #1E293B;
         }
 
         /* Pills */
@@ -116,22 +116,22 @@
             font-size: 0.68rem;
             font-weight: 500;
             letter-spacing: 0.01em;
-            background: rgba(232, 115, 74, 0.1);
-            color: #E8734A;
+            background: rgba(56, 189, 248, 0.1);
+            color: #38BDF8;
             transition: background 0.2s ease;
         }
         .pill:hover {
-            background: rgba(232, 115, 74, 0.18);
+            background: rgba(56, 189, 248, 0.18);
         }
 
         /* Social */
         .social-link {
-            color: #71717A;
+            color: #64748B;
             transition: all 0.3s ease;
             display: inline-block;
         }
         .social-link:hover {
-            color: #E8734A;
+            color: #38BDF8;
             transform: translateY(-2px);
         }
         .social-link svg {
@@ -155,13 +155,15 @@
         /* Scroll reveal */
         .reveal {
             opacity: 0;
-            transform: translateY(28px);
-            transition: opacity 0.7s ease, transform 0.7s ease;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
         }
         .reveal.visible {
             opacity: 1;
             transform: translateY(0);
         }
+        /* Fallback: ensure content visible if JS fails */
+        .no-js .reveal { opacity: 1; transform: none; }
 
         /* Profile glow */
         .profile-wrap {
@@ -173,7 +175,7 @@
             position: absolute;
             inset: -6px;
             border-radius: 1.25rem;
-            background: linear-gradient(135deg, rgba(232, 115, 74, 0.25), transparent 60%);
+            background: linear-gradient(135deg, rgba(56, 189, 248, 0.25), transparent 60%);
             z-index: -1;
             opacity: 0;
             transition: opacity 0.5s ease;
@@ -189,12 +191,12 @@
             font-weight: 600;
             letter-spacing: 0.22em;
             text-transform: uppercase;
-            color: #E8734A;
+            color: #38BDF8;
         }
 
         /* Bullet accent */
         .bullet {
-            color: rgba(232, 115, 74, 0.4);
+            color: rgba(56, 189, 248, 0.4);
             flex-shrink: 0;
             margin-top: 0.375rem;
             user-select: none;
@@ -202,9 +204,9 @@
 
         /* Custom scrollbar */
         ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #06060A; }
-        ::-webkit-scrollbar-thumb { background: #27272A; border-radius: 3px; }
-        ::-webkit-scrollbar-thumb:hover { background: #3f3f46; }
+        ::-webkit-scrollbar-track { background: #0B1121; }
+        ::-webkit-scrollbar-thumb { background: #1E293B; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #334155; }
     </style>
 </head>
 
@@ -482,10 +484,10 @@
     </div>
 
     <script>
-        // Scroll reveal
+        // Scroll reveal — trigger early with generous root margin
         const revealObs = new IntersectionObserver((entries) => {
             entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-        }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+        }, { threshold: 0, rootMargin: '0px 0px 100px 0px' });
         document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
 
         // Scroll spy
