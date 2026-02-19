@@ -55,19 +55,6 @@
             background-size: 256px 256px;
         }
 
-        /* Ambient cursor glow */
-        .glow {
-            position: fixed;
-            width: 700px;
-            height: 700px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(232, 115, 74, 0.07) 0%, transparent 65%);
-            pointer-events: none;
-            z-index: 1;
-            transform: translate(-50%, -50%);
-            transition: left 0.4s cubic-bezier(0.16, 1, 0.3, 1), top 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            will-change: left, top;
-        }
 
         /* Two-column layout */
         @media (min-width: 1024px) {
@@ -233,8 +220,6 @@
 </head>
 
 <body class="font-body antialiased">
-
-    <div class="glow" id="glow"></div>
 
     <div class="portfolio-grid max-w-6xl mx-auto px-6 lg:px-12">
 
@@ -510,14 +495,6 @@
     </div>
 
     <script>
-        // Cursor glow
-        const glow = document.getElementById('glow');
-        let glowX = 0, glowY = 0;
-        document.addEventListener('mousemove', (e) => {
-            glow.style.left = e.clientX + 'px';
-            glow.style.top = e.clientY + 'px';
-        });
-
         // Scroll reveal
         const revealObs = new IntersectionObserver((entries) => {
             entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
