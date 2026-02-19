@@ -170,6 +170,10 @@
                     <span class="nav-line group-hover:bg-accent-cyan group-hover:w-8"></span>
                     <span class="nav-text group-hover:text-accent-cyan">About</span>
                 </a>
+                <a href="#skills" class="nav-link-item group justify-start">
+                    <span class="nav-line group-hover:bg-accent-cyan group-hover:w-8"></span>
+                    <span class="nav-text group-hover:text-accent-cyan">Skills</span>
+                </a>
                 <a href="#resume" class="nav-link-item group justify-start">
                     <span class="nav-line group-hover:bg-accent-cyan group-hover:w-8"></span>
                     <span class="nav-text group-hover:text-accent-cyan">Experience</span>
@@ -191,6 +195,7 @@
             <!-- Mobile-only Navigation -->
             <nav class="lg:hidden w-full flex justify-around py-4 mt-6 border-t border-text-muted/20">
                 <a href="#about" class="text-xs font-semibold uppercase tracking-wider text-text-muted hover:text-accent-cyan transition duration-150">About</a>
+                <a href="#skills" class="text-xs font-semibold uppercase tracking-wider text-text-muted hover:text-accent-cyan transition duration-150">Skills</a>
                 <a href="#resume" class="text-xs font-semibold uppercase tracking-wider text-text-muted hover:text-accent-cyan transition duration-150">Experience</a>
                 <a href="#projects" class="text-xs font-semibold uppercase tracking-wider text-text-muted hover:text-accent-cyan transition duration-150">Projects</a>
                 <a href="./blog/index.html" class="text-xs font-semibold uppercase tracking-wider text-text-muted hover:text-accent-cyan transition duration-150">Writing</a>
@@ -208,6 +213,59 @@
                 <div class="text-lg text-text-muted space-y-4">
                     <p>I am a Computer Vision and Machine Learning Engineer with 7 years of experience building robust AI solutions. While my background is grounded in core tasks like object detection and segmentation, my recent focus has centered on leveraging modern diffusion-based methods for generative modeling.</p>
                     <p>Beyond the algorithms, I care deeply about the engineering craft. I love writing well-architected, structured code that turns experimental ideas into reliable systems. I thrive on applied research—taking state-of-the-art papers and adapting them to new problem domains—and I have a particular knack for optimizing models for fast inference in constrained, real-world environments.</p>
+                </div>
+            </section>
+
+            <!-- Skills Section -->
+            <section id="skills" class="pt-24 lg:pt-0">
+                <h2 class="lg:hidden text-lg font-bold uppercase tracking-widest text-accent-cyan mb-8">Skills</h2>
+                <div class="space-y-3">
+                    <div class="grid grid-cols-[auto_1fr] gap-x-6 gap-y-3 items-start">
+                        <span class="text-xs font-semibold uppercase tracking-wide text-text-muted pt-1">Deep Learning</span>
+                        <div class="flex flex-wrap">
+                            <span class="mr-2 mb-2 rounded-full bg-accent-dark/50 px-3 py-1 text-xs font-medium leading-5 text-accent-cyan">PyTorch</span>
+                            <span class="mr-2 mb-2 rounded-full bg-accent-dark/50 px-3 py-1 text-xs font-medium leading-5 text-accent-cyan">TensorFlow</span>
+                            <span class="mr-2 mb-2 rounded-full bg-accent-dark/50 px-3 py-1 text-xs font-medium leading-5 text-accent-cyan">JAX</span>
+                        </div>
+
+                        <span class="text-xs font-semibold uppercase tracking-wide text-text-muted pt-1">Computer Vision</span>
+                        <div class="flex flex-wrap">
+                            <span class="mr-2 mb-2 rounded-full bg-accent-dark/50 px-3 py-1 text-xs font-medium leading-5 text-accent-cyan">Detection</span>
+                            <span class="mr-2 mb-2 rounded-full bg-accent-dark/50 px-3 py-1 text-xs font-medium leading-5 text-accent-cyan">Segmentation</span>
+                            <span class="mr-2 mb-2 rounded-full bg-accent-dark/50 px-3 py-1 text-xs font-medium leading-5 text-accent-cyan">Tracking</span>
+                            <span class="mr-2 mb-2 rounded-full bg-accent-dark/50 px-3 py-1 text-xs font-medium leading-5 text-accent-cyan">3D Reconstruction</span>
+                        </div>
+
+                        <span class="text-xs font-semibold uppercase tracking-wide text-text-muted pt-1">Generative AI</span>
+                        <div class="flex flex-wrap">
+                            <span class="mr-2 mb-2 rounded-full bg-accent-dark/50 px-3 py-1 text-xs font-medium leading-5 text-accent-cyan">Diffusion Models</span>
+                            <span class="mr-2 mb-2 rounded-full bg-accent-dark/50 px-3 py-1 text-xs font-medium leading-5 text-accent-cyan">U-Net</span>
+                            <span class="mr-2 mb-2 rounded-full bg-accent-dark/50 px-3 py-1 text-xs font-medium leading-5 text-accent-cyan">DiT</span>
+                        </div>
+
+                        <span class="text-xs font-semibold uppercase tracking-wide text-text-muted pt-1">Optimization</span>
+                        <div class="flex flex-wrap">
+                            <span class="mr-2 mb-2 rounded-full bg-accent-dark/50 px-3 py-1 text-xs font-medium leading-5 text-accent-cyan">Quantization (int8)</span>
+                            <span class="mr-2 mb-2 rounded-full bg-accent-dark/50 px-3 py-1 text-xs font-medium leading-5 text-accent-cyan">ONNX</span>
+                            <span class="mr-2 mb-2 rounded-full bg-accent-dark/50 px-3 py-1 text-xs font-medium leading-5 text-accent-cyan">TensorRT</span>
+                            <span class="mr-2 mb-2 rounded-full bg-accent-dark/50 px-3 py-1 text-xs font-medium leading-5 text-accent-cyan">GPU Profiling</span>
+                        </div>
+
+                        <span class="text-xs font-semibold uppercase tracking-wide text-text-muted pt-1">Languages</span>
+                        <div class="flex flex-wrap">
+                            <span class="mr-2 mb-2 rounded-full bg-accent-dark/50 px-3 py-1 text-xs font-medium leading-5 text-accent-cyan">Python</span>
+                            <span class="mr-2 mb-2 rounded-full bg-accent-dark/50 px-3 py-1 text-xs font-medium leading-5 text-accent-cyan">C++</span>
+                            <span class="mr-2 mb-2 rounded-full bg-accent-dark/50 px-3 py-1 text-xs font-medium leading-5 text-accent-cyan">CUDA</span>
+                        </div>
+
+                        <span class="text-xs font-semibold uppercase tracking-wide text-text-muted pt-1">Infrastructure</span>
+                        <div class="flex flex-wrap">
+                            <span class="mr-2 mb-2 rounded-full bg-accent-dark/50 px-3 py-1 text-xs font-medium leading-5 text-accent-cyan">PyTorch Lightning</span>
+                            <span class="mr-2 mb-2 rounded-full bg-accent-dark/50 px-3 py-1 text-xs font-medium leading-5 text-accent-cyan">Detectron2</span>
+                            <span class="mr-2 mb-2 rounded-full bg-accent-dark/50 px-3 py-1 text-xs font-medium leading-5 text-accent-cyan">AWS</span>
+                            <span class="mr-2 mb-2 rounded-full bg-accent-dark/50 px-3 py-1 text-xs font-medium leading-5 text-accent-cyan">Linux</span>
+                        </div>
+                    </div>
                 </div>
             </section>
 
@@ -231,14 +289,12 @@
                                     </a>
                                 </div>
                             </h3>
-                            <p class="mt-2 text-sm leading-normal text-text-muted">
-                                Used DiT- and U-Net-based diffusion models to generate 8m+ frames of HMC synthetic datasets, powering downstream avatar models such as face expression encoding, eye tracking, and face bio-authentication for ‘26+ ARVR devices.
-                            </p>
-                            <p class="mt-2 text-sm leading-normal text-text-muted">
-                                <a href="https://arxiv.org/abs/2507.05620" target="_blank" class="text-text-light hover:text-accent-cyan font-medium z-20 relative">Published Research: GenHMC (arXiv 2025) ↗</a><br>
-                                Novel method to improve codec avatar encoder’s SoTA accuracy + data efficiency by leveraging diffusion models to generate HMC camera images with controllable lighting, glasses/Rx, and subject appearance.
-                            </p>
-                            <div class="mt-2 flex flex-wrap" aria-label="Technologies used">
+                            <ul class="mt-2 text-sm leading-normal text-text-muted space-y-1 list-disc list-outside ml-4">
+                                <li>Used DiT- and U-Net-based diffusion models to generate <span class="text-text-light font-medium">8m+ frames</span> of HMC synthetic datasets, powering downstream avatar models for ‘26+ ARVR devices</li>
+                                <li><a href="https://arxiv.org/abs/2507.05620" target="_blank" class="text-text-light hover:text-accent-cyan font-medium z-20 relative">Published Research: GenHMC (arXiv 2025) ↗</a> — novel method to improve codec avatar encoder’s SoTA accuracy + data efficiency via diffusion-generated HMC images with controllable lighting, glasses/Rx, and subject appearance</li>
+                            </ul>
+                            <div class="mt-2 flex flex-wrap items-center" aria-label="Technologies used">
+                                <span class="text-xs font-semibold uppercase tracking-wide text-text-muted mr-2 mb-2">Tech:</span>
                                 <div class="mr-2 mb-2 rounded-full bg-accent-dark/50 px-3 py-1 text-xs font-medium leading-5 text-accent-cyan">Diffusion Models</div>
                                 <div class="mr-2 mb-2 rounded-full bg-accent-dark/50 px-3 py-1 text-xs font-medium leading-5 text-accent-cyan">U-Net</div>
                                 <div class="mr-2 mb-2 rounded-full bg-accent-dark/50 px-3 py-1 text-xs font-medium leading-5 text-accent-cyan">Synthetic Data</div>
@@ -260,10 +316,13 @@
                                     </a>
                                 </div>
                             </h3>
-                            <p class="mt-2 text-sm leading-normal text-text-muted">
-                                Boosted multi-task LiDAR perception model training efficiency 5x, driving an estimated $3.8M annual savings by optimizing GT target generation, GPU memory/backprop flow, hyperparameters (batch size, prefetching), and experimenting with 2nd-order optimizers and LR schedules. Independently led migration of two critical-path LiDAR perception models from legacy repos’ training loops to a structured, reproducible PyTorch Lightning framework. Diagnosed bottlenecks in a multi-platform modeling library developed by 20+ engineers.
-                            </p>
-                            <div class="mt-2 flex flex-wrap" aria-label="Technologies used">
+                            <ul class="mt-2 text-sm leading-normal text-text-muted space-y-1 list-disc list-outside ml-4">
+                                <li>Boosted multi-task LiDAR perception model training efficiency <span class="text-text-light font-medium">5x</span>, driving an estimated <span class="text-text-light font-medium">$3.8M annual savings</span> by optimizing GT target generation, GPU memory/backprop flow, and hyperparameters</li>
+                                <li>Independently led migration of two critical-path LiDAR perception models to a structured, reproducible PyTorch Lightning framework</li>
+                                <li>Diagnosed bottlenecks in a multi-platform modeling library developed by <span class="text-text-light font-medium">20+ engineers</span></li>
+                            </ul>
+                            <div class="mt-2 flex flex-wrap items-center" aria-label="Technologies used">
+                                <span class="text-xs font-semibold uppercase tracking-wide text-text-muted mr-2 mb-2">Tech:</span>
                                 <div class="mr-2 mb-2 rounded-full bg-accent-dark/50 px-3 py-1 text-xs font-medium leading-5 text-accent-cyan">LiDAR</div>
                                 <div class="mr-2 mb-2 rounded-full bg-accent-dark/50 px-3 py-1 text-xs font-medium leading-5 text-accent-cyan">PyTorch Lightning</div>
                                 <div class="mr-2 mb-2 rounded-full bg-accent-dark/50 px-3 py-1 text-xs font-medium leading-5 text-accent-cyan">GPU Optimization</div>
@@ -285,10 +344,12 @@
                                     </a>
                                 </div>
                             </h3>
-                            <p class="mt-2 text-sm leading-normal text-text-muted">
-                                Designed and prototyped a real-time, neural re-rendering model for AR glasses, refining imperfectly rendered 2D inputs due to occlusion and sensor sparsity (e.g. jointly solving inpainting & denoising) for remote calling features. Led cross-org collaboration (8 engineers) to unify two ML model training stacks—Meta’s custom silicon research codebases and Detectron2Go—which cut research-to-deployment lead time by 4 months.
-                            </p>
-                            <div class="mt-2 flex flex-wrap" aria-label="Technologies used">
+                            <ul class="mt-2 text-sm leading-normal text-text-muted space-y-1 list-disc list-outside ml-4">
+                                <li>Designed and prototyped a real-time neural re-rendering model for AR glasses, refining imperfect 2D inputs due to occlusion and sensor sparsity for remote calling features</li>
+                                <li>Led cross-org collaboration (<span class="text-text-light font-medium">8 engineers</span>) to unify two ML training stacks, cutting research-to-deployment lead time by <span class="text-text-light font-medium">4 months</span></li>
+                            </ul>
+                            <div class="mt-2 flex flex-wrap items-center" aria-label="Technologies used">
+                                <span class="text-xs font-semibold uppercase tracking-wide text-text-muted mr-2 mb-2">Tech:</span>
                                 <div class="mr-2 mb-2 rounded-full bg-accent-dark/50 px-3 py-1 text-xs font-medium leading-5 text-accent-cyan">Neural Rendering</div>
                                 <div class="mr-2 mb-2 rounded-full bg-accent-dark/50 px-3 py-1 text-xs font-medium leading-5 text-accent-cyan">AR</div>
                                 <div class="mr-2 mb-2 rounded-full bg-accent-dark/50 px-3 py-1 text-xs font-medium leading-5 text-accent-cyan">Detectron2Go</div>
@@ -310,10 +371,13 @@
                                     </a>
                                 </div>
                             </h3>
-                            <p class="mt-2 text-sm leading-normal text-text-muted">
-                                Delivered 3 CV ML models (hand detection/keypoints/gestures, person segmentation, foot keypoints) powering high-traffic (100k daily impressions) AR effects and virtual backgrounds on Messenger, Facebook, and Instagram. Optimized PyTorch models’ inference time from 20-25s native to 20-40ms on int8-quantized CPU hardware. Owned creation of a 400k+ sample real-world dataset.
-                            </p>
-                            <div class="mt-2 flex flex-wrap" aria-label="Technologies used">
+                            <ul class="mt-2 text-sm leading-normal text-text-muted space-y-1 list-disc list-outside ml-4">
+                                <li>Delivered 3 CV ML models (hand detection/keypoints/gestures, person segmentation, foot keypoints) powering <span class="text-text-light font-medium">100k daily</span> AR effects on Messenger, Facebook, and Instagram</li>
+                                <li>Optimized inference from 20-25s native to <span class="text-text-light font-medium">20-40ms</span> on int8-quantized CPU hardware</li>
+                                <li>Owned creation of a <span class="text-text-light font-medium">400k+ sample</span> real-world dataset</li>
+                            </ul>
+                            <div class="mt-2 flex flex-wrap items-center" aria-label="Technologies used">
+                                <span class="text-xs font-semibold uppercase tracking-wide text-text-muted mr-2 mb-2">Tech:</span>
                                 <div class="mr-2 mb-2 rounded-full bg-accent-dark/50 px-3 py-1 text-xs font-medium leading-5 text-accent-cyan">CV ML</div>
                                 <div class="mr-2 mb-2 rounded-full bg-accent-dark/50 px-3 py-1 text-xs font-medium leading-5 text-accent-cyan">PyTorch</div>
                                 <div class="mr-2 mb-2 rounded-full bg-accent-dark/50 px-3 py-1 text-xs font-medium leading-5 text-accent-cyan">Quantization</div>
@@ -392,10 +456,32 @@
             <!-- Contact/Footer Section -->
             <section id="contact" class="pt-8">
                 <h2 class="lg:hidden text-lg font-bold uppercase tracking-widest text-accent-cyan mb-8">Contact</h2>
-                <div class="text-lg text-text-muted space-y-4">
-                    <p>
-                        I am always open to discussing new challenges, research collaborations, or career opportunities. Feel free to connect on <a href="https://www.linkedin.com/in/ojwang/" target="_blank" class="text-accent-cyan hover:underline font-medium">LinkedIn</a>.
-                    </p>
+                <p class="text-lg text-text-muted mb-6">
+                    I am always open to discussing new challenges, research collaborations, or career opportunities.
+                </p>
+                <div class="flex flex-wrap gap-6">
+                    <!-- Email -->
+                    <a href="mailto:owenwang0328@gmail.com" class="inline-flex items-center gap-2 text-text-light hover:text-accent-cyan transition duration-150 group">
+                        <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M1.5 8.67v8.58a3 3 0 003 3h15a3 3 0 003-3V8.67l-8.928 5.493a3 3 0 01-3.144 0L1.5 8.67z"/>
+                            <path d="M22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.978a1.5 1.5 0 001.572 0L22.5 6.908z"/>
+                        </svg>
+                        <span class="text-sm font-medium border-b border-transparent group-hover:border-accent-cyan pb-px">Email</span>
+                    </a>
+                    <!-- GitHub -->
+                    <a href="https://github.com/Maninae" target="_blank" class="inline-flex items-center gap-2 text-text-light hover:text-accent-cyan transition duration-150 group">
+                        <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.802 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.087-.731.084-.67.084-.67 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.492.998.108-.77.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.046.138 3.003.404 2.292-1.552 3.3-1.23 3.3-1.23.653 1.652.242 2.873.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.923.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.79 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+                        </svg>
+                        <span class="text-sm font-medium border-b border-transparent group-hover:border-accent-cyan pb-px">GitHub</span>
+                    </a>
+                    <!-- LinkedIn -->
+                    <a href="https://www.linkedin.com/in/ojwang/" target="_blank" class="inline-flex items-center gap-2 text-text-light hover:text-accent-cyan transition duration-150 group">
+                        <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.568-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                        </svg>
+                        <span class="text-sm font-medium border-b border-transparent group-hover:border-accent-cyan pb-px">LinkedIn</span>
+                    </a>
                 </div>
             </section>
             
