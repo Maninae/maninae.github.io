@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Owen Wang</title>
-    <meta name="description" content="Owen Wang — engineer, writer, builder. Computer Vision and Machine Learning.">
+    <title>Projects — Owen Wang</title>
+    <meta name="description" content="Owen Wang — side projects, research explorations, and open-source work.">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -42,7 +42,6 @@
             background-color: #F0F5F4;
             color: #151D20;
             font-family: 'Inter', system-ui, sans-serif;
-            overflow-x: hidden;
         }
 
         ::selection {
@@ -50,33 +49,12 @@
             color: #F0F5F4;
         }
 
-        /* Ambient glow — turquoise mist */
-        .hero-glow {
-            position: absolute;
-            top: 12%;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 900px;
-            height: 550px;
-            background: radial-gradient(ellipse at center,
-                rgba(44, 158, 150, 0.08) 0%,
-                rgba(139, 92, 246, 0.03) 40%,
-                rgba(240, 245, 244, 0) 70%
-            );
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        /* Nav */
         .nav {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             z-index: 100;
-            transition: background-color 0.5s ease, backdrop-filter 0.5s ease, box-shadow 0.5s ease;
-        }
-        .nav.scrolled {
             background-color: rgba(227, 236, 235, 0.85);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
@@ -92,53 +70,69 @@
             transition: color 0.35s ease;
             text-decoration: none;
         }
-        .nav-link:hover {
+        .nav-link:hover, .nav-link.active {
             color: #2C9E96;
         }
 
-        /* Hero entrance */
-        @keyframes surfaceGently {
-            from {
-                opacity: 0;
-                transform: translateY(16px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .pill {
+            display: inline-block;
+            padding: 0.2rem 0.65rem;
+            border-radius: 9999px;
+            font-size: 0.7rem;
+            font-weight: 500;
+            letter-spacing: 0.01em;
+            background: rgba(44, 158, 150, 0.08);
+            color: #2C9E96;
+            transition: background 0.2s ease;
         }
-        .hero-enter {
-            opacity: 0;
-            animation: surfaceGently 1.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-        }
-        .hero-enter-delay {
-            opacity: 0;
-            animation: surfaceGently 1.4s cubic-bezier(0.22, 1, 0.36, 1) 0.25s forwards;
-        }
-        .hero-enter-cards {
-            opacity: 0;
-            animation: surfaceGently 1.2s cubic-bezier(0.22, 1, 0.36, 1) 0.5s forwards;
+        .pill:hover {
+            background: rgba(44, 158, 150, 0.14);
         }
 
-        /* Hub cards */
-        .hub-card {
+        .project-card {
             display: block;
             background: #E3ECEB;
             border: 1px solid #CEDBD8;
             border-radius: 12px;
-            padding: 2.5rem;
+            padding: 2rem;
             text-decoration: none;
             transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
                         border-color 0.4s ease,
                         box-shadow 0.45s cubic-bezier(0.22, 1, 0.36, 1);
         }
-        .hub-card:hover {
-            transform: translateY(-4px);
+        .project-card:hover {
+            transform: translateY(-3px);
             border-color: #2C9E96;
-            box-shadow: 0 8px 30px rgba(21, 29, 32, 0.06);
+            box-shadow: 0 6px 24px rgba(21, 29, 32, 0.06);
+        }
+        .project-card:hover .project-title {
+            color: #2C9E96;
+        }
+        .project-title {
+            transition: color 0.3s ease;
         }
 
-        /* Social links */
+        .reveal {
+            opacity: 0;
+            transform: translateY(16px);
+            transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+                        transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @keyframes surfaceGently {
+            from { opacity: 0; transform: translateY(14px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .enter {
+            opacity: 0;
+            animation: surfaceGently 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
+        .enter-d1 { animation-delay: 0.1s; }
+
         .social-icon {
             color: #7C9499;
             transition: color 0.3s ease, transform 0.3s ease;
@@ -153,7 +147,6 @@
             height: 1.15rem;
         }
 
-        /* Scrollbar */
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: #F0F5F4; }
         ::-webkit-scrollbar-thumb { background: #CEDBD8; border-radius: 3px; }
@@ -164,7 +157,7 @@
 <body class="font-body antialiased">
 
     <!-- Navigation -->
-    <header class="nav" id="nav">
+    <header class="nav">
         <div class="max-w-[1200px] mx-auto px-5 lg:px-8 py-5 flex items-center justify-between">
             <a href="index.html" class="font-display text-lg font-semibold text-text tracking-tight no-underline">
                 Owen Wang
@@ -172,46 +165,54 @@
             <nav class="flex items-center gap-6 sm:gap-8">
                 <a href="writing.html" class="nav-link">Writing</a>
                 <a href="work.html" class="nav-link">Work</a>
-                <a href="projects.html" class="nav-link">Projects</a>
+                <a href="projects.html" class="nav-link active">Projects</a>
             </nav>
         </div>
     </header>
 
-    <!-- Hero + Hub — single viewport -->
-    <section class="relative min-h-screen flex flex-col items-center justify-center px-5">
-        <div class="hero-glow"></div>
+    <!-- Main content -->
+    <main class="max-w-[960px] mx-auto px-5 lg:px-8 pt-32 pb-24">
 
-        <div class="relative z-10 text-center mb-16">
-            <h1 class="font-display text-5xl sm:text-6xl lg:text-7xl font-medium text-text tracking-tight leading-[1.1] hero-enter">
-                Owen Wang
-            </h1>
-            <p class="mt-5 text-base sm:text-lg font-light text-text-mid tracking-wide hero-enter-delay">
-                Engineer, writer, builder.
-            </p>
+        <!-- Header -->
+        <div class="text-center mb-16">
+            <h1 class="font-display text-4xl sm:text-5xl font-semibold text-text tracking-tight enter">Projects</h1>
+            <p class="mt-4 text-[0.9rem] text-text-mid font-light enter enter-d1">Side projects, research explorations, and open-source work.</p>
         </div>
 
-        <div class="relative z-10 w-full max-w-[960px] grid grid-cols-1 lg:grid-cols-3 gap-5 lg:gap-6 hero-enter-cards">
+        <!-- Project cards -->
+        <div class="space-y-4">
 
-            <a href="writing.html" class="hub-card">
-                <span class="block font-body text-xs font-medium uppercase tracking-[0.2em] text-text-dim mb-5">Writing</span>
-                <h2 class="font-display text-xl lg:text-[1.35rem] font-semibold text-text leading-snug mb-3">Thoughts &amp; Essays</h2>
-                <p class="text-sm font-light text-text-mid leading-relaxed">On engineering, craft, and the things I'm paying attention to.</p>
+            <a href="https://maninae.github.io/cs234/" target="_blank" class="project-card reveal group">
+                <span class="block font-body text-xs font-medium uppercase tracking-[0.2em] text-text-dim mb-3">Learning</span>
+                <h2 class="project-title font-display text-xl sm:text-2xl font-semibold text-text leading-snug inline-flex items-center gap-2">
+                    CS234: Reinforcement Learning
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4 text-text-dim transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"><path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 001.06 0l7.22-7.22v5.69a.75.75 0 001.5 0v-7.5a.75.75 0 00-.75-.75h-7.5a.75.75 0 000 1.5h5.69l-7.22 7.22a.75.75 0 000 1.06z" clip-rule="evenodd"/></svg>
+                </h2>
+                <p class="mt-3 text-sm text-text-mid font-light leading-relaxed max-w-2xl">
+                    Open-source study companion for Stanford's CS234 course. 11 detailed lecture notes covering MDPs, Q-learning, policy gradients, imitation learning, and exploration — with KaTeX-rendered math and interactive navigation.
+                </p>
+                <div class="mt-4 flex flex-wrap gap-1.5">
+                    <span class="pill">Reinforcement Learning</span><span class="pill">Stanford</span><span class="pill">Study Guide</span>
+                </div>
             </a>
 
-            <a href="work.html" class="hub-card">
-                <span class="block font-body text-xs font-medium uppercase tracking-[0.2em] text-text-dim mb-5">Work</span>
-                <h2 class="font-display text-xl lg:text-[1.35rem] font-semibold text-text leading-snug mb-3">Career &amp; Experience</h2>
-                <p class="text-sm font-light text-text-mid leading-relaxed">Seven years building production ML systems&mdash;from Meta to Cruise to Stanford.</p>
-            </a>
-
-            <a href="projects.html" class="hub-card">
-                <span class="block font-body text-xs font-medium uppercase tracking-[0.2em] text-text-dim mb-5">Projects</span>
-                <h2 class="font-display text-xl lg:text-[1.35rem] font-semibold text-text leading-snug mb-3">Things I've Built</h2>
-                <p class="text-sm font-light text-text-mid leading-relaxed">Side projects, research explorations, and open-source work.</p>
+            <a href="https://github.com/Maninae/segmentation-191" target="_blank" class="project-card reveal group">
+                <span class="block font-body text-xs font-medium uppercase tracking-[0.2em] text-text-dim mb-3">Research</span>
+                <h2 class="project-title font-display text-xl sm:text-2xl font-semibold text-text leading-snug inline-flex items-center gap-2">
+                    COCO Person Segmentation
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4 text-text-dim transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"><path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 001.06 0l7.22-7.22v5.69a.75.75 0 001.5 0v-7.5a.75.75 0 00-.75-.75h-7.5a.75.75 0 000 1.5h5.69l-7.22 7.22a.75.75 0 000 1.06z" clip-rule="evenodd"/></svg>
+                </h2>
+                <p class="mt-3 text-sm text-text-mid font-light leading-relaxed max-w-2xl">
+                    Developed "Diamondback," a semantic segmentation model for human body segmentation (CS 191 senior project). Dense convolutional connections with DenseNet-161 encoder for high-resolution predictions on MS COCO.
+                </p>
+                <div class="mt-4 flex flex-wrap gap-1.5">
+                    <span class="pill">Python</span><span class="pill">Keras</span><span class="pill">TensorFlow</span><span class="pill">MS COCO</span>
+                </div>
             </a>
 
         </div>
-    </section>
+
+    </main>
 
     <!-- Footer -->
     <footer class="mt-8 pb-16 text-center">
@@ -230,12 +231,12 @@
     </footer>
 
     <script>
-        // Nav scroll effect
-        const nav = document.getElementById('nav');
-        const onScroll = () => {
-            nav.classList.toggle('scrolled', window.scrollY > 40);
-        };
-        window.addEventListener('scroll', onScroll, { passive: true });
+        const revealObs = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting) e.target.classList.add('visible');
+            });
+        }, { threshold: 0.05, rootMargin: '0px 0px -30px 0px' });
+        document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
     </script>
 
 </body>
