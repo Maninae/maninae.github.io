@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Owen Wang</title>
-    <meta name="description" content="Owen Wang — engineer, writer, builder. Computer Vision and Machine Learning.">
+    <title>POST TITLE — Owen Wang</title>
+    <meta name="description" content="POST DESCRIPTION">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -42,7 +42,6 @@
             background-color: #F0F5F4;
             color: #151D20;
             font-family: 'Inter', system-ui, sans-serif;
-            overflow-x: hidden;
         }
 
         ::selection {
@@ -50,33 +49,12 @@
             color: #F0F5F4;
         }
 
-        /* Ambient glow — turquoise mist */
-        .hero-glow {
-            position: absolute;
-            top: 12%;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 900px;
-            height: 550px;
-            background: radial-gradient(ellipse at center,
-                rgba(44, 158, 150, 0.08) 0%,
-                rgba(139, 92, 246, 0.03) 40%,
-                rgba(240, 245, 244, 0) 70%
-            );
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        /* Nav */
         .nav {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             z-index: 100;
-            transition: background-color 0.5s ease, backdrop-filter 0.5s ease, box-shadow 0.5s ease;
-        }
-        .nav.scrolled {
             background-color: rgba(227, 236, 235, 0.85);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
@@ -92,53 +70,92 @@
             transition: color 0.35s ease;
             text-decoration: none;
         }
-        .nav-link:hover {
+        .nav-link:hover, .nav-link.active {
             color: #2C9E96;
         }
 
-        /* Hero entrance */
-        @keyframes surfaceGently {
-            from {
-                opacity: 0;
-                transform: translateY(16px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        /* Article typography */
+        .article-body {
+            font-size: 1.05rem;
+            line-height: 1.85;
+            color: #486168;
         }
-        .hero-enter {
-            opacity: 0;
-            animation: surfaceGently 1.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        .article-body h2 {
+            font-family: 'Figtree', system-ui, sans-serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #151D20;
+            margin-top: 3rem;
+            margin-bottom: 1rem;
         }
-        .hero-enter-delay {
-            opacity: 0;
-            animation: surfaceGently 1.4s cubic-bezier(0.22, 1, 0.36, 1) 0.25s forwards;
+        .article-body h3 {
+            font-family: 'Inter', system-ui, sans-serif;
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #151D20;
+            margin-top: 2rem;
+            margin-bottom: 0.75rem;
         }
-        .hero-enter-cards {
-            opacity: 0;
-            animation: surfaceGently 1.2s cubic-bezier(0.22, 1, 0.36, 1) 0.5s forwards;
+        .article-body p {
+            margin-bottom: 1.25rem;
         }
-
-        /* Hub cards */
-        .hub-card {
-            display: block;
+        .article-body a {
+            color: #2C9E96;
+            text-decoration: underline;
+            text-decoration-color: rgba(44, 158, 150, 0.3);
+            text-underline-offset: 3px;
+            transition: text-decoration-color 0.3s ease;
+        }
+        .article-body a:hover {
+            text-decoration-color: #2C9E96;
+        }
+        .article-body blockquote {
+            border-left: 3px solid #2C9E96;
+            padding-left: 1.25rem;
+            margin: 1.5rem 0;
+            font-style: italic;
+            color: #7C9499;
+        }
+        .article-body code {
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
+            font-size: 0.88em;
+            background: #E3ECEB;
+            padding: 0.15rem 0.4rem;
+            border-radius: 4px;
+        }
+        .article-body pre {
             background: #E3ECEB;
             border: 1px solid #CEDBD8;
-            border-radius: 12px;
-            padding: 2.5rem;
-            text-decoration: none;
-            transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
-                        border-color 0.4s ease,
-                        box-shadow 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+            border-radius: 8px;
+            padding: 1.25rem;
+            overflow-x: auto;
+            margin: 1.5rem 0;
         }
-        .hub-card:hover {
-            transform: translateY(-4px);
-            border-color: #2C9E96;
-            box-shadow: 0 8px 30px rgba(21, 29, 32, 0.06);
+        .article-body pre code {
+            background: none;
+            padding: 0;
+            font-size: 0.85rem;
+            line-height: 1.6;
+        }
+        .article-body ul, .article-body ol {
+            margin: 1rem 0;
+            padding-left: 1.5rem;
+        }
+        .article-body li {
+            margin-bottom: 0.5rem;
+        }
+        .article-body img {
+            border-radius: 8px;
+            border: 1px solid #CEDBD8;
+            margin: 1.5rem 0;
+            max-width: 100%;
+        }
+        .article-body hr {
+            border: none;
+            border-top: 1px solid #CEDBD8;
+            margin: 2.5rem 0;
         }
 
-        /* Social links */
         .social-icon {
             color: #7C9499;
             transition: color 0.3s ease, transform 0.3s ease;
@@ -153,7 +170,6 @@
             height: 1.15rem;
         }
 
-        /* Scrollbar */
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: #F0F5F4; }
         ::-webkit-scrollbar-thumb { background: #CEDBD8; border-radius: 3px; }
@@ -164,54 +180,71 @@
 <body class="font-body antialiased">
 
     <!-- Navigation -->
-    <header class="nav" id="nav">
+    <header class="nav">
         <div class="max-w-[1200px] mx-auto px-5 lg:px-8 py-5 flex items-center justify-between">
-            <a href="index.html" class="font-display text-lg font-semibold text-text tracking-tight no-underline">
+            <a href="../index.html" class="font-display text-lg font-semibold text-text tracking-tight no-underline">
                 Owen Wang
             </a>
             <nav class="flex items-center gap-6 sm:gap-8">
-                <a href="writing.html" class="nav-link">Writing</a>
-                <a href="work.html" class="nav-link">Work</a>
-                <a href="projects.html" class="nav-link">Projects</a>
+                <a href="../writing.html" class="nav-link active">Writing</a>
+                <a href="../work.html" class="nav-link">Work</a>
+                <a href="../projects.html" class="nav-link">Projects</a>
             </nav>
         </div>
     </header>
 
-    <!-- Hero + Hub — single viewport -->
-    <section class="relative min-h-screen flex flex-col items-center justify-center px-5">
-        <div class="hero-glow"></div>
+    <!-- Article -->
+    <main class="max-w-[680px] mx-auto px-5 lg:px-8 pt-32 pb-24">
 
-        <div class="relative z-10 text-center mb-16">
-            <h1 class="font-display text-5xl sm:text-6xl lg:text-7xl font-medium text-text tracking-tight leading-[1.1] hero-enter">
-                Owen Wang
+        <!-- Back link -->
+        <a href="../writing.html" class="inline-flex items-center gap-1.5 text-sm text-text-dim hover:text-accent transition mb-12 group">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-3.5 h-3.5 transition-transform group-hover:-translate-x-0.5"><path fill-rule="evenodd" d="M17 10a.75.75 0 01-.75.75H5.612l4.158 4.167a.75.75 0 11-1.06 1.06l-5.5-5.5a.75.75 0 010-1.06l5.5-5.5a.75.75 0 111.06 1.06L5.612 9.25H16.25A.75.75 0 0117 10z" clip-rule="evenodd"/></svg>
+            Back to Writing
+        </a>
+
+        <!-- Article header -->
+        <header class="mb-12">
+            <h1 class="font-display text-2xl sm:text-3xl font-semibold text-text tracking-tight leading-tight">
+                POST TITLE HERE
             </h1>
-            <p class="mt-5 text-base sm:text-lg font-light text-text-mid tracking-wide hero-enter-delay">
-                Engineer, writer, builder.
-            </p>
-        </div>
+            <p class="mt-4 text-sm text-text-dim">February 28, 2026</p>
+        </header>
 
-        <div class="relative z-10 w-full max-w-[960px] grid grid-cols-1 lg:grid-cols-3 gap-5 lg:gap-6 hero-enter-cards">
+        <!-- Article body -->
+        <article class="article-body">
 
-            <a href="writing.html" class="hub-card">
-                <span class="block font-body text-xs font-medium uppercase tracking-[0.2em] text-text-dim mb-5">Writing</span>
-                <h2 class="font-display text-xl lg:text-[1.35rem] font-semibold text-text leading-snug mb-3">Thoughts &amp; Essays</h2>
-                <p class="text-sm font-light text-text-mid leading-relaxed">On engineering, craft, and the things I'm paying attention to.</p>
-            </a>
+            <p>Your article content goes here. This template includes styling for all common elements you might use in a post.</p>
 
-            <a href="work.html" class="hub-card">
-                <span class="block font-body text-xs font-medium uppercase tracking-[0.2em] text-text-dim mb-5">Work</span>
-                <h2 class="font-display text-xl lg:text-[1.35rem] font-semibold text-text leading-snug mb-3">Career &amp; Experience</h2>
-                <p class="text-sm font-light text-text-mid leading-relaxed">Seven years building production ML systems&mdash;from Meta to Cruise to Stanford.</p>
-            </a>
+            <h2>Section Heading</h2>
 
-            <a href="projects.html" class="hub-card">
-                <span class="block font-body text-xs font-medium uppercase tracking-[0.2em] text-text-dim mb-5">Projects</span>
-                <h2 class="font-display text-xl lg:text-[1.35rem] font-semibold text-text leading-snug mb-3">Things I've Built</h2>
-                <p class="text-sm font-light text-text-mid leading-relaxed">Side projects, research explorations, and open-source work.</p>
-            </a>
+            <p>Body text with a <a href="#">link example</a> and some <code>inline code</code>. The typography is set for comfortable long-form reading.</p>
 
-        </div>
-    </section>
+            <blockquote>
+                This is a blockquote. Use it for emphasis or to highlight a key idea.
+            </blockquote>
+
+            <h3>Subsection</h3>
+
+            <p>More content here. The line height and font size are tuned for readability.</p>
+
+            <pre><code>// Code block example
+function hello() {
+    console.log("Hello, world");
+}</code></pre>
+
+            <ul>
+                <li>List item one</li>
+                <li>List item two</li>
+                <li>List item three</li>
+            </ul>
+
+            <hr>
+
+            <p>Closing thoughts.</p>
+
+        </article>
+
+    </main>
 
     <!-- Footer -->
     <footer class="mt-8 pb-16 text-center">
@@ -228,15 +261,6 @@
         </div>
         <p class="text-xs text-text-dim tracking-wide">Owen Wang, 2026</p>
     </footer>
-
-    <script>
-        // Nav scroll effect
-        const nav = document.getElementById('nav');
-        const onScroll = () => {
-            nav.classList.toggle('scrolled', window.scrollY > 40);
-        };
-        window.addEventListener('scroll', onScroll, { passive: true });
-    </script>
 
 </body>
 </html>

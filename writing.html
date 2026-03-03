@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Owen Wang</title>
-    <meta name="description" content="Owen Wang — engineer, writer, builder. Computer Vision and Machine Learning.">
+    <title>Writing — Owen Wang</title>
+    <meta name="description" content="Owen Wang — thoughts on engineering, craft, and the things I'm paying attention to.">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -42,7 +42,6 @@
             background-color: #F0F5F4;
             color: #151D20;
             font-family: 'Inter', system-ui, sans-serif;
-            overflow-x: hidden;
         }
 
         ::selection {
@@ -50,33 +49,12 @@
             color: #F0F5F4;
         }
 
-        /* Ambient glow — turquoise mist */
-        .hero-glow {
-            position: absolute;
-            top: 12%;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 900px;
-            height: 550px;
-            background: radial-gradient(ellipse at center,
-                rgba(44, 158, 150, 0.08) 0%,
-                rgba(139, 92, 246, 0.03) 40%,
-                rgba(240, 245, 244, 0) 70%
-            );
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        /* Nav */
         .nav {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             z-index: 100;
-            transition: background-color 0.5s ease, backdrop-filter 0.5s ease, box-shadow 0.5s ease;
-        }
-        .nav.scrolled {
             background-color: rgba(227, 236, 235, 0.85);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
@@ -92,53 +70,21 @@
             transition: color 0.35s ease;
             text-decoration: none;
         }
-        .nav-link:hover {
+        .nav-link:hover, .nav-link.active {
             color: #2C9E96;
         }
 
-        /* Hero entrance */
         @keyframes surfaceGently {
-            from {
-                opacity: 0;
-                transform: translateY(16px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(14px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-        .hero-enter {
+        .enter {
             opacity: 0;
-            animation: surfaceGently 1.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+            animation: surfaceGently 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
         }
-        .hero-enter-delay {
-            opacity: 0;
-            animation: surfaceGently 1.4s cubic-bezier(0.22, 1, 0.36, 1) 0.25s forwards;
-        }
-        .hero-enter-cards {
-            opacity: 0;
-            animation: surfaceGently 1.2s cubic-bezier(0.22, 1, 0.36, 1) 0.5s forwards;
-        }
+        .enter-d1 { animation-delay: 0.1s; }
+        .enter-d2 { animation-delay: 0.25s; }
 
-        /* Hub cards */
-        .hub-card {
-            display: block;
-            background: #E3ECEB;
-            border: 1px solid #CEDBD8;
-            border-radius: 12px;
-            padding: 2.5rem;
-            text-decoration: none;
-            transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
-                        border-color 0.4s ease,
-                        box-shadow 0.45s cubic-bezier(0.22, 1, 0.36, 1);
-        }
-        .hub-card:hover {
-            transform: translateY(-4px);
-            border-color: #2C9E96;
-            box-shadow: 0 8px 30px rgba(21, 29, 32, 0.06);
-        }
-
-        /* Social links */
         .social-icon {
             color: #7C9499;
             transition: color 0.3s ease, transform 0.3s ease;
@@ -153,7 +99,6 @@
             height: 1.15rem;
         }
 
-        /* Scrollbar */
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: #F0F5F4; }
         ::-webkit-scrollbar-thumb { background: #CEDBD8; border-radius: 3px; }
@@ -164,54 +109,52 @@
 <body class="font-body antialiased">
 
     <!-- Navigation -->
-    <header class="nav" id="nav">
+    <header class="nav">
         <div class="max-w-[1200px] mx-auto px-5 lg:px-8 py-5 flex items-center justify-between">
             <a href="index.html" class="font-display text-lg font-semibold text-text tracking-tight no-underline">
                 Owen Wang
             </a>
             <nav class="flex items-center gap-6 sm:gap-8">
-                <a href="writing.html" class="nav-link">Writing</a>
+                <a href="writing.html" class="nav-link active">Writing</a>
                 <a href="work.html" class="nav-link">Work</a>
                 <a href="projects.html" class="nav-link">Projects</a>
             </nav>
         </div>
     </header>
 
-    <!-- Hero + Hub — single viewport -->
-    <section class="relative min-h-screen flex flex-col items-center justify-center px-5">
-        <div class="hero-glow"></div>
+    <!-- Main content -->
+    <main class="max-w-[720px] mx-auto px-5 lg:px-8 pt-32 pb-24">
 
-        <div class="relative z-10 text-center mb-16">
-            <h1 class="font-display text-5xl sm:text-6xl lg:text-7xl font-medium text-text tracking-tight leading-[1.1] hero-enter">
-                Owen Wang
-            </h1>
-            <p class="mt-5 text-base sm:text-lg font-light text-text-mid tracking-wide hero-enter-delay">
-                Engineer, writer, builder.
-            </p>
+        <!-- Header -->
+        <div class="text-center mb-20">
+            <h1 class="font-display text-4xl sm:text-5xl font-semibold text-text tracking-tight enter">Writing</h1>
+            <p class="mt-4 text-[0.9rem] text-text-mid font-light enter enter-d1">On engineering, ideas, and what I'm paying attention to.</p>
         </div>
 
-        <div class="relative z-10 w-full max-w-[960px] grid grid-cols-1 lg:grid-cols-3 gap-5 lg:gap-6 hero-enter-cards">
-
-            <a href="writing.html" class="hub-card">
-                <span class="block font-body text-xs font-medium uppercase tracking-[0.2em] text-text-dim mb-5">Writing</span>
-                <h2 class="font-display text-xl lg:text-[1.35rem] font-semibold text-text leading-snug mb-3">Thoughts &amp; Essays</h2>
-                <p class="text-sm font-light text-text-mid leading-relaxed">On engineering, craft, and the things I'm paying attention to.</p>
-            </a>
-
-            <a href="work.html" class="hub-card">
-                <span class="block font-body text-xs font-medium uppercase tracking-[0.2em] text-text-dim mb-5">Work</span>
-                <h2 class="font-display text-xl lg:text-[1.35rem] font-semibold text-text leading-snug mb-3">Career &amp; Experience</h2>
-                <p class="text-sm font-light text-text-mid leading-relaxed">Seven years building production ML systems&mdash;from Meta to Cruise to Stanford.</p>
-            </a>
-
-            <a href="projects.html" class="hub-card">
-                <span class="block font-body text-xs font-medium uppercase tracking-[0.2em] text-text-dim mb-5">Projects</span>
-                <h2 class="font-display text-xl lg:text-[1.35rem] font-semibold text-text leading-snug mb-3">Things I've Built</h2>
-                <p class="text-sm font-light text-text-mid leading-relaxed">Side projects, research explorations, and open-source work.</p>
-            </a>
-
+        <!-- Empty state -->
+        <div class="text-center py-16 enter enter-d2">
+            <p class="font-display text-lg italic text-text-dim">New writing coming soon.</p>
         </div>
-    </section>
+
+        <!--
+        Post listing template (uncomment and duplicate when adding posts):
+
+        <div class="border-t border-border py-6">
+            <div class="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-6">
+                <span class="text-xs text-text-dim shrink-0 sm:w-28">Feb 2026</span>
+                <div class="flex-1">
+                    <a href="writing/post-slug.html" class="font-display text-lg font-medium text-text hover:text-accent transition duration-300">
+                        Post Title Here
+                    </a>
+                    <p class="mt-1 text-sm text-text-mid font-light leading-relaxed">
+                        A one-line description of the post.
+                    </p>
+                </div>
+            </div>
+        </div>
+        -->
+
+    </main>
 
     <!-- Footer -->
     <footer class="mt-8 pb-16 text-center">
@@ -228,15 +171,6 @@
         </div>
         <p class="text-xs text-text-dim tracking-wide">Owen Wang, 2026</p>
     </footer>
-
-    <script>
-        // Nav scroll effect
-        const nav = document.getElementById('nav');
-        const onScroll = () => {
-            nav.classList.toggle('scrolled', window.scrollY > 40);
-        };
-        window.addEventListener('scroll', onScroll, { passive: true });
-    </script>
 
 </body>
 </html>
