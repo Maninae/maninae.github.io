@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,234 +8,687 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
-
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'bg': '#F0F5F4',
-                        'bg-surface': '#E3ECEB',
-                        'text': '#151D20',
-                        'text-mid': '#486168',
-                        'text-dim': '#7C9499',
-                        'accent': '#2C9E96',
-                        'accent-hover': '#1F7F78',
-                        'border': '#CEDBD8',
-                    },
-                    fontFamily: {
-                        display: ['Figtree', 'system-ui', 'sans-serif'],
-                        body: ['Inter', 'system-ui', 'sans-serif'],
-                    }
-                }
-            }
-        }
-    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
 
     <style>
-        * { box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
-
-        body {
-            background-color: #F0F5F4;
-            color: #151D20;
-            font-family: 'Inter', system-ui, sans-serif;
-            overflow-x: hidden;
+        /* ---- HERO ---- */
+        .hero {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 9rem 1.5rem 4rem;
         }
-
-        ::selection {
-            background: #8B5CF6;
-            color: #F0F5F4;
-        }
-
-        /* Ambient glow — turquoise mist */
-        .hero-glow {
-            position: absolute;
-            top: 12%;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 900px;
-            height: 550px;
-            background: radial-gradient(ellipse at center,
-                rgba(44, 158, 150, 0.08) 0%,
-                rgba(139, 92, 246, 0.03) 40%,
-                rgba(240, 245, 244, 0) 70%
-            );
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        /* Nav */
-        .nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 100;
-            transition: background-color 0.5s ease, backdrop-filter 0.5s ease, box-shadow 0.5s ease;
-        }
-        .nav.scrolled {
-            background-color: rgba(227, 236, 235, 0.85);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            box-shadow: 0 1px 0 rgba(206, 219, 216, 0.6);
-        }
-        .nav-link {
-            font-family: 'Inter', sans-serif;
-            font-size: 0.72rem;
+        .hero h1 {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 3.8rem;
             font-weight: 500;
-            letter-spacing: 0.18em;
+            line-height: 1.1;
+            color: var(--text);
+            letter-spacing: -0.02em;
+            margin-bottom: 0.3rem;
+        }
+        .hero .chinese-name {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 1.5rem;
+            font-weight: 400;
+            color: var(--text-dim);
+            margin-bottom: 1.5rem;
+            letter-spacing: 0.15em;
+        }
+        .hero .tagline {
+            font-family: 'DM Sans', system-ui, sans-serif;
+            font-size: 1.1rem;
+            font-weight: 300;
+            color: var(--text-mid);
+            max-width: 520px;
+            line-height: 1.7;
+        }
+
+        /* ---- ABOUT TEASER ---- */
+        .about-teaser {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 3rem 1.5rem 3.5rem;
+        }
+        .about-teaser-inner {
+            display: flex;
+            align-items: flex-start;
+            gap: 1.75rem;
+        }
+        .about-photo {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            background: var(--bg-warm);
+            border: 2px solid var(--border);
+            flex-shrink: 0;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .about-photo-placeholder {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: var(--text-dim);
+            line-height: 1;
+        }
+        .about-content { flex: 1; }
+        .about-text {
+            font-size: 0.92rem;
+            font-weight: 300;
+            color: var(--text-mid);
+            line-height: 1.7;
+            margin-bottom: 0.75rem;
+        }
+
+        /* ---- PROJECT LIST ---- */
+        .projects-section {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 3.5rem 1.5rem 4rem;
+        }
+        .project-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+        .project-list-item a {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.65rem 0.75rem;
+            margin: 0 -0.75rem;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: background-color 0.2s ease;
+        }
+        .project-list-item a:hover {
+            background-color: var(--bg-warm);
+        }
+        .project-name {
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--text);
+            white-space: nowrap;
+            transition: color 0.2s ease;
+        }
+        .project-list-item a:hover .project-name {
+            color: var(--accent);
+        }
+        .project-desc {
+            font-size: 0.88rem;
+            font-weight: 300;
+            color: var(--text-dim);
+            flex: 1;
+            min-width: 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .project-external-icon {
+            flex-shrink: 0;
+            width: 0.85rem;
+            height: 0.85rem;
+            color: var(--text-dim);
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+        .project-list-item a:hover .project-external-icon {
+            opacity: 1;
+        }
+        .project-separator {
+            flex-shrink: 0;
+            height: 1px;
+            min-width: 2rem;
+            max-width: 6rem;
+            flex-grow: 1;
+            background: var(--border-light);
+            margin: 0 0.25rem;
+        }
+
+        /* ---- WRITING: TWO-COLUMN LAYOUT ---- */
+        .writing-section {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 3.5rem 1.5rem 4rem;
+        }
+        .writing-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: start;
+        }
+        .writing-col { min-width: 0; }
+
+        /* ---- ESSAY ITEMS ---- */
+        .essay-item {
+            display: flex;
+            gap: 1.25rem;
+            padding: 1.25rem 0;
+            border-bottom: 1px solid var(--border-light);
+            text-decoration: none;
+            transition: transform 0.2s ease;
+        }
+        .essay-item:first-of-type {
+            padding-top: 0;
+        }
+        .essay-item:last-of-type {
+            border-bottom: none;
+        }
+        .essay-item:hover {
+            transform: translateX(3px);
+        }
+        .essay-illustration {
+            width: 90px;
+            height: 68px;
+            border-radius: 6px;
+            background: var(--bg-illustration);
+            border: 1px solid var(--border);
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            margin-top: 0.15rem;
+        }
+        .essay-illustration-inner {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent-subtle), var(--accent));
+            opacity: 0.25;
+        }
+        .essay-content { flex: 1; min-width: 0; }
+        .essay-meta {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            margin-bottom: 0.3rem;
+            flex-wrap: wrap;
+        }
+        .essay-date, .note-date {
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            font-weight: 400;
+        }
+        .essay-tag {
+            font-size: 0.65rem;
+            font-weight: 500;
+            letter-spacing: 0.04em;
+            color: var(--accent);
+            background: var(--accent-subtle);
+            padding: 0.12rem 0.5rem;
+            border-radius: 3px;
+        }
+        .essay-title {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--text);
+            line-height: 1.3;
+            margin-bottom: 0.3rem;
+            transition: color 0.3s ease;
+        }
+        .essay-item:hover .essay-title {
+            color: var(--accent);
+        }
+        .essay-lead {
+            font-size: 0.85rem;
+            font-weight: 300;
+            color: var(--text-mid);
+            line-height: 1.55;
+            font-style: italic;
+            margin-bottom: 0.4rem;
+        }
+        .essay-read-more {
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--accent);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            transition: gap 0.2s ease;
+        }
+        .essay-item:hover .essay-read-more {
+            gap: 0.5rem;
+        }
+
+        /* ---- NOTES COLUMN ---- */
+        .notes-col-label {
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.16em;
             text-transform: uppercase;
-            color: #7C9499;
-            transition: color 0.35s ease;
-            text-decoration: none;
+            color: var(--text-dim);
+            margin-bottom: 1.5rem;
         }
-        .nav-link:hover {
-            color: #2C9E96;
-        }
-
-        /* Hero entrance */
-        @keyframes surfaceGently {
-            from {
-                opacity: 0;
-                transform: translateY(16px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        .hero-enter {
-            opacity: 0;
-            animation: surfaceGently 1.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-        }
-        .hero-enter-delay {
-            opacity: 0;
-            animation: surfaceGently 1.4s cubic-bezier(0.22, 1, 0.36, 1) 0.25s forwards;
-        }
-        .hero-enter-cards {
-            opacity: 0;
-            animation: surfaceGently 1.2s cubic-bezier(0.22, 1, 0.36, 1) 0.5s forwards;
-        }
-
-        /* Hub cards */
-        .hub-card {
+        .note-item {
             display: block;
-            background: #E3ECEB;
-            border: 1px solid #CEDBD8;
-            border-radius: 12px;
-            padding: 2.5rem;
+            padding: 0.85rem 0;
             text-decoration: none;
-            transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
-                        border-color 0.4s ease,
-                        box-shadow 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+            transition: transform 0.2s ease;
         }
-        .hub-card:hover {
-            transform: translateY(-4px);
-            border-color: #2C9E96;
-            box-shadow: 0 8px 30px rgba(21, 29, 32, 0.06);
+        .note-item:first-of-type {
+            padding-top: 0;
+        }
+        .note-item + .note-item {
+            border-top: 1px solid var(--border-light);
+        }
+        .note-item:hover {
+            transform: translateX(3px);
+        }
+        .note-meta {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            margin-bottom: 0.25rem;
+            flex-wrap: wrap;
+        }
+        .note-title {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text);
+            line-height: 1.3;
+            margin-bottom: 0.15rem;
+            transition: color 0.3s ease;
+        }
+        .note-item:hover .note-title {
+            color: var(--accent);
+        }
+        .note-lead {
+            font-size: 0.82rem;
+            font-weight: 300;
+            color: var(--text-mid);
+            line-height: 1.5;
         }
 
-        /* Social links */
-        .social-icon {
-            color: #7C9499;
-            transition: color 0.3s ease, transform 0.3s ease;
-            display: inline-block;
+        /* ---- EXPLORE CARDS ---- */
+        .explore-section {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 1rem 1.5rem 5rem;
         }
-        .social-icon:hover {
-            color: #2C9E96;
-            transform: translateY(-2px);
+        .explore-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.25rem;
+            margin-top: 2rem;
         }
-        .social-icon svg {
-            width: 1.15rem;
-            height: 1.15rem;
+        .explore-card {
+            display: block;
+            background: var(--bg-warm);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 2rem;
+            text-decoration: none;
+            transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+                        border-color 0.3s ease,
+                        box-shadow 0.35s ease;
+        }
+        .explore-card:hover {
+            transform: translateY(-3px);
+            border-color: var(--accent);
+            box-shadow: 0 6px 24px rgba(44, 36, 24, 0.06);
+        }
+        .explore-card-label {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--text-dim);
+            margin-bottom: 0.75rem;
+        }
+        .explore-card-title {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 0.5rem;
+            transition: color 0.3s ease;
+        }
+        .explore-card:hover .explore-card-title {
+            color: var(--accent);
+        }
+        .explore-card-desc {
+            font-size: 0.82rem;
+            font-weight: 300;
+            color: var(--text-mid);
+            line-height: 1.5;
         }
 
-        /* Scrollbar */
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #F0F5F4; }
-        ::-webkit-scrollbar-thumb { background: #CEDBD8; border-radius: 3px; }
-        ::-webkit-scrollbar-thumb:hover { background: #B0C4C0; }
+        /* ---- RESPONSIVE (homepage-specific) ---- */
+        @media (max-width: 768px) {
+            .writing-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            .notes-col-label {
+                padding-top: 1.5rem;
+                border-top: 1px dashed var(--border);
+            }
+        }
+        @media (max-width: 640px) {
+            .hero { padding-top: 7rem; padding-bottom: 3rem; }
+            .hero h1 { font-size: 2.6rem; }
+            .hero .chinese-name { font-size: 1.2rem; }
+            .explore-grid { grid-template-columns: 1fr; }
+            .about-teaser-inner { flex-direction: column; align-items: center; text-align: center; }
+            .about-photo { width: 60px; height: 60px; }
+            .project-list-item a { flex-wrap: wrap; gap: 0.25rem 0.75rem; }
+            .project-separator { display: none; }
+            .project-desc { white-space: normal; flex-basis: 100%; order: 3; }
+            .essay-item { flex-direction: column; gap: 0.75rem; }
+            .essay-illustration { width: 100%; height: 100px; }
+        }
     </style>
 </head>
 
-<body class="font-body antialiased">
+<body>
 
     <!-- Navigation -->
     <header class="nav" id="nav">
-        <div class="max-w-[1200px] mx-auto px-5 lg:px-8 py-5 flex items-center justify-between">
-            <a href="index.html" class="font-display text-lg font-semibold text-text tracking-tight no-underline">
-                Owen Wang
-            </a>
-            <nav class="flex items-center gap-6 sm:gap-8">
-                <a href="writing.html" class="nav-link">Writing</a>
-                <a href="work.html" class="nav-link">Work</a>
-                <a href="projects.html" class="nav-link">Projects</a>
-            </nav>
+        <div class="nav-inner">
+            <a href="index.html" class="nav-home">Owen Wang</a>
+            <div class="nav-right">
+                <nav class="nav-links">
+                    <div class="nav-link-wrap active">
+                        <span class="nav-dot"></span>
+                        <a href="index.html">Home</a>
+                    </div>
+                    <div class="nav-link-wrap">
+                        <span class="nav-dot"></span>
+                        <a href="writing.html">Writing</a>
+                    </div>
+                    <div class="nav-link-wrap">
+                        <span class="nav-dot"></span>
+                        <a href="work.html">Work</a>
+                    </div>
+                    <div class="nav-link-wrap">
+                        <span class="nav-dot"></span>
+                        <a href="projects.html">Projects</a>
+                    </div>
+                    <div class="nav-link-wrap">
+                        <span class="nav-dot"></span>
+                        <a href="about.html">About</a>
+                    </div>
+                </nav>
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                    <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
+                    </svg>
+                    <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                    </svg>
+                </button>
+            </div>
         </div>
     </header>
 
-    <!-- Hero + Hub — single viewport -->
-    <section class="relative min-h-screen flex flex-col items-center justify-center px-5">
-        <div class="hero-glow"></div>
+    <!-- Hero -->
+    <section class="hero">
+        <h1 class="fade-in">Owen Wang</h1>
+        <p class="chinese-name fade-in fade-in-d1">汪峻加</p>
+        <p class="tagline fade-in fade-in-d2">
+            Engineer, writer, builder. I work on machine learning and computer vision,
+            and I write about engineering, ideas, and the things I'm paying attention to.
+        </p>
+    </section>
 
-        <div class="relative z-10 text-center mb-16">
-            <h1 class="font-display text-5xl sm:text-6xl lg:text-7xl font-medium text-text tracking-tight leading-[1.1] hero-enter">
-                Owen Wang
-            </h1>
-            <p class="mt-5 text-base sm:text-lg font-light text-text-mid tracking-wide hero-enter-delay">
-                Engineer, writer, builder.
-            </p>
+    <div class="section-divider"><hr></div>
+
+    <!-- About Teaser -->
+    <section class="about-teaser fade-in fade-in-d3">
+        <div class="about-teaser-inner">
+            <div class="about-photo">
+                <span class="about-photo-placeholder">OW</span>
+            </div>
+            <div class="about-content">
+                <p class="about-text">
+                    I'm a machine learning engineer with seven years of experience building production systems
+                    at Meta, Cruise, and Stanford. I care about craft, clear thinking, and making
+                    complex things simple. Currently based in the Bay Area.
+                </p>
+                <a href="about.html" class="about-link">
+                    More about me <span aria-hidden="true">&rarr;</span>
+                </a>
+            </div>
         </div>
+    </section>
 
-        <div class="relative z-10 w-full max-w-[960px] grid grid-cols-1 lg:grid-cols-3 gap-5 lg:gap-6 hero-enter-cards">
+    <div class="section-divider"><hr></div>
 
-            <a href="writing.html" class="hub-card">
-                <span class="block font-body text-xs font-medium uppercase tracking-[0.2em] text-text-dim mb-5">Writing</span>
-                <h2 class="font-display text-xl lg:text-[1.35rem] font-semibold text-text leading-snug mb-3">Thoughts &amp; Essays</h2>
-                <p class="text-sm font-light text-text-mid leading-relaxed">On engineering, craft, and the things I'm paying attention to.</p>
-            </a>
+    <!-- Projects -->
+    <section class="projects-section fade-in fade-in-d4">
+        <h2 class="section-label">Projects</h2>
 
-            <a href="work.html" class="hub-card">
-                <span class="block font-body text-xs font-medium uppercase tracking-[0.2em] text-text-dim mb-5">Work</span>
-                <h2 class="font-display text-xl lg:text-[1.35rem] font-semibold text-text leading-snug mb-3">Career &amp; Experience</h2>
-                <p class="text-sm font-light text-text-mid leading-relaxed">Seven years building production ML systems&mdash;from Meta to Cruise to Stanford.</p>
-            </a>
+        <ul class="project-list">
+            <li class="project-list-item">
+                <a href="https://maninae.github.io/cs234/" target="_blank" rel="noopener noreferrer">
+                    <span class="project-name">CS234: Reinforcement Learning</span>
+                    <span class="project-separator"></span>
+                    <span class="project-desc">Open-source study companion for Stanford's RL course</span>
+                    <svg class="project-external-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 001.06 0l7.22-7.22v5.69a.75.75 0 001.5 0v-7.5a.75.75 0 00-.75-.75h-7.5a.75.75 0 000 1.5h5.69l-7.22 7.22a.75.75 0 000 1.06z" clip-rule="evenodd"/></svg>
+                </a>
+            </li>
+            <li class="project-list-item">
+                <a href="https://github.com/Maninae/segmentation-191" target="_blank" rel="noopener noreferrer">
+                    <span class="project-name">COCO Person Segmentation</span>
+                    <span class="project-separator"></span>
+                    <span class="project-desc">Semantic segmentation on MS COCO with DenseNet</span>
+                    <svg class="project-external-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 001.06 0l7.22-7.22v5.69a.75.75 0 001.5 0v-7.5a.75.75 0 00-.75-.75h-7.5a.75.75 0 000 1.5h5.69l-7.22 7.22a.75.75 0 000 1.06z" clip-rule="evenodd"/></svg>
+                </a>
+            </li>
+            <li class="project-list-item">
+                <a href="#">
+                    <span class="project-name">GenHMC: Synthetic Avatars</span>
+                    <span class="project-separator"></span>
+                    <span class="project-desc">Diffusion-based human mesh generation pipeline</span>
+                    <svg class="project-external-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 001.06 0l7.22-7.22v5.69a.75.75 0 001.5 0v-7.5a.75.75 0 00-.75-.75h-7.5a.75.75 0 000 1.5h5.69l-7.22 7.22a.75.75 0 000 1.06z" clip-rule="evenodd"/></svg>
+                </a>
+            </li>
+        </ul>
 
-            <a href="projects.html" class="hub-card">
-                <span class="block font-body text-xs font-medium uppercase tracking-[0.2em] text-text-dim mb-5">Projects</span>
-                <h2 class="font-display text-xl lg:text-[1.35rem] font-semibold text-text leading-snug mb-3">Things I've Built</h2>
-                <p class="text-sm font-light text-text-mid leading-relaxed">Side projects, research explorations, and open-source work.</p>
-            </a>
+        <a href="projects.html" class="more-link">
+            All projects <span aria-hidden="true">&rarr;</span>
+        </a>
+    </section>
+
+    <div class="section-divider"><hr></div>
+
+    <!-- Writing: Two-Column Layout -->
+    <section class="writing-section fade-in fade-in-d5">
+        <div class="writing-grid">
+
+            <!-- LEFT: Essays -->
+            <div class="writing-col">
+                <h2 class="section-label">Essays</h2>
+
+                <a href="#" class="essay-item">
+                    <div class="essay-illustration">
+                        <div class="essay-illustration-inner"></div>
+                    </div>
+                    <div class="essay-content">
+                        <div class="essay-meta">
+                            <span class="essay-date">Feb 2026</span>
+                            <span class="essay-tag">production systems</span>
+                            <span class="essay-tag">craft</span>
+                        </div>
+                        <h3 class="essay-title">On Building Things That Last</h3>
+                        <p class="essay-lead">
+                            The best systems I've built weren't the cleverest ones. They were the ones nobody had to think about again.
+                        </p>
+                        <span class="essay-read-more">keep reading <span aria-hidden="true">&rarr;</span></span>
+                    </div>
+                </a>
+
+                <a href="#" class="essay-item">
+                    <div class="essay-illustration">
+                        <div class="essay-illustration-inner"></div>
+                    </div>
+                    <div class="essay-content">
+                        <div class="essay-meta">
+                            <span class="essay-date">Jan 2026</span>
+                            <span class="essay-tag">mental models</span>
+                            <span class="essay-tag">machine learning</span>
+                        </div>
+                        <h3 class="essay-title">The Unreasonable Usefulness of Simple Models</h3>
+                        <p class="essay-lead">
+                            There's a strange comfort in reaching for a logistic regression when everyone else is fine-tuning a transformer.
+                        </p>
+                        <span class="essay-read-more">keep reading <span aria-hidden="true">&rarr;</span></span>
+                    </div>
+                </a>
+
+                <a href="#" class="essay-item">
+                    <div class="essay-illustration">
+                        <div class="essay-illustration-inner"></div>
+                    </div>
+                    <div class="essay-content">
+                        <div class="essay-meta">
+                            <span class="essay-date">Oct 2025</span>
+                            <span class="essay-tag">career</span>
+                            <span class="essay-tag">perspective</span>
+                        </div>
+                        <h3 class="essay-title">Seven Years In</h3>
+                        <p class="essay-lead">
+                            At some point you stop asking "how does this work" and start asking "should this exist at all."
+                        </p>
+                        <span class="essay-read-more">keep reading <span aria-hidden="true">&rarr;</span></span>
+                    </div>
+                </a>
+
+                <a href="writing.html" class="more-link">
+                    All essays <span aria-hidden="true">&rarr;</span>
+                </a>
+            </div>
+
+            <!-- RIGHT: Notes -->
+            <div class="writing-col">
+                <h2 class="notes-col-label">Notes</h2>
+
+                <a href="#" class="note-item">
+                    <div class="note-meta">
+                        <span class="essay-date">Mar 2026</span>
+                        <span class="essay-tag">tools</span>
+                    </div>
+                    <h4 class="note-title">On the right amount of abstraction</h4>
+                    <p class="note-lead">Three lines of duplicate code are almost always better than a premature helper function.</p>
+                </a>
+
+                <a href="#" class="note-item">
+                    <div class="note-meta">
+                        <span class="essay-date">Feb 2026</span>
+                        <span class="essay-tag">reading</span>
+                    </div>
+                    <h4 class="note-title">Books that changed how I debug</h4>
+                    <p class="note-lead">The bug is never where you think it is. The best debugging book taught me to stop guessing.</p>
+                </a>
+
+                <a href="#" class="note-item">
+                    <div class="note-meta">
+                        <span class="essay-date">Dec 2025</span>
+                        <span class="essay-tag">teamwork</span>
+                        <span class="essay-tag">onboarding</span>
+                    </div>
+                    <h4 class="note-title">Notes on Joining a New Team</h4>
+                    <p class="note-lead">The fastest way to build trust isn't to ship something impressive. It's to ask the question everyone was afraid to ask.</p>
+                </a>
+
+                <a href="#" class="note-item">
+                    <div class="note-meta">
+                        <span class="essay-date">Nov 2025</span>
+                        <span class="essay-tag">observations</span>
+                    </div>
+                    <h4 class="note-title">What I mean when I say "taste"</h4>
+                    <p class="note-lead">Taste is the gap between knowing something works and knowing it's right.</p>
+                </a>
+
+                <a href="#" class="note-item">
+                    <div class="note-meta">
+                        <span class="essay-date">Oct 2025</span>
+                        <span class="essay-tag">ml</span>
+                    </div>
+                    <h4 class="note-title">The eval problem nobody talks about</h4>
+                    <p class="note-lead">We spend months training models and hours evaluating them. That ratio is backwards.</p>
+                </a>
+
+                <a href="writing.html" class="more-link">
+                    All notes <span aria-hidden="true">&rarr;</span>
+                </a>
+            </div>
 
         </div>
     </section>
 
+    <div class="section-divider"><hr></div>
+
+    <!-- Explore -->
+    <section class="explore-section fade-in fade-in-d6">
+        <h2 class="section-label">Explore</h2>
+
+        <div class="explore-grid">
+            <a href="work.html" class="explore-card">
+                <div class="explore-card-label">Work</div>
+                <h3 class="explore-card-title">Career &amp; Experience</h3>
+                <p class="explore-card-desc">
+                    Seven years building production ML systems &mdash; from Meta to Cruise to Stanford.
+                </p>
+            </a>
+
+            <a href="projects.html" class="explore-card">
+                <div class="explore-card-label">Projects</div>
+                <h3 class="explore-card-title">Things I've Built</h3>
+                <p class="explore-card-desc">
+                    Side projects, research explorations, and open-source work.
+                </p>
+            </a>
+        </div>
+    </section>
+
     <!-- Footer -->
-    <footer class="mt-8 pb-16 text-center">
-        <div class="flex items-center justify-center gap-6 mb-6">
-            <a href="https://github.com/Maninae" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="GitHub">
+    <footer class="footer">
+        <span class="footer-text">Owen Wang, 2026</span>
+        <div class="social-links">
+            <a href="https://github.com/Maninae" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="GitHub" title="GitHub">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.802 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.087-.731.084-.67.084-.67 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.492.998.108-.77.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.046.138 3.003.404 2.292-1.552 3.3-1.23 3.3-1.23.653 1.652.242 2.873.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.923.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.79 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
             </a>
-            <a href="https://www.linkedin.com/in/ojwang/" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="LinkedIn">
+            <a href="https://www.linkedin.com/in/ojwang/" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="LinkedIn" title="LinkedIn">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.568-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
             </a>
-            <a href="mailto:owenwang0328@gmail.com" class="social-icon" aria-label="Email">
+            <a href="mailto:owenwang0328@gmail.com" class="social-link" aria-label="Email" title="Email">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M1.5 8.67v8.58a3 3 0 003 3h15a3 3 0 003-3V8.67l-8.928 5.493a3 3 0 01-3.144 0L1.5 8.67z"/><path d="M22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.978a1.5 1.5 0 001.572 0L22.5 6.908z"/></svg>
             </a>
         </div>
-        <p class="text-xs text-text-dim tracking-wide">Owen Wang, 2026</p>
     </footer>
 
     <script>
         // Nav scroll effect
         const nav = document.getElementById('nav');
-        const onScroll = () => {
+        window.addEventListener('scroll', () => {
             nav.classList.toggle('scrolled', window.scrollY > 40);
-        };
-        window.addEventListener('scroll', onScroll, { passive: true });
+        }, { passive: true });
+
+        // Theme toggle
+        const toggle = document.getElementById('themeToggle');
+        const html = document.documentElement;
+
+        const saved = localStorage.getItem('theme');
+        if (saved) {
+            html.setAttribute('data-theme', saved);
+        } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            html.setAttribute('data-theme', 'dark');
+        }
+
+        toggle.addEventListener('click', () => {
+            const current = html.getAttribute('data-theme');
+            const next = current === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', next);
+            localStorage.setItem('theme', next);
+        });
     </script>
 
 </body>

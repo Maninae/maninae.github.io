@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,91 +8,35 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
-
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'bg': '#F0F5F4',
-                        'bg-surface': '#E3ECEB',
-                        'text': '#151D20',
-                        'text-mid': '#486168',
-                        'text-dim': '#7C9499',
-                        'accent': '#2C9E96',
-                        'accent-hover': '#1F7F78',
-                        'border': '#CEDBD8',
-                    },
-                    fontFamily: {
-                        display: ['Figtree', 'system-ui', 'sans-serif'],
-                        body: ['Inter', 'system-ui', 'sans-serif'],
-                    }
-                }
-            }
-        }
-    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
 
     <style>
-        * { box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
-
-        body {
-            background-color: #F0F5F4;
-            color: #151D20;
-            font-family: 'Inter', system-ui, sans-serif;
+        .page-main {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 8rem 1.5rem 6rem;
         }
-
-        ::selection {
-            background: #8B5CF6;
-            color: #F0F5F4;
+        .page-title {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: var(--text);
+            text-align: center;
+            margin-bottom: 0.75rem;
         }
-
-        .nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 100;
-            background-color: rgba(227, 236, 235, 0.85);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            box-shadow: 0 1px 0 rgba(206, 219, 216, 0.6);
+        .page-subtitle {
+            font-size: 0.9rem;
+            color: var(--text-mid);
+            font-weight: 300;
+            text-align: center;
+            margin-bottom: 3rem;
         }
-        .nav-link {
-            font-family: 'Inter', sans-serif;
-            font-size: 0.72rem;
-            font-weight: 500;
-            letter-spacing: 0.18em;
-            text-transform: uppercase;
-            color: #7C9499;
-            transition: color 0.35s ease;
-            text-decoration: none;
-        }
-        .nav-link:hover, .nav-link.active {
-            color: #2C9E96;
-        }
-
-        .pill {
-            display: inline-block;
-            padding: 0.2rem 0.65rem;
-            border-radius: 9999px;
-            font-size: 0.7rem;
-            font-weight: 500;
-            letter-spacing: 0.01em;
-            background: rgba(44, 158, 150, 0.08);
-            color: #2C9E96;
-            transition: background 0.2s ease;
-        }
-        .pill:hover {
-            background: rgba(44, 158, 150, 0.14);
-        }
-
+        .project-cards { display: flex; flex-direction: column; gap: 1rem; }
         .project-card {
             display: block;
-            background: #E3ECEB;
-            border: 1px solid #CEDBD8;
+            background: var(--bg-warm);
+            border: 1px solid var(--border);
             border-radius: 12px;
             padding: 2rem;
             text-decoration: none;
@@ -102,110 +46,129 @@
         }
         .project-card:hover {
             transform: translateY(-3px);
-            border-color: #2C9E96;
-            box-shadow: 0 6px 24px rgba(21, 29, 32, 0.06);
+            border-color: var(--accent);
+            box-shadow: 0 6px 24px rgba(44, 36, 24, 0.06);
         }
-        .project-card:hover .project-title {
-            color: #2C9E96;
+        .project-card:hover .project-card-title {
+            color: var(--accent);
         }
-        .project-title {
+        .project-card-category {
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--text-dim);
+            margin-bottom: 0.75rem;
+        }
+        .project-card-title {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--text);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
             transition: color 0.3s ease;
         }
-
-        .reveal {
-            opacity: 0;
-            transform: translateY(16px);
-            transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
-                        transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+        .project-card-title svg {
+            width: 0.85rem;
+            height: 0.85rem;
+            color: var(--text-dim);
         }
-        .reveal.visible {
-            opacity: 1;
-            transform: translateY(0);
+        .project-card-desc {
+            margin-top: 0.75rem;
+            font-size: 0.88rem;
+            color: var(--text-mid);
+            font-weight: 300;
+            line-height: 1.6;
+            max-width: 40rem;
         }
-
-        @keyframes surfaceGently {
-            from { opacity: 0; transform: translateY(14px); }
-            to { opacity: 1; transform: translateY(0); }
+        .project-card-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            margin-top: 1rem;
         }
-        .enter {
-            opacity: 0;
-            animation: surfaceGently 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-        }
-        .enter-d1 { animation-delay: 0.1s; }
-
-        .social-icon {
-            color: #7C9499;
-            transition: color 0.3s ease, transform 0.3s ease;
-            display: inline-block;
-        }
-        .social-icon:hover {
-            color: #2C9E96;
-            transform: translateY(-2px);
-        }
-        .social-icon svg {
-            width: 1.15rem;
-            height: 1.15rem;
-        }
-
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #F0F5F4; }
-        ::-webkit-scrollbar-thumb { background: #CEDBD8; border-radius: 3px; }
-        ::-webkit-scrollbar-thumb:hover { background: #B0C4C0; }
     </style>
 </head>
 
-<body class="font-body antialiased">
+<body>
 
     <!-- Navigation -->
-    <header class="nav">
-        <div class="max-w-[1200px] mx-auto px-5 lg:px-8 py-5 flex items-center justify-between">
-            <a href="index.html" class="font-display text-lg font-semibold text-text tracking-tight no-underline">
-                Owen Wang
-            </a>
-            <nav class="flex items-center gap-6 sm:gap-8">
-                <a href="writing.html" class="nav-link">Writing</a>
-                <a href="work.html" class="nav-link">Work</a>
-                <a href="projects.html" class="nav-link active">Projects</a>
-            </nav>
+    <header class="nav" id="nav">
+        <div class="nav-inner">
+            <a href="index.html" class="nav-home">Owen Wang</a>
+            <div class="nav-right">
+                <nav class="nav-links">
+                    <div class="nav-link-wrap">
+                        <span class="nav-dot"></span>
+                        <a href="index.html">Home</a>
+                    </div>
+                    <div class="nav-link-wrap">
+                        <span class="nav-dot"></span>
+                        <a href="writing.html">Writing</a>
+                    </div>
+                    <div class="nav-link-wrap">
+                        <span class="nav-dot"></span>
+                        <a href="work.html">Work</a>
+                    </div>
+                    <div class="nav-link-wrap active">
+                        <span class="nav-dot"></span>
+                        <a href="projects.html">Projects</a>
+                    </div>
+                    <div class="nav-link-wrap">
+                        <span class="nav-dot"></span>
+                        <a href="about.html">About</a>
+                    </div>
+                </nav>
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                    <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
+                    </svg>
+                    <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                    </svg>
+                </button>
+            </div>
         </div>
     </header>
 
     <!-- Main content -->
-    <main class="max-w-[960px] mx-auto px-5 lg:px-8 pt-32 pb-24">
+    <main class="page-main">
 
         <!-- Header -->
-        <div class="text-center mb-16">
-            <h1 class="font-display text-4xl sm:text-5xl font-semibold text-text tracking-tight enter">Projects</h1>
-            <p class="mt-4 text-[0.9rem] text-text-mid font-light enter enter-d1">Side projects, research explorations, and open-source work.</p>
+        <div class="enter">
+            <h1 class="page-title">Projects</h1>
+            <p class="page-subtitle enter enter-d1">Side projects, research explorations, and open-source work.</p>
         </div>
 
         <!-- Project cards -->
-        <div class="space-y-4">
+        <div class="project-cards">
 
-            <a href="https://maninae.github.io/cs234/" target="_blank" class="project-card reveal group">
-                <span class="block font-body text-xs font-medium uppercase tracking-[0.2em] text-text-dim mb-3">Learning</span>
-                <h2 class="project-title font-display text-xl sm:text-2xl font-semibold text-text leading-snug inline-flex items-center gap-2">
+            <a href="https://maninae.github.io/cs234/" target="_blank" class="project-card reveal">
+                <div class="project-card-category">Learning</div>
+                <h2 class="project-card-title">
                     CS234: Reinforcement Learning
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4 text-text-dim transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"><path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 001.06 0l7.22-7.22v5.69a.75.75 0 001.5 0v-7.5a.75.75 0 00-.75-.75h-7.5a.75.75 0 000 1.5h5.69l-7.22 7.22a.75.75 0 000 1.06z" clip-rule="evenodd"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 001.06 0l7.22-7.22v5.69a.75.75 0 001.5 0v-7.5a.75.75 0 00-.75-.75h-7.5a.75.75 0 000 1.5h5.69l-7.22 7.22a.75.75 0 000 1.06z" clip-rule="evenodd"/></svg>
                 </h2>
-                <p class="mt-3 text-sm text-text-mid font-light leading-relaxed max-w-2xl">
+                <p class="project-card-desc">
                     Open-source study companion for Stanford's CS234 course. 11 detailed lecture notes covering MDPs, Q-learning, policy gradients, imitation learning, and exploration — with KaTeX-rendered math and interactive navigation.
                 </p>
-                <div class="mt-4 flex flex-wrap gap-1.5">
+                <div class="project-card-pills">
                     <span class="pill">Reinforcement Learning</span><span class="pill">Stanford</span><span class="pill">Study Guide</span>
                 </div>
             </a>
 
-            <a href="https://github.com/Maninae/segmentation-191" target="_blank" class="project-card reveal group">
-                <span class="block font-body text-xs font-medium uppercase tracking-[0.2em] text-text-dim mb-3">Research</span>
-                <h2 class="project-title font-display text-xl sm:text-2xl font-semibold text-text leading-snug inline-flex items-center gap-2">
+            <a href="https://github.com/Maninae/segmentation-191" target="_blank" class="project-card reveal">
+                <div class="project-card-category">Research</div>
+                <h2 class="project-card-title">
                     COCO Person Segmentation
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4 text-text-dim transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"><path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 001.06 0l7.22-7.22v5.69a.75.75 0 001.5 0v-7.5a.75.75 0 00-.75-.75h-7.5a.75.75 0 000 1.5h5.69l-7.22 7.22a.75.75 0 000 1.06z" clip-rule="evenodd"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 001.06 0l7.22-7.22v5.69a.75.75 0 001.5 0v-7.5a.75.75 0 00-.75-.75h-7.5a.75.75 0 000 1.5h5.69l-7.22 7.22a.75.75 0 000 1.06z" clip-rule="evenodd"/></svg>
                 </h2>
-                <p class="mt-3 text-sm text-text-mid font-light leading-relaxed max-w-2xl">
+                <p class="project-card-desc">
                     Developed "Diamondback," a semantic segmentation model for human body segmentation (CS 191 senior project). Dense convolutional connections with DenseNet-161 encoder for high-resolution predictions on MS COCO.
                 </p>
-                <div class="mt-4 flex flex-wrap gap-1.5">
+                <div class="project-card-pills">
                     <span class="pill">Python</span><span class="pill">Keras</span><span class="pill">TensorFlow</span><span class="pill">MS COCO</span>
                 </div>
             </a>
@@ -215,22 +178,45 @@
     </main>
 
     <!-- Footer -->
-    <footer class="mt-8 pb-16 text-center">
-        <div class="flex items-center justify-center gap-6 mb-6">
-            <a href="https://github.com/Maninae" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="GitHub">
+    <footer class="footer">
+        <span class="footer-text">Owen Wang, 2026</span>
+        <div class="social-links">
+            <a href="https://github.com/Maninae" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="GitHub" title="GitHub">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.802 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.087-.731.084-.67.084-.67 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.492.998.108-.77.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.046.138 3.003.404 2.292-1.552 3.3-1.23 3.3-1.23.653 1.652.242 2.873.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.923.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.79 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
             </a>
-            <a href="https://www.linkedin.com/in/ojwang/" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="LinkedIn">
+            <a href="https://www.linkedin.com/in/ojwang/" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="LinkedIn" title="LinkedIn">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.568-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
             </a>
-            <a href="mailto:owenwang0328@gmail.com" class="social-icon" aria-label="Email">
+            <a href="mailto:owenwang0328@gmail.com" class="social-link" aria-label="Email" title="Email">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M1.5 8.67v8.58a3 3 0 003 3h15a3 3 0 003-3V8.67l-8.928 5.493a3 3 0 01-3.144 0L1.5 8.67z"/><path d="M22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.978a1.5 1.5 0 001.572 0L22.5 6.908z"/></svg>
             </a>
         </div>
-        <p class="text-xs text-text-dim tracking-wide">Owen Wang, 2026</p>
     </footer>
 
     <script>
+        // Nav scroll effect
+        const nav = document.getElementById('nav');
+        window.addEventListener('scroll', () => {
+            nav.classList.toggle('scrolled', window.scrollY > 40);
+        }, { passive: true });
+
+        // Theme toggle
+        const toggle = document.getElementById('themeToggle');
+        const html = document.documentElement;
+        const saved = localStorage.getItem('theme');
+        if (saved) {
+            html.setAttribute('data-theme', saved);
+        } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            html.setAttribute('data-theme', 'dark');
+        }
+        toggle.addEventListener('click', () => {
+            const current = html.getAttribute('data-theme');
+            const next = current === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', next);
+            localStorage.setItem('theme', next);
+        });
+
+        // Reveal on scroll
         const revealObs = new IntersectionObserver((entries) => {
             entries.forEach(e => {
                 if (e.isIntersecting) e.target.classList.add('visible');
