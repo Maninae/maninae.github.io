@@ -3,142 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>POST TITLE — Owen Wang</title>
-    <meta name="description" content="POST DESCRIPTION">
+    <title>About — Owen Wang</title>
+    <meta name="description" content="Owen Wang — Computer Vision and Machine Learning Engineer.">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="styles.css">
 
     <style>
-        .article-main {
-            max-width: 680px;
+        .page-main {
+            max-width: 620px;
             margin: 0 auto;
-            padding: 8rem 1.5rem 6rem;
+            padding: 9rem 1.5rem 6rem;
         }
-
-        /* Back link */
-        .back-link {
-            display: inline-flex;
+        .about-photo-large {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: var(--bg-warm);
+            border: 2px solid var(--border);
+            display: flex;
             align-items: center;
-            gap: 0.4rem;
-            font-size: 0.85rem;
-            color: var(--text-dim);
-            text-decoration: none;
-            margin-bottom: 3rem;
-            transition: color 0.3s ease;
+            justify-content: center;
+            margin-bottom: 1.5rem;
         }
-        .back-link:hover {
-            color: var(--accent);
-        }
-        .back-link svg {
-            width: 0.85rem;
-            height: 0.85rem;
-            transition: transform 0.3s ease;
-        }
-        .back-link:hover svg {
-            transform: translateX(-3px);
-        }
-
-        /* Article header */
-        .article-header {
-            margin-bottom: 3rem;
-        }
-        .article-header h1 {
+        .about-photo-large span {
             font-family: 'Cormorant Garamond', Georgia, serif;
-            font-size: 2rem;
+            font-size: 2.2rem;
             font-weight: 600;
-            color: var(--text);
-            line-height: 1.2;
-            letter-spacing: -0.01em;
-        }
-        .article-header .article-date {
-            margin-top: 1rem;
-            font-size: 0.82rem;
             color: var(--text-dim);
+            line-height: 1;
         }
-
-        /* Article typography */
-        .article-body {
-            font-size: 1.05rem;
-            line-height: 1.85;
-            color: var(--text-mid);
-        }
-        .article-body h2 {
+        .page-title {
             font-family: 'Cormorant Garamond', Georgia, serif;
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: var(--text);
-            margin-top: 3rem;
-            margin-bottom: 1rem;
-        }
-        .article-body h3 {
-            font-family: 'DM Sans', system-ui, sans-serif;
-            font-size: 1.1rem;
+            font-size: 2.5rem;
             font-weight: 500;
             color: var(--text);
-            margin-top: 2rem;
-            margin-bottom: 0.75rem;
+            margin-bottom: 0.3rem;
         }
-        .article-body p {
-            margin-bottom: 1.25rem;
-        }
-        .article-body a {
-            color: var(--accent);
-            text-decoration: underline;
-            text-decoration-color: var(--accent-subtle);
-            text-underline-offset: 3px;
-            transition: text-decoration-color 0.3s ease;
-        }
-        .article-body a:hover {
-            text-decoration-color: var(--accent);
-        }
-        .article-body blockquote {
-            border-left: 3px solid var(--accent);
-            padding-left: 1.25rem;
-            margin: 1.5rem 0;
-            font-style: italic;
+        .chinese-name {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 1.2rem;
+            font-weight: 400;
             color: var(--text-dim);
+            letter-spacing: 0.15em;
+            margin-bottom: 2.5rem;
         }
-        .article-body code {
-            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
-            font-size: 0.88em;
-            background: var(--bg-warm);
-            padding: 0.15rem 0.4rem;
-            border-radius: 4px;
+        .about-body {
+            font-size: 0.95rem;
+            font-weight: 300;
+            color: var(--text-mid);
+            line-height: 1.85;
         }
-        .article-body pre {
-            background: var(--bg-warm);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 1.25rem;
-            overflow-x: auto;
-            margin: 1.5rem 0;
+        .about-body p + p {
+            margin-top: 1.25rem;
         }
-        .article-body pre code {
-            background: none;
-            padding: 0;
-            font-size: 0.85rem;
-            line-height: 1.6;
+        .resume-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 3rem;
+            font-size: 0.88rem;
+            font-weight: 500;
+            color: var(--accent);
+            text-decoration: none;
+            transition: gap 0.3s ease, color 0.3s ease;
         }
-        .article-body ul, .article-body ol {
-            margin: 1rem 0;
-            padding-left: 1.5rem;
-        }
-        .article-body li {
-            margin-bottom: 0.5rem;
-        }
-        .article-body img {
-            border-radius: 8px;
-            border: 1px solid var(--border);
-            margin: 1.5rem 0;
-            max-width: 100%;
-        }
-        .article-body hr {
-            border: none;
-            border-top: 1px solid var(--border);
-            margin: 2.5rem 0;
+        .resume-link:hover {
+            color: var(--accent-hover);
+            gap: 0.75rem;
         }
     </style>
 </head>
@@ -148,28 +82,28 @@
     <!-- Navigation -->
     <header class="nav" id="nav">
         <div class="nav-inner">
-            <a href="../index.html" class="nav-home">Owen Wang</a>
+            <a href="index.html" class="nav-home">Owen Wang</a>
             <div class="nav-right">
                 <nav class="nav-links">
                     <div class="nav-link-wrap">
                         <span class="nav-dot"></span>
-                        <a href="../index.html">Home</a>
+                        <a href="index.html">Home</a>
+                    </div>
+                    <div class="nav-link-wrap">
+                        <span class="nav-dot"></span>
+                        <a href="writing.html">Writing</a>
+                    </div>
+                    <div class="nav-link-wrap">
+                        <span class="nav-dot"></span>
+                        <a href="work.html">Work</a>
+                    </div>
+                    <div class="nav-link-wrap">
+                        <span class="nav-dot"></span>
+                        <a href="projects.html">Projects</a>
                     </div>
                     <div class="nav-link-wrap active">
                         <span class="nav-dot"></span>
-                        <a href="../writing.html">Writing</a>
-                    </div>
-                    <div class="nav-link-wrap">
-                        <span class="nav-dot"></span>
-                        <a href="../work.html">Work</a>
-                    </div>
-                    <div class="nav-link-wrap">
-                        <span class="nav-dot"></span>
-                        <a href="../projects.html">Projects</a>
-                    </div>
-                    <div class="nav-link-wrap">
-                        <span class="nav-dot"></span>
-                        <a href="../about.html">About</a>
+                        <a href="about.html">About</a>
                     </div>
                 </nav>
                 <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
@@ -184,54 +118,26 @@
         </div>
     </header>
 
-    <!-- Article -->
-    <main class="article-main">
+    <!-- Main content -->
+    <main class="page-main">
 
-        <!-- Back link -->
-        <a href="../writing.html" class="back-link">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M17 10a.75.75 0 01-.75.75H5.612l4.158 4.167a.75.75 0 11-1.06 1.06l-5.5-5.5a.75.75 0 010-1.06l5.5-5.5a.75.75 0 111.06 1.06L5.612 9.25H16.25A.75.75 0 0117 10z" clip-rule="evenodd"/></svg>
-            Back to Writing
+        <div class="fade-in">
+            <div class="about-photo-large">
+                <span>OW</span>
+            </div>
+        </div>
+
+        <h1 class="page-title fade-in fade-in-d1">About</h1>
+        <p class="chinese-name fade-in fade-in-d1">汪峻加</p>
+
+        <div class="about-body fade-in fade-in-d2">
+            <p>I am a Computer Vision / Machine Learning Engineer with 7+ years of experience building robust AI solutions. My background is grounded in core tasks like object detection and segmentation, while my recent focus has centered on leveraging modern diffusion-based methods for generative modeling.</p>
+            <p>I care deeply about the engineering craft. I love writing well-architected, structured code that turns experimental ideas into reliable systems. I enjoy taking state-of-the-art papers and adapting them to new problem domains, and optimizing models for fast inference in constrained, real-world production environments.</p>
+        </div>
+
+        <a href="resume.pdf" target="_blank" rel="noopener noreferrer" class="resume-link fade-in fade-in-d3">
+            Download Resume (PDF) <span aria-hidden="true">&rarr;</span>
         </a>
-
-        <!-- Article header -->
-        <header class="article-header">
-            <h1>POST TITLE HERE</h1>
-            <p class="article-date">February 28, 2026</p>
-        </header>
-
-        <!-- Article body -->
-        <article class="article-body">
-
-            <p>Your article content goes here. This template includes styling for all common elements you might use in a post.</p>
-
-            <h2>Section Heading</h2>
-
-            <p>Body text with a <a href="#">link example</a> and some <code>inline code</code>. The typography is set for comfortable long-form reading.</p>
-
-            <blockquote>
-                This is a blockquote. Use it for emphasis or to highlight a key idea.
-            </blockquote>
-
-            <h3>Subsection</h3>
-
-            <p>More content here. The line height and font size are tuned for readability.</p>
-
-            <pre><code>// Code block example
-function hello() {
-    console.log("Hello, world");
-}</code></pre>
-
-            <ul>
-                <li>List item one</li>
-                <li>List item two</li>
-                <li>List item three</li>
-            </ul>
-
-            <hr>
-
-            <p>Closing thoughts.</p>
-
-        </article>
 
     </main>
 
