@@ -266,18 +266,6 @@ body {
     transition: background 0.2s ease;
 }
 
-/* ---- CARD (for work/projects pages) ---- */
-.card {
-    padding: 1.25rem 1.5rem;
-    border-radius: 0.75rem;
-    border: 1px solid transparent;
-    transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-}
-.card:hover {
-    background: var(--bg-warm);
-    border-color: var(--border);
-}
-
 /* ---- REVEAL ANIMATION ---- */
 .reveal {
     opacity: 0;

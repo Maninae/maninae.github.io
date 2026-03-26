@@ -1,2 +1,7 @@
 .worktrees/
 .superpowers/
+.claude/
+.DS_Store
+*.swp
+.env
+*.log
