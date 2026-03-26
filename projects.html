@@ -94,8 +94,10 @@
             gap: 0.4rem;
             margin-top: 1rem;
         }
+        .col-break { break-after: column; }
         @media (max-width: 768px) {
             .project-cards { columns: 2; }
+            .col-break { break-after: auto; }
         }
         @media (max-width: 640px) {
             .project-cards { columns: 1; }
@@ -170,7 +172,7 @@
                 </div>
             </a>
 
-            <a href="https://github.com/Maninae/monarch-money-cli" target="_blank" class="project-card reveal">
+            <a href="https://github.com/Maninae/monarch-money-cli" target="_blank" class="project-card reveal col-break">
                 <div class="project-card-category">Tool</div>
                 <h2 class="project-card-title">
                     Monarch Money CLI
@@ -198,7 +200,7 @@
                 </div>
             </a>
 
-            <a href="https://maninae.github.io/cs234/" target="_blank" class="project-card reveal">
+            <a href="https://maninae.github.io/cs234/" target="_blank" class="project-card reveal col-break">
                 <div class="project-card-category">Learning</div>
                 <h2 class="project-card-title">
                     CS234: Reinforcement Learning
