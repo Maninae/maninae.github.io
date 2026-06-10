@@ -5,3 +5,7 @@
 *.swp
 .env
 *.log
+
+# Local-only dev tooling (inline HTML editor)
+dev-editor.js
+dev-server.py

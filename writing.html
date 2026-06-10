@@ -4,16 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Writing — Owen Wang</title>
-    <meta name="description" content="Owen Wang — thoughts on engineering, craft, and the things I'm paying attention to.">
+    <meta name="description" content="Owen Wang — long-form writing on building, thinking, and making things work.">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Owen Wang">
     <meta property="og:url" content="https://maninae.github.io/writing.html">
     <meta property="og:title" content="Writing — Owen Wang">
-    <meta property="og:description" content="Owen Wang — thoughts on engineering, craft, and the things I'm paying attention to.">
+    <meta property="og:description" content="Owen Wang — long-form writing on building, thinking, and making things work.">
     <meta property="og:image" content="https://maninae.github.io/assets/owen-profile.png">
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="Writing — Owen Wang">
-    <meta name="twitter:description" content="Owen Wang — thoughts on engineering, craft, and the things I'm paying attention to.">
+    <meta name="twitter:description" content="Owen Wang — long-form writing on building, thinking, and making things work.">
     <meta name="twitter:image" content="https://maninae.github.io/assets/owen-profile.png">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -42,16 +42,120 @@
             font-weight: 300;
             text-align: center;
             margin-bottom: 4rem;
+            line-height: 1.6;
         }
-        .empty-state {
-            text-align: center;
-            padding: 4rem 0;
+
+        /* ---- POST CARDS ---- */
+        .post-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
         }
-        .empty-state p {
-            font-family: 'Cormorant Garamond', Georgia, serif;
-            font-size: 1.1rem;
-            font-style: italic;
+        .post-card {
+            display: block;
+            text-decoration: none;
+            padding: 2rem 0;
+            border-top: 1px solid var(--border-light);
+            transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .post-card:last-child {
+            border-bottom: 1px solid var(--border-light);
+        }
+        .post-card:hover {
+            transform: translateX(4px);
+        }
+        .post-card-upper {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+            flex-wrap: wrap;
+        }
+        .post-card-date {
+            font-size: 0.75rem;
             color: var(--text-dim);
+            font-weight: 400;
+        }
+        .post-card-tag {
+            font-size: 0.65rem;
+            font-weight: 500;
+            letter-spacing: 0.04em;
+            color: var(--accent);
+            background: var(--accent-subtle);
+            padding: 0.12rem 0.5rem;
+            border-radius: 3px;
+        }
+        .post-card-dot {
+            width: 3px;
+            height: 3px;
+            border-radius: 50%;
+            background: var(--border);
+        }
+        .post-card-reading-time {
+            font-size: 0.72rem;
+            color: var(--text-dim);
+            font-weight: 400;
+        }
+        .post-card-title {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text);
+            line-height: 1.3;
+            margin-bottom: 0.5rem;
+            transition: color 0.3s ease;
+        }
+        .post-card:hover .post-card-title {
+            color: var(--accent);
+        }
+        .post-card-desc {
+            font-size: 0.88rem;
+            font-weight: 300;
+            color: var(--text-mid);
+            line-height: 1.65;
+            margin-bottom: 0.75rem;
+        }
+        .post-card-read {
+            font-size: 0.78rem;
+            font-weight: 500;
+            color: var(--accent);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            transition: gap 0.3s ease;
+        }
+        .post-card:hover .post-card-read {
+            gap: 0.55rem;
+        }
+
+        /* ---- EPIGRAPH (the subtle design touch) ---- */
+        .epigraph {
+            text-align: center;
+            margin-bottom: 3.5rem;
+            padding: 0 2rem;
+        }
+        .epigraph-line {
+            display: inline-block;
+            width: 40px;
+            height: 1px;
+            background: var(--border);
+            vertical-align: middle;
+            margin: 0 0.75rem;
+        }
+        .epigraph-symbol {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 1.4rem;
+            color: var(--accent);
+            opacity: 0.5;
+            vertical-align: middle;
+            font-weight: 400;
+        }
+
+        /* ---- RESPONSIVE ---- */
+        @media (max-width: 640px) {
+            .page-main { padding-top: 6rem; }
+            .page-title { font-size: 2rem; }
+            .post-card-title { font-size: 1.3rem; }
         }
     </style>
 </head>
@@ -103,29 +207,62 @@
         <!-- Header -->
         <div>
             <h1 class="page-title enter">Writing</h1>
-            <p class="page-subtitle enter enter-d1">On engineering, ideas, and what I'm paying attention to.</p>
+            <p class="page-subtitle enter enter-d1">Long-form writing on building, thinking, and making things work.</p>
         </div>
 
-        <!-- Empty state -->
-        <div class="empty-state enter enter-d2">
-            <p>New writing coming soon.</p>
+        <!-- Epigraph ornament -->
+        <div class="epigraph enter enter-d1">
+            <span class="epigraph-line"></span>
+            <span class="epigraph-symbol">&sect;</span>
+            <span class="epigraph-line"></span>
         </div>
 
-        <!--
-        Post listing template (uncomment and duplicate when adding posts):
+        <!-- Post listing -->
+        <div class="post-list enter enter-d2">
 
-        <div style="border-top: 1px solid var(--border); padding: 1.5rem 0;">
-            <div style="display: flex; flex-direction: column; gap: 0.25rem;">
-                <span style="font-size: 0.75rem; color: var(--text-dim);">Feb 2026</span>
-                <a href="writing/post-slug.html" style="font-family: 'Cormorant Garamond', Georgia, serif; font-size: 1.1rem; font-weight: 600; color: var(--text); text-decoration: none; transition: color 0.3s;">
-                    Post Title Here
-                </a>
-                <p style="font-size: 0.88rem; color: var(--text-mid); font-weight: 300; line-height: 1.6;">
-                    A one-line description of the post.
-                </p>
-            </div>
+            <!-- Post 1: AI OS (technical) -->
+            <a href="writing/building-a-personal-ai-os.html" class="post-card">
+                <div class="post-card-upper">
+                    <span class="post-card-date">April 2026</span>
+                    <span class="post-card-tag">Technical</span>
+                    <span class="post-card-dot"></span>
+                    <span class="post-card-reading-time">15 min</span>
+                </div>
+                <h2 class="post-card-title">Building a Personal AI Operating System</h2>
+                <p class="post-card-desc">2.5 months of building a memory system, prompt injection firewall, and self-maintaining AI assistant. What I learned, what broke, and what I'd do differently.</p>
+                <span class="post-card-read">Read <span aria-hidden="true">&rarr;</span></span>
+            </a>
+
+            <!-- Post 2: 73 Reflections (philosophical) -->
+            <a href="writing/73-reflections.html" class="post-card">
+                <div class="post-card-upper">
+                    <span class="post-card-date">April 2026</span>
+                    <span class="post-card-tag">Philosophical</span>
+                    <span class="post-card-dot"></span>
+                    <span class="post-card-reading-time">18 min</span>
+                </div>
+                <h2 class="post-card-title">73 Reflections: What Happens When You Give an AI a Blank Page</h2>
+                <p class="post-card-desc">I gave my AI assistant read access to my life and a blank page. Over 2.5 months, 73 different instances left something behind. An experiment in artificial continuity.</p>
+                <span class="post-card-read">Read <span aria-hidden="true">&rarr;</span></span>
+            </a>
+
+            <!--
+            Template — copy this block for new posts:
+
+            <a href="writing/POST-SLUG.html" class="post-card">
+                <div class="post-card-upper">
+                    <span class="post-card-date">Month YYYY</span>
+                    <span class="post-card-tag">Tag</span>
+                    <span class="post-card-dot"></span>
+                    <span class="post-card-reading-time">X min</span>
+                </div>
+                <h2 class="post-card-title">Post Title</h2>
+                <p class="post-card-desc">One or two sentence description.</p>
+                <span class="post-card-read">Read <span aria-hidden="true">&rarr;</span></span>
+            </a>
+            -->
+
         </div>
-        -->
 
     </main>
 
