@@ -18,16 +18,17 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="stylesheet" href="styles.css">
 
     <style>
         .page-main {
-            max-width: 1080px;
+            max-width: 1180px;
             margin: 0 auto;
-            padding: 8rem 1.5rem 6rem;
+            padding: 8rem 0 6rem;
         }
+        .page-head { padding: 0 1.5rem; }
         .page-title {
             font-family: 'Cormorant Garamond', Georgia, serif;
             font-size: 2.5rem;
@@ -41,77 +42,239 @@
             color: var(--text-mid);
             font-weight: 300;
             text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        /* ---- CATEGORY JUMP NAV ---- */
+        .cat-nav {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            padding: 0.85rem 1.5rem;
             margin-bottom: 3rem;
+            background: color-mix(in srgb, var(--bg) 86%, transparent);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.3s ease;
         }
-        .project-cards {
-            columns: 3;
-            column-gap: 1.25rem;
+        .cat-nav.stuck { border-bottom-color: var(--border); }
+        .cat-nav a {
+            font-family: 'DM Sans', system-ui, sans-serif;
+            font-size: 0.74rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text-dim);
+            text-decoration: none;
+            padding: 0.4rem 0.9rem;
+            border-radius: 100px;
+            border: 1px solid transparent;
+            transition: color 0.25s ease, background 0.25s ease, border-color 0.25s ease;
         }
-        .project-card {
-            display: inline-block;
-            width: 100%;
-            break-inside: avoid;
-            margin-bottom: 1.25rem;
+        .cat-nav a:hover { color: var(--accent); }
+        .cat-nav a .count { font-size: 0.66rem; opacity: 0.6; margin-left: 0.3rem; }
+        .cat-nav a.active {
+            color: var(--accent);
+            background: var(--accent-subtle);
+            border-color: color-mix(in srgb, var(--accent) 28%, transparent);
+        }
+
+        /* ---- CATEGORY SECTION ---- */
+        .cat-section { margin-bottom: 4rem; scroll-margin-top: 4.5rem; }
+        .cat-section:last-child { margin-bottom: 0; }
+        .cat-head {
+            display: flex;
+            align-items: baseline;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding: 0 1.5rem;
+        }
+        .cat-head h2 {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 1.75rem;
+            font-weight: 600;
+            color: var(--text);
+            white-space: nowrap;
+        }
+        .cat-head .cat-count {
+            font-family: 'DM Mono', ui-monospace, monospace;
+            font-size: 0.78rem;
+            color: var(--text-dim);
+            transform: translateY(-0.35rem);
+        }
+        .cat-head .cat-desc {
+            font-size: 0.82rem;
+            font-weight: 300;
+            color: var(--text-mid);
+            margin-left: auto;
+            text-align: right;
+            white-space: nowrap;
+        }
+        .cat-rule {
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+            margin: 0 0.25rem;
+            transform: translateY(-0.35rem);
+        }
+        .cat-hint {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            font-size: 0.7rem;
+            color: var(--text-dim);
+            opacity: 0.7;
+            transform: translateY(-0.3rem);
+        }
+        .cat-hint svg { width: 0.9rem; height: 0.9rem; }
+
+        /* ---- HORIZONTAL AUTO-SCROLL ROW (marquee) ---- */
+        .row-viewport {
+            overflow: hidden;
+            padding: 18px 0;
+            -webkit-mask-image: linear-gradient(to right, transparent 0, #000 5%, #000 95%, transparent 100%);
+                    mask-image: linear-gradient(to right, transparent 0, #000 5%, #000 95%, transparent 100%);
+        }
+        .row-track {
+            display: flex;
+            align-items: stretch;
+            gap: 1.5rem;
+            width: max-content;
+            padding: 0 1.5rem;
+            will-change: transform;
+        }
+        .row-track.anim-left  { animation: marquee-left  linear infinite; }
+        .row-track.anim-right { animation: marquee-right linear infinite; }
+        .row-track:hover,
+        .row-track:focus-within { animation-play-state: paused; }
+        @keyframes marquee-left  { to   { transform: translateX(calc(-1 * var(--loop))); } }
+        @keyframes marquee-right { from { transform: translateX(calc(-1 * var(--loop))); } }
+
+        /* ---- PROJECT CARD (unchanged from V2) ---- */
+        .pcard {
+            flex: 0 0 332px;
+            width: 332px;
+            display: flex;
+            flex-direction: column;
             background: var(--bg-warm);
             border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 2rem;
+            border-radius: 14px;
+            overflow: hidden;
             text-decoration: none;
             transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
                         border-color 0.4s ease,
                         box-shadow 0.45s cubic-bezier(0.22, 1, 0.36, 1);
         }
-        .project-card:hover {
-            transform: translateY(-3px);
+        .pcard:hover {
+            transform: translateY(-4px);
             border-color: var(--accent);
-            box-shadow: 0 6px 24px rgba(44, 36, 24, 0.06);
+            box-shadow: 0 14px 34px rgba(44, 36, 24, 0.10);
         }
-        .project-card:hover .project-card-title {
-            color: var(--accent);
+        [data-theme="dark"] .pcard:hover { box-shadow: 0 14px 34px rgba(0, 0, 0, 0.35); }
+
+        /* ---- FLUID COVER ---- */
+        .pcard-cover {
+            position: relative;
+            aspect-ratio: 16 / 10;
+            overflow: hidden;
+            background: var(--bg-illustration);
         }
-        .project-card-category {
-            font-size: 0.72rem;
-            font-weight: 600;
-            letter-spacing: 0.16em;
-            text-transform: uppercase;
-            color: var(--text-dim);
-            margin-bottom: 0.75rem;
+        .pcard-cover img,
+        .pcard-cover svg {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
         }
-        .project-card-title {
+        .pcard:hover .pcard-cover img,
+        .pcard:hover .pcard-cover svg { transform: scale(1.045); }
+        .pcard-cover::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom,
+                        transparent 0%,
+                        transparent 52%,
+                        color-mix(in srgb, var(--bg-warm) 55%, transparent) 78%,
+                        var(--bg-warm) 100%);
+            pointer-events: none;
+        }
+
+        /* ---- CARD BODY ---- */
+        .pcard-body {
+            position: relative;
+            z-index: 1;
+            margin-top: -1.4rem;
+            padding: 0 1.5rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+        .pcard-title {
             font-family: 'Cormorant Garamond', Georgia, serif;
             font-size: 1.3rem;
+            line-height: 1.2;
             font-weight: 600;
             color: var(--text);
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.4rem;
             transition: color 0.3s ease;
         }
-        .project-card-title svg {
-            width: 0.85rem;
-            height: 0.85rem;
+        .pcard:hover .pcard-title { color: var(--accent); }
+        .pcard-title svg.linkout {
+            width: 0.8rem;
+            height: 0.8rem;
+            flex-shrink: 0;
+            margin-top: 0.28rem;
             color: var(--text-dim);
+            transition: color 0.3s ease, transform 0.3s ease;
         }
-        .project-card-desc {
-            margin-top: 0.75rem;
-            font-size: 0.88rem;
+        .pcard:hover .pcard-title svg.linkout { color: var(--accent); transform: translate(2px, -2px); }
+        .pcard-desc {
+            margin-top: 0.6rem;
+            font-size: 0.85rem;
             color: var(--text-mid);
             font-weight: 300;
             line-height: 1.6;
         }
-        .project-card-pills {
+        .pcard-pills {
             display: flex;
             flex-wrap: wrap;
             gap: 0.4rem;
-            margin-top: 1rem;
+            margin-top: auto;
+            padding-top: 1rem;
         }
-        .col-break { break-after: column; }
-        @media (max-width: 768px) {
-            .project-cards { columns: 2; }
-            .col-break { break-after: auto; }
+
+        /* ---- SVG MOTIF COVER HELPERS ---- */
+        .motif-bg { fill: var(--bg-illustration); }
+        .motif-accent { fill: var(--accent); }
+        .motif-accent-s { fill: var(--accent-subtle); }
+        .motif-dim { fill: var(--text-dim); }
+        .motif-text { font-family: 'DM Mono', ui-monospace, monospace; fill: var(--text-mid); }
+
+        /* ---- RESPONSIVE ---- */
+        @media (max-width: 560px) {
+            .page-main { padding-top: 6.5rem; }
+            .pcard { flex-basis: 80vw; width: 80vw; }
+            .cat-head .cat-desc { display: none; }
         }
-        @media (max-width: 640px) {
-            .project-cards { columns: 1; }
+
+        /* ---- REDUCED MOTION: manual horizontal scroll instead of auto ---- */
+        @media (prefers-reduced-motion: reduce) {
+            .row-viewport { overflow-x: auto; scroll-snap-type: x proximity; }
+            .row-track { animation: none !important; transform: none !important; }
+            .row-track .is-clone { display: none; }
+            .pcard { scroll-snap-align: start; }
+            .pcard, .pcard-cover img, .pcard-cover svg { transition: none; }
         }
     </style>
 </head>
@@ -124,26 +287,11 @@
             <a href="index.html" class="nav-home">Owen Wang</a>
             <div class="nav-right">
                 <nav class="nav-links">
-                    <div class="nav-link-wrap">
-                        <span class="nav-dot"></span>
-                        <a href="index.html">Home</a>
-                    </div>
-                    <div class="nav-link-wrap">
-                        <span class="nav-dot"></span>
-                        <a href="writing.html">Writing</a>
-                    </div>
-                    <div class="nav-link-wrap">
-                        <span class="nav-dot"></span>
-                        <a href="work.html">Work</a>
-                    </div>
-                    <div class="nav-link-wrap active">
-                        <span class="nav-dot"></span>
-                        <a href="projects.html">Projects</a>
-                    </div>
-                    <div class="nav-link-wrap">
-                        <span class="nav-dot"></span>
-                        <a href="about.html">About</a>
-                    </div>
+                    <div class="nav-link-wrap"><span class="nav-dot"></span><a href="index.html">Home</a></div>
+                    <div class="nav-link-wrap"><span class="nav-dot"></span><a href="writing.html">Writing</a></div>
+                    <div class="nav-link-wrap"><span class="nav-dot"></span><a href="work.html">Work</a></div>
+                    <div class="nav-link-wrap active"><span class="nav-dot"></span><a href="projects.html">Projects</a></div>
+                    <div class="nav-link-wrap"><span class="nav-dot"></span><a href="about.html">About</a></div>
                 </nav>
                 <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
                     <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
@@ -160,142 +308,236 @@
     <!-- Main content -->
     <main class="page-main">
 
-        <!-- Header -->
-        <div class="enter">
+        <div class="enter page-head">
             <h1 class="page-title">Projects</h1>
-            <p class="page-subtitle enter enter-d1">Side projects, research explorations, and open-source work.</p>
+            <p class="page-subtitle">Side projects, research explorations, and open-source work.</p>
         </div>
 
-        <!-- Project cards — ordered for balanced 3-column masonry (3-3-3) -->
-        <div class="project-cards">
+        <!-- Category jump nav -->
+        <nav class="cat-nav" id="catNav" aria-label="Project categories">
+            <a href="#tools" data-cat="tools">Tools <span class="count">2</span></a>
+            <a href="#learning" data-cat="learning">Learning <span class="count">5</span></a>
+            <a href="#research" data-cat="research">Research <span class="count">2</span></a>
+        </nav>
 
-            <a href="https://maninae.github.io/valence/" target="_blank" class="project-card reveal">
-                <div class="project-card-category">Learning</div>
-                <h2 class="project-card-title">
-                    Valence
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 001.06 0l7.22-7.22v5.69a.75.75 0 001.5 0v-7.5a.75.75 0 00-.75-.75h-7.5a.75.75 0 000 1.5h5.69l-7.22 7.22a.75.75 0 000 1.06z" clip-rule="evenodd"/></svg>
-                </h2>
-                <p class="project-card-desc">
-                    Interactive chemistry from first principles. Rotate real electron orbitals in 3D, watch energy levels drift and cross to explain the periodic table's shape, and build molecules with live octet checking. No chemistry background needed.
-                </p>
-                <div class="project-card-pills">
-                    <span class="pill">Chemistry</span><span class="pill">Interactive Learning</span><span class="pill">Three.js</span>
+        <!-- ============ TOOLS ============ -->
+        <section class="cat-section" id="tools">
+            <div class="cat-head">
+                <h2>Tools</h2>
+                <span class="cat-count">02</span>
+                <span class="cat-rule"></span>
+                <span class="cat-hint" aria-hidden="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg>
+                    auto-scrolls · hover to pause
+                </span>
+            </div>
+            <div class="row-viewport">
+                <div class="row-track" data-dir="left">
+
+                    <a href="https://maninae.github.io/grid-atlas/" target="_blank" class="pcard">
+                        <div class="pcard-cover"><img src="assets/projects/grid-atlas.jpg" alt="Grid Atlas — US electricity maps" loading="lazy"></div>
+                        <div class="pcard-body">
+                            <h3 class="pcard-title">Grid Atlas
+                                <svg class="linkout" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 001.06 0l7.22-7.22v5.69a.75.75 0 001.5 0v-7.5a.75.75 0 00-.75-.75h-7.5a.75.75 0 000 1.5h5.69l-7.22 7.22a.75.75 0 000 1.06z" clip-rule="evenodd"/></svg>
+                            </h3>
+                            <p class="pcard-desc">Where does your electricity come from? Type your ZIP and meet your grid — fuel mix, CO₂ per kWh, prices, and 25 years of change, drawn from public EPA and EIA data.</p>
+                            <div class="pcard-pills"><span class="pill">Energy</span><span class="pill">Public Data</span><span class="pill">Data Viz</span></div>
+                        </div>
+                    </a>
+
+                    <a href="https://github.com/Maninae/monarch-money-cli" target="_blank" class="pcard">
+                        <div class="pcard-cover">
+                            <svg viewBox="0 0 480 300" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Terminal showing Monarch Money CLI commands">
+                                <rect class="motif-bg" x="0" y="0" width="480" height="300"/>
+                                <rect x="64" y="44" width="352" height="190" rx="12" fill="var(--bg)" stroke="var(--border)" stroke-width="1.5"/>
+                                <rect x="64" y="44" width="352" height="30" rx="12" fill="var(--bg-illustration)"/>
+                                <rect x="64" y="62" width="352" height="12" fill="var(--bg-illustration)"/>
+                                <circle cx="84" cy="59" r="4" fill="var(--accent)"/>
+                                <circle cx="100" cy="59" r="4" class="motif-dim"/>
+                                <circle cx="116" cy="59" r="4" class="motif-dim"/>
+                                <text class="motif-text" x="84" y="103" font-size="13"><tspan fill="var(--accent)">$</tspan> monarch accounts</text>
+                                <text class="motif-text" x="84" y="125" font-size="11" fill="var(--text-dim)">  Checking   $4,182</text>
+                                <text class="motif-text" x="84" y="143" font-size="11" fill="var(--text-dim)">  Brokerage  $61,907</text>
+                                <text class="motif-text" x="84" y="171" font-size="13"><tspan fill="var(--accent)">$</tspan> monarch cashflow --jun</text>
+                                <rect x="86"  y="206" width="14" height="14" rx="2" class="motif-accent-s"/>
+                                <rect x="106" y="198" width="14" height="22" rx="2" class="motif-accent-s"/>
+                                <rect x="126" y="188" width="14" height="32" rx="2" class="motif-accent"/>
+                                <rect x="146" y="200" width="14" height="20" rx="2" class="motif-accent-s"/>
+                                <rect x="166" y="194" width="14" height="26" rx="2" class="motif-accent-s"/>
+                                <rect x="186" y="184" width="14" height="36" rx="2" class="motif-accent"/>
+                                <text class="motif-text" x="220" y="217" font-size="11" fill="var(--text-dim)">savings 31%</text>
+                            </svg>
+                        </div>
+                        <div class="pcard-body">
+                            <h3 class="pcard-title">Monarch Money CLI
+                                <svg class="linkout" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 001.06 0l7.22-7.22v5.69a.75.75 0 001.5 0v-7.5a.75.75 0 00-.75-.75h-7.5a.75.75 0 000 1.5h5.69l-7.22 7.22a.75.75 0 000 1.06z" clip-rule="evenodd"/></svg>
+                            </h3>
+                            <p class="pcard-desc">A full-featured CLI for Monarch Money. Query accounts, transactions, budgets, and cashflow from the terminal — JSON output for AI agents, clean tables for humans.</p>
+                            <div class="pcard-pills"><span class="pill">Python</span><span class="pill">CLI</span><span class="pill">Personal Finance</span></div>
+                        </div>
+                    </a>
+
                 </div>
-            </a>
+            </div>
+        </section>
 
-            <a href="https://maninae.github.io/grid-atlas/" target="_blank" class="project-card reveal">
-                <div class="project-card-category">Tool</div>
-                <h2 class="project-card-title">
-                    Grid Atlas
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 001.06 0l7.22-7.22v5.69a.75.75 0 001.5 0v-7.5a.75.75 0 00-.75-.75h-7.5a.75.75 0 000 1.5h5.69l-7.22 7.22a.75.75 0 000 1.06z" clip-rule="evenodd"/></svg>
-                </h2>
-                <p class="project-card-desc">
-                    Where does your electricity come from? Type your ZIP and meet your grid — fuel mix, CO₂ per kWh, prices, and 25 years of change, from public EPA and EIA data.
-                </p>
-                <div class="project-card-pills">
-                    <span class="pill">Energy</span><span class="pill">Public Data</span><span class="pill">Data Viz</span>
+        <!-- ============ LEARNING ============ -->
+        <section class="cat-section" id="learning">
+            <div class="cat-head">
+                <h2>Learning</h2>
+                <span class="cat-count">05</span>
+                <span class="cat-rule"></span>
+                <span class="cat-desc">Interactive sites that teach a hard idea from scratch</span>
+            </div>
+            <div class="row-viewport">
+                <div class="row-track" data-dir="right">
+
+                    <a href="https://maninae.github.io/valence/" target="_blank" class="pcard">
+                        <div class="pcard-cover"><img src="assets/projects/valence.jpg" alt="Valence — 3D electron orbital viewer" loading="lazy"></div>
+                        <div class="pcard-body">
+                            <h3 class="pcard-title">Valence
+                                <svg class="linkout" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 001.06 0l7.22-7.22v5.69a.75.75 0 001.5 0v-7.5a.75.75 0 00-.75-.75h-7.5a.75.75 0 000 1.5h5.69l-7.22 7.22a.75.75 0 000 1.06z" clip-rule="evenodd"/></svg>
+                            </h3>
+                            <p class="pcard-desc">Chemistry from first principles. Rotate real electron orbitals in 3D, watch energy levels cross to explain the periodic table's shape, and build molecules with live octet checking.</p>
+                            <div class="pcard-pills"><span class="pill">Chemistry</span><span class="pill">Three.js</span><span class="pill">Interactive</span></div>
+                        </div>
+                    </a>
+
+                    <a href="https://maninae.github.io/graph-playground/" target="_blank" class="pcard">
+                        <div class="pcard-cover"><img src="assets/projects/graph-playground.jpg" alt="Graph Playground — function transformation curves" loading="lazy"></div>
+                        <div class="pcard-body">
+                            <h3 class="pcard-title">Graph Playground
+                                <svg class="linkout" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 001.06 0l7.22-7.22v5.69a.75.75 0 001.5 0v-7.5a.75.75 0 00-.75-.75h-7.5a.75.75 0 000 1.5h5.69l-7.22 7.22a.75.75 0 000 1.06z" clip-rule="evenodd"/></svg>
+                            </h3>
+                            <p class="pcard-desc">Animation-first intuition for function transformations: why subtracting 3 from x slides a graph right, why a minus sign flips it. Color-coded knobs, a copycat race, and boss levels.</p>
+                            <div class="pcard-pills"><span class="pill">Algebra</span><span class="pill">Math Education</span><span class="pill">Interactive</span></div>
+                        </div>
+                    </a>
+
+                    <a href="https://maninae.github.io/follow-the-drop/" target="_blank" class="pcard">
+                        <div class="pcard-cover"><img src="assets/projects/follow-the-drop.jpg" alt="Follow the Drop — watercolor water-cycle scene" loading="lazy"></div>
+                        <div class="pcard-body">
+                            <h3 class="pcard-title">Follow the Drop
+                                <svg class="linkout" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 001.06 0l7.22-7.22v5.69a.75.75 0 001.5 0v-7.5a.75.75 0 00-.75-.75h-7.5a.75.75 0 000 1.5h5.69l-7.22 7.22a.75.75 0 000 1.06z" clip-rule="evenodd"/></svg>
+                            </h3>
+                            <p class="pcard-desc">Be a drop of water. A choose-your-own-path adventure through the water cycle for young explorers — evaporate from the ocean, ride a cloud, fall as rain, keep a travel journal.</p>
+                            <div class="pcard-pills"><span class="pill">Water Cycle</span><span class="pill">For Kids</span><span class="pill">Story</span></div>
+                        </div>
+                    </a>
+
+                    <a href="https://maninae.github.io/diffusion-from-scratch/" target="_blank" class="pcard">
+                        <div class="pcard-cover"><img src="assets/projects/diffusion-from-scratch.jpg" alt="Diffusion From Scratch — course notes" loading="lazy"></div>
+                        <div class="pcard-body">
+                            <h3 class="pcard-title">Diffusion From Scratch
+                                <svg class="linkout" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 001.06 0l7.22-7.22v5.69a.75.75 0 001.5 0v-7.5a.75.75 0 00-.75-.75h-7.5a.75.75 0 000 1.5h5.69l-7.22 7.22a.75.75 0 000 1.06z" clip-rule="evenodd"/></svg>
+                            </h3>
+                            <p class="pcard-desc">An 11-module curriculum building the full pipeline behind Stable Diffusion and DALL·E 3 in PyTorch — from noise schedules and U-Nets through latent diffusion, DiT, and flow matching.</p>
+                            <div class="pcard-pills"><span class="pill">Diffusion</span><span class="pill">PyTorch</span><span class="pill">Teaching</span></div>
+                        </div>
+                    </a>
+
+                    <a href="https://maninae.github.io/cs234/" target="_blank" class="pcard">
+                        <div class="pcard-cover"><img src="assets/projects/cs234.jpg" alt="CS234 — reinforcement learning study companion" loading="lazy"></div>
+                        <div class="pcard-body">
+                            <h3 class="pcard-title">CS234: Reinforcement Learning
+                                <svg class="linkout" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 001.06 0l7.22-7.22v5.69a.75.75 0 001.5 0v-7.5a.75.75 0 00-.75-.75h-7.5a.75.75 0 000 1.5h5.69l-7.22 7.22a.75.75 0 000 1.06z" clip-rule="evenodd"/></svg>
+                            </h3>
+                            <p class="pcard-desc">Open-source study companion for Stanford's CS234. Fourteen detailed lecture notes covering MDPs, Q-learning, policy gradients, imitation learning, and exploration — with rendered math.</p>
+                            <div class="pcard-pills"><span class="pill">RL</span><span class="pill">Stanford</span><span class="pill">Study Guide</span></div>
+                        </div>
+                    </a>
+
                 </div>
-            </a>
+            </div>
+        </section>
 
-            <a href="https://maninae.github.io/follow-the-drop/" target="_blank" class="project-card reveal">
-                <div class="project-card-category">Learning</div>
-                <h2 class="project-card-title">
-                    Follow the Drop
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 001.06 0l7.22-7.22v5.69a.75.75 0 001.5 0v-7.5a.75.75 0 00-.75-.75h-7.5a.75.75 0 000 1.5h5.69l-7.22 7.22a.75.75 0 000 1.06z" clip-rule="evenodd"/></svg>
-                </h2>
-                <p class="project-card-desc">
-                    Be a drop of water. A choose-your-own-path adventure through the water cycle for young explorers — evaporate from the ocean, ride a cloud, fall as rain, and keep a travel journal along the way.
-                </p>
-                <div class="project-card-pills">
-                    <span class="pill">Water Cycle</span><span class="pill">For Kids</span><span class="pill">Interactive Story</span>
+        <!-- ============ RESEARCH ============ -->
+        <section class="cat-section" id="research">
+            <div class="cat-head">
+                <h2>Research</h2>
+                <span class="cat-count">02</span>
+                <span class="cat-rule"></span>
+                <span class="cat-desc">Published &amp; academic computer-vision work</span>
+            </div>
+            <div class="row-viewport">
+                <div class="row-track" data-dir="left">
+
+                    <a href="https://arxiv.org/abs/2507.05620" target="_blank" class="pcard">
+                        <div class="pcard-cover">
+                            <svg viewBox="0 0 480 300" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Diffusion noise resolving into a synthetic avatar">
+                                <defs>
+                                    <radialGradient id="genhmcGlow" cx="68%" cy="42%" r="55%">
+                                        <stop offset="0%" stop-color="var(--accent)" stop-opacity="0.55"/>
+                                        <stop offset="45%" stop-color="var(--accent)" stop-opacity="0.14"/>
+                                        <stop offset="100%" stop-color="var(--accent)" stop-opacity="0"/>
+                                    </radialGradient>
+                                </defs>
+                                <rect class="motif-bg" x="0" y="0" width="480" height="300"/>
+                                <rect x="0" y="0" width="480" height="300" fill="url(#genhmcGlow)"/>
+                                <g transform="translate(296,118)">
+                                    <ellipse cx="0" cy="0" rx="46" ry="54" fill="var(--accent-subtle)" stroke="var(--accent)" stroke-width="1.5"/>
+                                    <path d="M -70 118 a 70 70 0 0 1 140 0 Z" fill="var(--accent-subtle)" stroke="var(--accent)" stroke-width="1.5"/>
+                                    <circle cx="-16" cy="-4" r="3" class="motif-accent"/>
+                                    <circle cx="16" cy="-4" r="3" class="motif-accent"/>
+                                    <line x1="-12" y1="26" x2="12" y2="26" stroke="var(--accent)" stroke-width="2" stroke-linecap="round"/>
+                                </g>
+                                <g class="motif-dim">
+                                    <circle cx="40" cy="60" r="2.4"/><circle cx="70" cy="95" r="2"/><circle cx="55" cy="140" r="2.6"/>
+                                    <circle cx="95" cy="70" r="2"/><circle cx="110" cy="120" r="2.4"/><circle cx="85" cy="175" r="2"/>
+                                    <circle cx="130" cy="90" r="2.2"/><circle cx="145" cy="150" r="2"/><circle cx="120" cy="200" r="2.4"/>
+                                    <circle cx="160" cy="115" r="2"/><circle cx="175" cy="65" r="2.2"/><circle cx="60" cy="210" r="2"/>
+                                    <circle cx="30" cy="110" r="2"/><circle cx="100" cy="230" r="2.2"/><circle cx="150" cy="220" r="2"/>
+                                </g>
+                                <g class="motif-accent" opacity="0.8">
+                                    <circle cx="190" cy="105" r="2.4"/><circle cx="205" cy="150" r="2"/><circle cx="215" cy="95" r="2.6"/>
+                                    <circle cx="225" cy="135" r="2"/><circle cx="200" cy="185" r="2.2"/><circle cx="230" cy="175" r="2"/>
+                                </g>
+                            </svg>
+                        </div>
+                        <div class="pcard-body">
+                            <h3 class="pcard-title">GenHMC: Synthetic Avatars
+                                <svg class="linkout" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 001.06 0l7.22-7.22v5.69a.75.75 0 001.5 0v-7.5a.75.75 0 00-.75-.75h-7.5a.75.75 0 000 1.5h5.69l-7.22 7.22a.75.75 0 000 1.06z" clip-rule="evenodd"/></svg>
+                            </h3>
+                            <p class="pcard-desc">A diffusion-based pipeline for generating synthetic head-mounted-camera datasets, powering downstream codec-avatar models. Published at SIGGRAPH Asia 2025.</p>
+                            <div class="pcard-pills"><span class="pill">Diffusion</span><span class="pill">Synthetic Data</span><span class="pill">SIGGRAPH Asia</span></div>
+                        </div>
+                    </a>
+
+                    <a href="https://github.com/Maninae/segmentation-191" target="_blank" class="pcard">
+                        <div class="pcard-cover">
+                            <svg viewBox="0 0 480 300" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Person semantic segmentation mask">
+                                <rect class="motif-bg" x="0" y="0" width="480" height="300"/>
+                                <g stroke="var(--border)" stroke-width="0.75" opacity="0.5">
+                                    <line x1="0" y1="60" x2="480" y2="60"/><line x1="0" y1="120" x2="480" y2="120"/>
+                                    <line x1="0" y1="180" x2="480" y2="180"/><line x1="0" y1="240" x2="480" y2="240"/>
+                                    <line x1="120" y1="0" x2="120" y2="300"/><line x1="240" y1="0" x2="240" y2="300"/>
+                                    <line x1="360" y1="0" x2="360" y2="300"/>
+                                </g>
+                                <g>
+                                    <rect x="218" y="70" width="44" height="44" rx="6" fill="var(--accent)" opacity="0.78"/>
+                                    <path d="M 196 122 h 88 v 70 q 0 10 -10 10 h -68 q -10 0 -10 -10 Z" fill="var(--accent)" opacity="0.55"/>
+                                    <rect x="170" y="126" width="22" height="64" rx="8" fill="var(--accent)" opacity="0.4"/>
+                                    <rect x="288" y="126" width="22" height="64" rx="8" fill="var(--accent)" opacity="0.4"/>
+                                    <rect x="206" y="206" width="30" height="64" rx="6" fill="var(--accent)" opacity="0.62"/>
+                                    <rect x="244" y="206" width="30" height="64" rx="6" fill="var(--accent)" opacity="0.62"/>
+                                </g>
+                                <rect x="158" y="60" width="164" height="218" fill="none" stroke="var(--accent)" stroke-width="2" stroke-dasharray="6 5"/>
+                                <rect x="158" y="44" width="92" height="18" rx="3" fill="var(--accent)"/>
+                                <text x="164" y="57" font-family="DM Mono, monospace" font-size="11" fill="var(--bg)">person · 0.98</text>
+                            </svg>
+                        </div>
+                        <div class="pcard-body">
+                            <h3 class="pcard-title">Diamondback: Person Segmentation
+                                <svg class="linkout" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 001.06 0l7.22-7.22v5.69a.75.75 0 001.5 0v-7.5a.75.75 0 00-.75-.75h-7.5a.75.75 0 000 1.5h5.69l-7.22 7.22a.75.75 0 000 1.06z" clip-rule="evenodd"/></svg>
+                            </h3>
+                            <p class="pcard-desc">A semantic segmentation model for human-body segmentation (CS 191 senior project). Dense convolutional connections with a DenseNet-161 encoder for high-resolution masks on MS COCO.</p>
+                            <div class="pcard-pills"><span class="pill">Keras</span><span class="pill">TensorFlow</span><span class="pill">MS COCO</span></div>
+                        </div>
+                    </a>
+
                 </div>
-            </a>
-
-            <a href="https://arxiv.org/abs/2507.05620" target="_blank" class="project-card reveal col-break">
-                <div class="project-card-category">Research</div>
-                <h2 class="project-card-title">
-                    GenHMC: Synthetic Avatars
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 001.06 0l7.22-7.22v5.69a.75.75 0 001.5 0v-7.5a.75.75 0 00-.75-.75h-7.5a.75.75 0 000 1.5h5.69l-7.22 7.22a.75.75 0 000 1.06z" clip-rule="evenodd"/></svg>
-                </h2>
-                <p class="project-card-desc">
-                    Diffusion-based pipeline for generating synthetic HMC datasets, powering downstream codec avatar models. Published at SIGGRAPH Asia 2025.
-                </p>
-                <div class="project-card-pills">
-                    <span class="pill">Diffusion Models</span><span class="pill">Synthetic Data</span><span class="pill">Codec Avatars</span>
-                </div>
-            </a>
-
-            <a href="https://github.com/Maninae/monarch-money-cli" target="_blank" class="project-card reveal">
-                <div class="project-card-category">Tool</div>
-                <h2 class="project-card-title">
-                    Monarch Money CLI
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 001.06 0l7.22-7.22v5.69a.75.75 0 001.5 0v-7.5a.75.75 0 00-.75-.75h-7.5a.75.75 0 000 1.5h5.69l-7.22 7.22a.75.75 0 000 1.06z" clip-rule="evenodd"/></svg>
-                </h2>
-                <p class="project-card-desc">
-                    Full-featured CLI for Monarch Money personal finance. Query accounts, transactions, budgets, and cashflow from the terminal — with JSON output for AI agents and table format for humans.
-                </p>
-                <div class="project-card-pills">
-                    <span class="pill">Python</span><span class="pill">CLI</span><span class="pill">Personal Finance</span>
-                </div>
-            </a>
-
-            <a href="https://maninae.github.io/graph-playground/" target="_blank" class="project-card reveal">
-                <div class="project-card-category">Learning</div>
-                <h2 class="project-card-title">
-                    Graph Playground
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 001.06 0l7.22-7.22v5.69a.75.75 0 001.5 0v-7.5a.75.75 0 00-.75-.75h-7.5a.75.75 0 000 1.5h5.69l-7.22 7.22a.75.75 0 000 1.06z" clip-rule="evenodd"/></svg>
-                </h2>
-                <p class="project-card-desc">
-                    Animation-first intuition for function transformations: why subtracting 3 from x slides a graph right, why a negative out front flips it. Color-coded knobs, a copycat race, and boss levels where you match target curves.
-                </p>
-                <div class="project-card-pills">
-                    <span class="pill">Algebra</span><span class="pill">Interactive Learning</span><span class="pill">Math Education</span>
-                </div>
-            </a>
-
-            <a href="https://maninae.github.io/cs234/" target="_blank" class="project-card reveal col-break">
-                <div class="project-card-category">Learning</div>
-                <h2 class="project-card-title">
-                    CS234: Reinforcement Learning
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 001.06 0l7.22-7.22v5.69a.75.75 0 001.5 0v-7.5a.75.75 0 00-.75-.75h-7.5a.75.75 0 000 1.5h5.69l-7.22 7.22a.75.75 0 000 1.06z" clip-rule="evenodd"/></svg>
-                </h2>
-                <p class="project-card-desc">
-                    Open-source study companion for Stanford's CS234 course. 14 detailed lecture notes covering MDPs, Q-learning, policy gradients, imitation learning, and exploration — with KaTeX-rendered math and interactive navigation.
-                </p>
-                <div class="project-card-pills">
-                    <span class="pill">Reinforcement Learning</span><span class="pill">Stanford</span><span class="pill">Study Guide</span>
-                </div>
-            </a>
-
-            <a href="https://maninae.github.io/diffusion-from-scratch/" target="_blank" class="project-card reveal">
-                <div class="project-card-category">Learning</div>
-                <h2 class="project-card-title">
-                    Diffusion From Scratch
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 001.06 0l7.22-7.22v5.69a.75.75 0 001.5 0v-7.5a.75.75 0 00-.75-.75h-7.5a.75.75 0 000 1.5h5.69l-7.22 7.22a.75.75 0 000 1.06z" clip-rule="evenodd"/></svg>
-                </h2>
-                <p class="project-card-desc">
-                    11-module curriculum for learning diffusion models from first principles. Builds the full pipeline behind Stable Diffusion and DALL·E 3 in PyTorch — from noise schedules and U-Nets through latent diffusion, DiT, and flow matching.
-                </p>
-                <div class="project-card-pills">
-                    <span class="pill">Diffusion Models</span><span class="pill">PyTorch</span><span class="pill">Teaching</span>
-                </div>
-            </a>
-
-            <a href="https://github.com/Maninae/segmentation-191" target="_blank" class="project-card reveal">
-                <div class="project-card-category">Research</div>
-                <h2 class="project-card-title">
-                    Segmentation 191 "Diamondback" — COCO Person Segmentation
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 001.06 0l7.22-7.22v5.69a.75.75 0 001.5 0v-7.5a.75.75 0 00-.75-.75h-7.5a.75.75 0 000 1.5h5.69l-7.22 7.22a.75.75 0 000 1.06z" clip-rule="evenodd"/></svg>
-                </h2>
-                <p class="project-card-desc">
-                    Developed "Diamondback," a semantic segmentation model for human body segmentation (CS 191 senior project). Dense convolutional connections with DenseNet-161 encoder for high-resolution predictions on MS COCO.
-                </p>
-                <div class="project-card-pills">
-                    <span class="pill">Python</span><span class="pill">Keras</span><span class="pill">TensorFlow</span><span class="pill">MS COCO</span>
-                </div>
-            </a>
-
-        </div>
+            </div>
+        </section>
 
     </main>
 
@@ -338,13 +580,61 @@
             localStorage.setItem('theme', next);
         });
 
-        // Reveal on scroll
-        const revealObs = new IntersectionObserver((entries) => {
+        // ---- Auto-scroll marquee rows ----
+        // Clone each row's cards enough times to fill the viewport, then drive a slow,
+        // seamless CSS translate. Pauses on hover/focus; falls back to manual scroll
+        // when the user prefers reduced motion.
+        const PX_PER_SEC = 34; // gentle conveyor speed
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        function initRow(track) {
+            const viewport = track.parentElement;
+            const gap = parseFloat(getComputedStyle(track).gap) || 0;
+            const pad = parseFloat(getComputedStyle(track).paddingLeft) || 0;
+            const originals = [...track.children];
+            // width of one full set of cards (content only, no trailing gap)
+            const setWidth = originals.reduce((w, el) => w + el.getBoundingClientRect().width, 0)
+                             + gap * (originals.length - 1);
+            const period = setWidth + gap; // distance from a card to its clone
+            // clone whole sets until the content beyond the first set fills the viewport
+            let guard = 0;
+            while (track.scrollWidth - pad * 2 - setWidth < viewport.clientWidth + 80 && guard < 8) {
+                originals.forEach(el => {
+                    const c = el.cloneNode(true);
+                    c.classList.add('is-clone');
+                    c.setAttribute('aria-hidden', 'true');
+                    c.setAttribute('tabindex', '-1');
+                    track.appendChild(c);
+                });
+                guard++;
+            }
+            track.style.setProperty('--loop', period + 'px');
+            track.style.animationDuration = (period / PX_PER_SEC) + 's';
+            track.classList.add(track.dataset.dir === 'right' ? 'anim-right' : 'anim-left');
+        }
+
+        if (!reduceMotion) {
+            document.querySelectorAll('.row-track').forEach(initRow);
+        }
+
+        // Sticky cat-nav border + active section highlight
+        const catNav = document.getElementById('catNav');
+        const navLinks = [...catNav.querySelectorAll('a')];
+        const sections = navLinks.map(a => document.getElementById(a.dataset.cat));
+        const stickSentinel = document.querySelector('.page-subtitle');
+        new IntersectionObserver(([e]) => {
+            catNav.classList.toggle('stuck', !e.isIntersecting);
+        }, { threshold: 0 }).observe(stickSentinel);
+
+        const sectionObs = new IntersectionObserver((entries) => {
             entries.forEach(e => {
-                if (e.isIntersecting) e.target.classList.add('visible');
+                if (e.isIntersecting) {
+                    const id = e.target.id;
+                    navLinks.forEach(a => a.classList.toggle('active', a.dataset.cat === id));
+                }
             });
-        }, { threshold: 0.05, rootMargin: '0px 0px -30px 0px' });
-        document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+        }, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
+        sections.forEach(s => s && sectionObs.observe(s));
     </script>
 
 </body>
