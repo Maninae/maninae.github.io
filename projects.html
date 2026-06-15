@@ -122,21 +122,13 @@
             margin: 0 0.25rem;
             transform: translateY(-0.35rem);
         }
-        .cat-hint {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.3rem;
-            font-size: 0.7rem;
-            color: var(--text-dim);
-            opacity: 0.7;
-            transform: translateY(-0.3rem);
-        }
-        .cat-hint svg { width: 0.9rem; height: 0.9rem; }
-
-        /* ---- HORIZONTAL AUTO-SCROLL ROW (marquee) ---- */
+        /* ---- HORIZONTAL ROW (auto-scrolls only when cards overflow) ---- */
         .row-viewport {
             overflow: hidden;
             padding: 18px 0;
+        }
+        /* edge fade only when the row actually scrolls */
+        .row-viewport.is-scrolling {
             -webkit-mask-image: linear-gradient(to right, transparent 0, #000 5%, #000 95%, transparent 100%);
                     mask-image: linear-gradient(to right, transparent 0, #000 5%, #000 95%, transparent 100%);
         }
@@ -326,10 +318,7 @@
                 <h2>Tools</h2>
                 <span class="cat-count">02</span>
                 <span class="cat-rule"></span>
-                <span class="cat-hint" aria-hidden="true">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg>
-                    auto-scrolls · hover to pause
-                </span>
+                <span class="cat-desc">Things I built to answer my own questions</span>
             </div>
             <div class="row-viewport">
                 <div class="row-track" data-dir="left">
@@ -580,25 +569,40 @@
             localStorage.setItem('theme', next);
         });
 
-        // ---- Auto-scroll marquee rows ----
-        // Clone each row's cards enough times to fill the viewport, then drive a slow,
-        // seamless CSS translate. Pauses on hover/focus; falls back to manual scroll
-        // when the user prefers reduced motion.
+        // ---- Auto-scroll rows ONLY when their cards overflow the viewport ----
+        // If a row's real cards all fit on screen, it stays static — scrolling past
+        // the same repeated cards is pointless. Re-evaluated on resize, so widening
+        // the window until the cards fit turns the conveyor off (and back on if narrowed).
         const PX_PER_SEC = 34; // gentle conveyor speed
         const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const tracks = [...document.querySelectorAll('.row-track')];
 
-        function initRow(track) {
+        function layoutRow(track) {
             const viewport = track.parentElement;
-            const gap = parseFloat(getComputedStyle(track).gap) || 0;
-            const pad = parseFloat(getComputedStyle(track).paddingLeft) || 0;
+            // reset any previous marquee state so this can run again on resize
+            track.querySelectorAll('.is-clone').forEach(c => c.remove());
+            track.classList.remove('anim-left', 'anim-right');
+            track.style.removeProperty('--loop');
+            track.style.removeProperty('animation-duration');
+            viewport.classList.remove('is-static', 'is-scrolling');
+
+            if (reduceMotion) { viewport.classList.add('is-static'); return; }
+
+            // Does the full set of cards already fit? -> static, no scroll.
+            if (track.scrollWidth <= viewport.clientWidth + 1) {
+                viewport.classList.add('is-static');
+                return;
+            }
+
+            // Overflow -> clone enough sets to fill, then drive the seamless marquee.
+            viewport.classList.add('is-scrolling');
             const originals = [...track.children];
-            // width of one full set of cards (content only, no trailing gap)
+            const gap = parseFloat(getComputedStyle(track).gap) || 0;
             const setWidth = originals.reduce((w, el) => w + el.getBoundingClientRect().width, 0)
                              + gap * (originals.length - 1);
             const period = setWidth + gap; // distance from a card to its clone
-            // clone whole sets until the content beyond the first set fills the viewport
             let guard = 0;
-            while (track.scrollWidth - pad * 2 - setWidth < viewport.clientWidth + 80 && guard < 8) {
+            while (track.scrollWidth - setWidth < viewport.clientWidth + 80 && guard < 8) {
                 originals.forEach(el => {
                     const c = el.cloneNode(true);
                     c.classList.add('is-clone');
@@ -613,9 +617,13 @@
             track.classList.add(track.dataset.dir === 'right' ? 'anim-right' : 'anim-left');
         }
 
-        if (!reduceMotion) {
-            document.querySelectorAll('.row-track').forEach(initRow);
-        }
+        const layoutAll = () => tracks.forEach(layoutRow);
+        layoutAll();
+        let resizeT;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeT);
+            resizeT = setTimeout(layoutAll, 160);
+        }, { passive: true });
 
         // Sticky cat-nav border + active section highlight
         const catNav = document.getElementById('catNav');
