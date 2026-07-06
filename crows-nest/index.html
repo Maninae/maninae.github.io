@@ -25,6 +25,12 @@
   }
   h1 { font-size: 21px; font-weight: 600; letter-spacing: -0.01em; margin: 0 0 8px; }
   p  { font-size: 15px; line-height: 1.5; color: #98989d; margin: 0; }
+  .enter {
+    display: inline-block; margin: 22px 0 14px; padding: 12px 34px;
+    background: #0a84ff; color: #fff; border-radius: 999px;
+    font-size: 16px; font-weight: 600; text-decoration: none;
+  }
+  .enter:active { filter: brightness(.85); }
   .hidden { display: none; }
 </style>
 </head>
@@ -33,28 +39,29 @@
     <div class="orb"></div>
     <h1>Crow's Nest</h1>
     <p id="checking-msg">Connecting&hellip;</p>
-    <div id="denied-msg" class="hidden">
-      <p>This is a private household page.</p>
-      <p style="margin-top:8px">If you live here, your device needs a one-time
-      setup &mdash; ask Owen to onboard it.</p>
+    <div id="entry" class="hidden">
+      <a class="enter" href="https://owens-mac-mini.tail8acbc4.ts.net/">Enter</a>
+      <p>Private household page. If your device has been set up,
+      Enter takes you in; otherwise ask Owen to onboard it.</p>
     </div>
   </div>
 <script>
   // The wall is only reachable from devices on the household's private
-  // network. Probe it (no-cors: an opaque response still proves reachability);
-  // redirect on success, otherwise show the polite note. Nothing sensitive is
-  // served from this page.
+  // network. Probe it and auto-forward where the browser allows the probe
+  // (Safari, Firefox). Chromium blocks public-page probes to local address
+  // space (Local Network Access policy) but never blocks a user-initiated
+  // top-level navigation, so the Enter button is the universal path.
   const WALL = "https://owens-mac-mini.tail8acbc4.ts.net/";
+  const showEntry = () => {
+    document.body.classList.remove("checking");
+    document.getElementById("checking-msg").classList.add("hidden");
+    document.getElementById("entry").classList.remove("hidden");
+  };
   const ctrl = new AbortController();
-  const timer = setTimeout(() => ctrl.abort(), 3500);
+  const timer = setTimeout(() => ctrl.abort(), 3000);
   fetch(WALL, { mode: "no-cors", cache: "no-store", signal: ctrl.signal })
     .then(() => { clearTimeout(timer); location.replace(WALL); })
-    .catch(() => {
-      clearTimeout(timer);
-      document.body.classList.remove("checking");
-      document.getElementById("checking-msg").classList.add("hidden");
-      document.getElementById("denied-msg").classList.remove("hidden");
-    });
+    .catch(() => { clearTimeout(timer); showEntry(); });
 </script>
 </body>
 </html>
