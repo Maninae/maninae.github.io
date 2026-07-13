@@ -40,7 +40,7 @@
     <h1>Crow's Nest</h1>
     <p id="checking-msg">Connecting&hellip;</p>
     <div id="entry" class="hidden">
-      <a class="enter" href="https://owens-mac-mini.tail8acbc4.ts.net/">Enter</a>
+      <a class="enter" href="https://crows-nest.tail8acbc4.ts.net/">Enter</a>
       <p id="entry-note">Taking a while? Tap Enter to go straight in.</p>
     </div>
   </div>
@@ -55,7 +55,7 @@
   // tunnel not yet warm) can take 5-10 s, so the probe retries for ~12 s and
   // the Enter button appears early rather than only on failure. This is a
   // reachability check, not a health check (any HTTP status counts).
-  const WALL = "https://owens-mac-mini.tail8acbc4.ts.net/";
+  const WALL = "https://crows-nest.tail8acbc4.ts.net/";
   const showEntry = () => document.getElementById("entry").classList.remove("hidden");
   const giveUp = () => {
     document.body.classList.remove("checking");
