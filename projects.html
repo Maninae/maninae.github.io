@@ -140,12 +140,15 @@
             padding: 0 1.5rem;
             will-change: transform;
         }
-        .row-track.anim-left  { animation: marquee-left  linear infinite; }
-        .row-track.anim-right { animation: marquee-right linear infinite; }
-        .row-track:hover,
-        .row-track:focus-within { animation-play-state: paused; }
-        @keyframes marquee-left  { to   { transform: translateX(calc(-1 * var(--loop))); } }
-        @keyframes marquee-right { from { transform: translateX(calc(-1 * var(--loop))); } }
+        /* Cursor + touch/select hints appear only when the row actually scrolls */
+        .row-viewport.is-scrolling {
+            cursor: grab;
+            touch-action: pan-y;
+            -webkit-user-select: none;
+                    user-select: none;
+        }
+        .row-viewport.is-dragging { cursor: grabbing; }
+        .row-viewport.is-dragging .pcard { pointer-events: none; }
 
         /* ---- PROJECT CARD (unchanged from V2) ---- */
         .pcard {
@@ -785,28 +788,185 @@
             localStorage.setItem('theme', next);
         });
 
-        // ---- Auto-scroll rows ONLY when their cards overflow the viewport ----
-        // If a row's real cards all fit on screen, it stays static — scrolling past
-        // the same repeated cards is pointless. Re-evaluated on resize, so widening
-        // the window until the cards fit turns the conveyor off (and back on if narrowed).
-        const PX_PER_SEC = 34; // gentle conveyor speed
+        // ---- Auto-marquee rows with manual override (wheel + drag) ----
+        // Rows conveyor-scroll only when their real cards overflow the viewport.
+        // The user can also pan a row manually with trackpad/horizontal wheel or a
+        // click-and-drag gesture; the auto-marquee pauses during input and resumes
+        // from the current position after a short idle. Reduced-motion clients get
+        // native horizontal overflow-scrolling instead of the JS driver.
+        const PX_PER_SEC = 34;       // gentle conveyor speed
+        const IDLE_RESUME_MS = 450;  // debounce after wheel/drag before auto resumes
+        const DRAG_THRESHOLD_PX = 5; // pointer travel before a press becomes a drag
         const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         const tracks = [...document.querySelectorAll('.row-track')];
+        const rowDrivers = new WeakMap(); // track -> driver, so resizes reuse handlers
+
+        // One rAF-driven marquee per row. Holds an unbounded offset that we wrap into
+        // (-loopWidth, 0] on every apply(), so the transform stays seamless even after
+        // many minutes of drift. Wheel/drag mutate offset directly and bump an idle
+        // timestamp; the tick loop honors that timestamp and skips auto-advancing while
+        // the user is engaged. Pointer capture keeps drag events flowing even if the
+        // pointer leaves the row mid-drag; a one-shot capture-phase click suppressor
+        // stops the card's underlying <a> from firing a spurious navigation on release.
+        function createRowDriver(track) {
+            const viewport = track.parentElement;
+            const dir = track.dataset.dir === 'right' ? 1 : -1;
+            let loopWidth = 0;
+            let offset = 0;
+            let running = false;
+            let lastFrame = null;
+            let interactionUntil = 0;
+            let focusPaused = false;
+
+            let activePointerId = null;
+            let dragStartX = 0;
+            let dragStartOffset = 0;
+            let dragActive = false;
+            let dragMoved = false;
+
+            function wrap(x) {
+                if (loopWidth <= 0) return 0;
+                let r = x % loopWidth;
+                if (r > 0) r -= loopWidth;
+                return r; // in (-loopWidth, 0]
+            }
+
+            function apply() {
+                track.style.transform = 'translate3d(' + wrap(offset) + 'px, 0, 0)';
+            }
+
+            function isInteracting(now) {
+                return dragActive || focusPaused || now < interactionUntil;
+            }
+
+            function tick(now) {
+                if (!running) return;
+                if (lastFrame == null) lastFrame = now;
+                const dt = Math.min((now - lastFrame) / 1000, 0.05); // cap to avoid jumps
+                lastFrame = now;
+                if (loopWidth > 0 && !isInteracting(now)) {
+                    offset += dir * PX_PER_SEC * dt;
+                    // keep raw offset near the wrap window so long sessions don't drift
+                    if (Math.abs(offset) > loopWidth * 4) offset = wrap(offset);
+                }
+                apply();
+                requestAnimationFrame(tick);
+            }
+
+            function bumpInteraction() {
+                interactionUntil = performance.now() + IDLE_RESUME_MS;
+            }
+
+            // Wheel: only consume horizontal intent (deltaX dominant, or shift+deltaY
+            // on classic mice); leave vertical scrolls to the page.
+            viewport.addEventListener('wheel', (e) => {
+                if (loopWidth <= 0) return;
+                let dx = 0;
+                if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
+                    dx = e.deltaX;
+                } else if (e.shiftKey && Math.abs(e.deltaY) > 0) {
+                    dx = e.deltaY;
+                }
+                if (Math.abs(dx) < 0.5) return;
+                e.preventDefault();
+                // A right-swipe (dx > 0) should reveal rightward content — content shifts left.
+                offset -= dx;
+                bumpInteraction();
+                lastFrame = performance.now();
+                apply();
+            }, { passive: false });
+
+            // Pointer drag — mouse click-drag, touch swipe, or pen.
+            viewport.addEventListener('pointerdown', (e) => {
+                if (loopWidth <= 0) return;
+                if (e.button != null && e.button !== 0) return; // primary button / touch / pen tip
+                activePointerId = e.pointerId;
+                dragStartX = e.clientX;
+                dragStartOffset = offset;
+                dragActive = true;
+                dragMoved = false;
+                try { viewport.setPointerCapture(e.pointerId); } catch (_) {}
+                bumpInteraction();
+            });
+
+            viewport.addEventListener('pointermove', (e) => {
+                if (!dragActive || e.pointerId !== activePointerId) return;
+                const dx = e.clientX - dragStartX;
+                if (!dragMoved && Math.abs(dx) > DRAG_THRESHOLD_PX) {
+                    dragMoved = true;
+                    viewport.classList.add('is-dragging');
+                }
+                if (dragMoved) {
+                    // The finger drags content along with it: pointer +dx -> offset +dx.
+                    offset = dragStartOffset + dx;
+                    bumpInteraction();
+                    apply();
+                    e.preventDefault();
+                }
+            });
+
+            function endDrag(e) {
+                if (activePointerId != null && e.pointerId !== activePointerId) return;
+                activePointerId = null;
+                if (!dragActive) return;
+                const wasDrag = dragMoved;
+                dragActive = false;
+                dragMoved = false;
+                viewport.classList.remove('is-dragging');
+                if (wasDrag) {
+                    // Suppress the click that a drag-release triggers on the underlying <a>
+                    const suppress = (ev) => {
+                        ev.preventDefault();
+                        ev.stopPropagation();
+                    };
+                    window.addEventListener('click', suppress, { capture: true, once: true });
+                    setTimeout(() => {
+                        window.removeEventListener('click', suppress, { capture: true });
+                    }, 300);
+                }
+                bumpInteraction();
+                lastFrame = performance.now();
+            }
+            viewport.addEventListener('pointerup', endDrag);
+            viewport.addEventListener('pointercancel', endDrag);
+
+            // Preserve the old CSS :focus-within pause so keyboard users can read a card.
+            viewport.addEventListener('focusin', () => { focusPaused = true; });
+            viewport.addEventListener('focusout', () => { focusPaused = false; });
+
+            return {
+                setLoop: (w) => { loopWidth = w; },
+                start: () => {
+                    if (running) return;
+                    running = true;
+                    lastFrame = null;
+                    requestAnimationFrame(tick);
+                },
+                stop: () => { running = false; },
+            };
+        }
 
         function layoutRow(track) {
             const viewport = track.parentElement;
             // reset any previous marquee state so this can run again on resize
             track.querySelectorAll('.is-clone').forEach(c => c.remove());
-            track.classList.remove('anim-left', 'anim-right');
             track.style.removeProperty('--loop');
             track.style.removeProperty('animation-duration');
-            viewport.classList.remove('is-static', 'is-scrolling');
+            viewport.classList.remove('is-static', 'is-scrolling', 'is-dragging');
 
-            if (reduceMotion) { viewport.classList.add('is-static'); return; }
+            const existing = rowDrivers.get(track);
+            if (existing) existing.stop();
+
+            if (reduceMotion) {
+                viewport.classList.add('is-static');
+                track.style.transform = '';
+                return;
+            }
 
             // Does the full set of cards already fit? -> static, no scroll.
             if (track.scrollWidth <= viewport.clientWidth + 1) {
                 viewport.classList.add('is-static');
+                track.style.transform = '';
                 return;
             }
 
@@ -828,9 +988,14 @@
                 });
                 guard++;
             }
-            track.style.setProperty('--loop', period + 'px');
-            track.style.animationDuration = (period / PX_PER_SEC) + 's';
-            track.classList.add(track.dataset.dir === 'right' ? 'anim-right' : 'anim-left');
+
+            let driver = existing;
+            if (!driver) {
+                driver = createRowDriver(track);
+                rowDrivers.set(track, driver);
+            }
+            driver.setLoop(period);
+            driver.start();
         }
 
         const layoutAll = () => tracks.forEach(layoutRow);
