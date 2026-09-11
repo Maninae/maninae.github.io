@@ -806,9 +806,12 @@
         // (-loopWidth, 0] on every apply(), so the transform stays seamless even after
         // many minutes of drift. Wheel/drag mutate offset directly and bump an idle
         // timestamp; the tick loop honors that timestamp and skips auto-advancing while
-        // the user is engaged. Pointer capture keeps drag events flowing even if the
-        // pointer leaves the row mid-drag; a one-shot capture-phase click suppressor
-        // stops the card's underlying <a> from firing a spurious navigation on release.
+        // the user is engaged. Pointer capture is taken only once the drag threshold is
+        // crossed (capturing on pointerdown would retarget pointerup to the viewport and
+        // the browser would then dispatch the click there, so card links never fire);
+        // once dragging, capture keeps events flowing even if the pointer leaves the row,
+        // and a one-shot capture-phase click suppressor stops the card's underlying <a>
+        // from firing a spurious navigation on release.
         function createRowDriver(track) {
             const viewport = track.parentElement;
             const dir = track.dataset.dir === 'right' ? 1 : -1;
@@ -886,7 +889,6 @@
                 dragStartOffset = offset;
                 dragActive = true;
                 dragMoved = false;
-                try { viewport.setPointerCapture(e.pointerId); } catch (_) {}
                 bumpInteraction();
             });
 
@@ -896,6 +898,7 @@
                 if (!dragMoved && Math.abs(dx) > DRAG_THRESHOLD_PX) {
                     dragMoved = true;
                     viewport.classList.add('is-dragging');
+                    try { viewport.setPointerCapture(e.pointerId); } catch (_) {}
                 }
                 if (dragMoved) {
                     // The finger drags content along with it: pointer +dx -> offset +dx.
