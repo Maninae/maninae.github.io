@@ -311,8 +311,8 @@
 
         <!-- Category jump nav -->
         <nav class="cat-nav" id="catNav" aria-label="Project categories">
-            <a href="#tools" data-cat="tools">Tools <span class="count">8</span></a>
-            <a href="#learning" data-cat="learning">Learning <span class="count">9</span></a>
+            <a href="#tools" data-cat="tools">Tools <span class="count">13</span></a>
+            <a href="#learning" data-cat="learning">Learning <span class="count">10</span></a>
             <a href="#research" data-cat="research">Research <span class="count">2</span></a>
         </nav>
 
@@ -320,12 +320,211 @@
         <section class="cat-section" id="tools">
             <div class="cat-head">
                 <h2>Tools</h2>
-                <span class="cat-count">8 projects</span>
+                <span class="cat-count">13 projects</span>
                 <span class="cat-rule"></span>
                 <span class="cat-desc">Things I built to connect my life or answer questions</span>
             </div>
             <div class="row-viewport">
                 <div class="row-track" data-dir="left">
+
+                    <!-- Glare Off: uncomment when the repo goes public -->
+                    <!--
+                    <a href="https://github.com/Maninae/glare-off" target="_blank" class="pcard">
+                        <div class="pcard-cover">
+                            <svg viewBox="0 0 480 300" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A pair of eyeglasses, one lens washed with a glare streak and the other clear">
+                                <rect class="motif-bg" x="0" y="0" width="480" height="300"/>
+                                <circle cx="168" cy="150" r="66" class="motif-accent-s" stroke="var(--accent)" stroke-width="4"/>
+                                <circle cx="312" cy="150" r="66" fill="none" stroke="var(--accent)" stroke-width="4"/>
+                                <path d="M234 146 Q 240 132 246 146" fill="none" stroke="var(--accent)" stroke-width="4" stroke-linecap="round"/>
+                                <path d="M102 140 L 52 122 M 378 140 L 428 122" fill="none" stroke="var(--accent)" stroke-width="4" stroke-linecap="round"/>
+                                <path d="M128 176 L 196 108" stroke="var(--bg)" stroke-width="14" stroke-linecap="round" opacity="0.9"/>
+                                <path d="M150 192 L 204 138" stroke="var(--bg)" stroke-width="6" stroke-linecap="round" opacity="0.75"/>
+                                <circle cx="296" cy="156" r="10" class="motif-accent"/>
+                                <path d="M352 82 l 6 14 l 14 6 l -14 6 l -6 14 l -6 -14 l -14 -6 l 14 -6 Z" class="motif-accent" opacity="0.8"/>
+                            </svg>
+                        </div>
+                        <div class="pcard-body">
+                            <h3 class="pcard-title">Glare Off
+                                <svg class="linkout" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 001.06 0l7.22-7.22v5.69a.75.75 0 001.5 0v-7.5a.75.75 0 00-.75-.75h-7.5a.75.75 0 000 1.5h5.69l-7.22 7.22a.75.75 0 000 1.06z" clip-rule="evenodd"/></svg>
+                            </h3>
+                            <p class="pcard-desc">Take the glare off glasses in your photos. Drop in a picture, download it with clear lenses, and every pixel outside the glare stays exactly as it was. Runs in your browser, nothing uploaded. Free.</p>
+                            <div class="pcard-pills"><span class="pill">Computer Vision</span><span class="pill">In-Browser ML</span><span class="pill">Privacy</span></div>
+                        </div>
+                    </a>
+                    -->
+
+                    <a href="https://github.com/Maninae/mineru-assistant" target="_blank" class="pcard">
+                        <div class="pcard-cover">
+                            <svg viewBox="0 0 480 300" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A phone receiving a morning brief as the sun rises behind it">
+                                <rect class="motif-bg" x="0" y="0" width="480" height="300"/>
+                                <circle cx="340" cy="232" r="70" class="motif-accent-s"/>
+                                <line x1="0" y1="232" x2="480" y2="232" stroke="var(--accent)" stroke-width="2" opacity="0.5"/>
+                                <g stroke="var(--accent)" stroke-width="2.5" opacity="0.55" stroke-linecap="round">
+                                    <line x1="340" y1="146" x2="340" y2="128"/><line x1="402" y1="170" x2="416" y2="158"/><line x1="278" y1="170" x2="264" y2="158"/><line x1="426" y1="222" x2="444" y2="218"/>
+                                </g>
+                                <rect x="128" y="34" width="132" height="236" rx="18" fill="var(--bg)" stroke="var(--accent)" stroke-width="3"/>
+                                <rect x="176" y="46" width="36" height="6" rx="3" class="motif-dim" opacity="0.5"/>
+                                <rect x="144" y="70" width="88" height="40" rx="10" class="motif-accent-s" stroke="var(--accent)" stroke-width="1.5"/>
+                                <rect x="154" y="82" width="56" height="5" rx="2.5" class="motif-accent"/>
+                                <rect x="154" y="94" width="40" height="5" rx="2.5" class="motif-dim" opacity="0.6"/>
+                                <rect x="144" y="120" width="96" height="52" rx="10" class="motif-accent-s" stroke="var(--accent)" stroke-width="1.5"/>
+                                <rect x="154" y="132" width="70" height="5" rx="2.5" class="motif-dim" opacity="0.6"/>
+                                <rect x="154" y="144" width="62" height="5" rx="2.5" class="motif-dim" opacity="0.6"/>
+                                <rect x="154" y="156" width="44" height="5" rx="2.5" class="motif-dim" opacity="0.6"/>
+                                <rect x="186" y="184" width="58" height="26" rx="10" class="motif-accent"/>
+                                <text class="motif-text" x="148" y="244" font-size="12" fill="var(--text-dim)">7:00 brief</text>
+                            </svg>
+                        </div>
+                        <div class="pcard-body">
+                            <h3 class="pcard-title">Mineru
+                                <svg class="linkout" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 001.06 0l7.22-7.22v5.69a.75.75 0 001.5 0v-7.5a.75.75 0 00-.75-.75h-7.5a.75.75 0 000 1.5h5.69l-7.22 7.22a.75.75 0 000 1.06z" clip-rule="evenodd"/></svg>
+                            </h3>
+                            <p class="pcard-desc">A local-first personal AI assistant that lives on your Mac. It reads your mail, calendar, and texts, remembers what you tell it, and sends you briefs on a schedule. The engine is open source; your life stays in a folder you own.</p>
+                            <div class="pcard-pills"><span class="pill">AI Agents</span><span class="pill">Claude Code</span><span class="pill">macOS</span></div>
+                        </div>
+                    </a>
+
+                    <a href="https://maninae.github.io/check-transcriber/" target="_blank" class="pcard">
+                        <div class="pcard-cover">
+                            <svg viewBox="0 0 480 300" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A tilted check being straightened into a clean row of fields">
+                                <defs>
+                                    <marker id="checkArrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                                        <path d="M0 0 L10 5 L0 10 z" fill="var(--accent)"/>
+                                    </marker>
+                                </defs>
+                                <rect class="motif-bg" x="0" y="0" width="480" height="300"/>
+                                <!-- the photo: a check lying at an angle -->
+                                <g transform="rotate(-14 118 150)">
+                                    <rect x="40" y="104" width="156" height="78" rx="6" fill="var(--bg)" stroke="var(--accent)" stroke-width="2.5" stroke-dasharray="7 5"/>
+                                    <rect x="54" y="118" width="60" height="5" rx="2.5" class="motif-dim" opacity="0.6"/>
+                                    <rect x="146" y="116" width="38" height="14" rx="3" class="motif-accent-s" stroke="var(--accent)" stroke-width="1.5"/>
+                                    <rect x="54" y="144" width="90" height="5" rx="2.5" class="motif-dim" opacity="0.6"/>
+                                    <rect x="54" y="164" width="128" height="6" rx="3" class="motif-dim" opacity="0.25"/>
+                                </g>
+                                <path d="M214 150 H 262" stroke="var(--accent)" stroke-width="2.5" fill="none" marker-end="url(#checkArrow)"/>
+                                <!-- straightened check and its fields -->
+                                <rect x="282" y="58" width="160" height="74" rx="6" class="motif-accent-s" stroke="var(--accent)" stroke-width="2.5"/>
+                                <rect x="296" y="72" width="64" height="5" rx="2.5" class="motif-dim" opacity="0.6"/>
+                                <rect x="392" y="70" width="38" height="14" rx="3" class="motif-accent"/>
+                                <rect x="296" y="96" width="96" height="5" rx="2.5" class="motif-dim" opacity="0.6"/>
+                                <rect x="296" y="114" width="132" height="6" rx="3" class="motif-dim" opacity="0.25"/>
+                                <g class="motif-text" font-size="12">
+                                    <text x="284" y="168" fill="var(--text-dim)">#1042</text>
+                                    <text x="340" y="168" fill="var(--text-dim)">10/01</text>
+                                    <text x="396" y="168" fill="var(--accent)">$1,250</text>
+                                </g>
+                                <line x1="282" y1="180" x2="442" y2="180" stroke="var(--border)" stroke-width="1.5"/>
+                                <g class="motif-text" font-size="12">
+                                    <text x="284" y="202" fill="var(--text-dim)">#1043</text>
+                                    <text x="340" y="202" fill="var(--text-dim)">10/01</text>
+                                    <text x="396" y="202" fill="var(--accent)">$980</text>
+                                </g>
+                            </svg>
+                        </div>
+                        <div class="pcard-body">
+                            <h3 class="pcard-title">Check Transcriber
+                                <svg class="linkout" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 001.06 0l7.22-7.22v5.69a.75.75 0 001.5 0v-7.5a.75.75 0 00-.75-.75h-7.5a.75.75 0 000 1.5h5.69l-7.22 7.22a.75.75 0 000 1.06z" clip-rule="evenodd"/></svg>
+                            </h3>
+                            <p class="pcard-desc">Paste one phone photo of a pile of checks and get each one found, straightened, and read into rows ready for a spreadsheet. Built for a small nonprofit's rent checks, and the photo never leaves your browser.</p>
+                            <div class="pcard-pills"><span class="pill">Computer Vision</span><span class="pill">OCR</span><span class="pill">Privacy</span></div>
+                        </div>
+                    </a>
+
+                    <a href="https://github.com/Maninae/roblox-studio-cli" target="_blank" class="pcard">
+                        <div class="pcard-cover">
+                            <svg viewBox="0 0 480 300" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Terminal running Luau in Roblox Studio, beside a stack of blocks">
+                                <rect class="motif-bg" x="0" y="0" width="480" height="300"/>
+                                <rect x="40" y="52" width="290" height="190" rx="12" fill="var(--bg)" stroke="var(--border)" stroke-width="1.5"/>
+                                <rect x="40" y="52" width="290" height="30" rx="12" fill="var(--bg-illustration)"/>
+                                <rect x="40" y="70" width="290" height="12" fill="var(--bg-illustration)"/>
+                                <circle cx="60" cy="67" r="4" fill="var(--accent)"/>
+                                <circle cx="76" cy="67" r="4" class="motif-dim"/>
+                                <circle cx="92" cy="67" r="4" class="motif-dim"/>
+                                <text class="motif-text" x="58" y="111" font-size="12"><tspan fill="var(--accent)">$</tspan> roblox-studio doctor</text>
+                                <text class="motif-text" x="58" y="131" font-size="11" fill="var(--text-dim)">  Tools: 28 available</text>
+                                <text class="motif-text" x="58" y="161" font-size="12"><tspan fill="var(--accent)">$</tspan> roblox-studio luau \</text>
+                                <text class="motif-text" x="58" y="179" font-size="12">  'return game.Name'</text>
+                                <text class="motif-text" x="58" y="201" font-size="11" fill="var(--text-dim)">  Place1</text>
+                                <!-- blocks -->
+                                <g stroke="var(--accent)" stroke-width="2.5">
+                                    <rect x="352" y="186" width="44" height="44" rx="4" class="motif-accent-s"/>
+                                    <rect x="404" y="186" width="44" height="44" rx="4" class="motif-accent-s"/>
+                                    <rect x="378" y="134" width="44" height="44" rx="4" class="motif-accent"/>
+                                </g>
+                                <line x1="340" y1="230" x2="470" y2="230" stroke="var(--accent)" stroke-width="2" opacity="0.5"/>
+                            </svg>
+                        </div>
+                        <div class="pcard-body">
+                            <h3 class="pcard-title">Roblox Studio CLI
+                                <svg class="linkout" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 001.06 0l7.22-7.22v5.69a.75.75 0 001.5 0v-7.5a.75.75 0 00-.75-.75h-7.5a.75.75 0 000 1.5h5.69l-7.22 7.22a.75.75 0 000 1.06z" clip-rule="evenodd"/></svg>
+                            </h3>
+                            <p class="pcard-desc">Drive the Roblox Studio you already have open from a shell: run Luau, capture the viewport, inspect state. It talks to Studio's built-in MCP server, so agents get every tool Studio ships with nothing to install.</p>
+                            <div class="pcard-pills"><span class="pill">Python</span><span class="pill">CLI</span><span class="pill">Roblox</span></div>
+                        </div>
+                    </a>
+
+                    <a href="https://github.com/Maninae/claude-landline" target="_blank" class="pcard">
+                        <div class="pcard-cover">
+                            <svg viewBox="0 0 480 300" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A telephone handset on a coiled cord running to a terminal prompt">
+                                <rect class="motif-bg" x="0" y="0" width="480" height="300"/>
+                                <!-- handset -->
+                                <path d="M92 150 Q 152 64 212 150" fill="none" stroke="var(--accent)" stroke-width="20" stroke-linecap="round"/>
+                                <ellipse cx="86" cy="158" rx="30" ry="15" transform="rotate(-40 86 158)" class="motif-accent"/>
+                                <ellipse cx="218" cy="158" rx="30" ry="15" transform="rotate(40 218 158)" class="motif-accent"/>
+                                <!-- coiled cord -->
+                                <path d="M226 176 C 226 200, 236 214, 248 206 C 260 198, 262 220, 274 214 C 286 208, 288 228, 300 220" fill="none" stroke="var(--accent)" stroke-width="3" stroke-linecap="round" opacity="0.7"/>
+                                <!-- terminal -->
+                                <rect x="312" y="150" width="128" height="92" rx="10" fill="var(--bg)" stroke="var(--accent)" stroke-width="2.5"/>
+                                <text class="motif-text" x="328" y="190" font-size="20" fill="var(--accent)">&gt;_</text>
+                                <rect x="328" y="208" width="72" height="5" rx="2.5" class="motif-dim" opacity="0.5"/>
+                                <rect x="328" y="220" width="52" height="5" rx="2.5" class="motif-dim" opacity="0.5"/>
+                                <!-- ring -->
+                                <g fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round" opacity="0.55">
+                                    <path d="M252 70 q 14 14 0 28"/><path d="M268 60 q 24 24 0 48"/>
+                                </g>
+                            </svg>
+                        </div>
+                        <div class="pcard-body">
+                            <h3 class="pcard-title">Claude Landline
+                                <svg class="linkout" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 001.06 0l7.22-7.22v5.69a.75.75 0 001.5 0v-7.5a.75.75 0 00-.75-.75h-7.5a.75.75 0 000 1.5h5.69l-7.22 7.22a.75.75 0 000 1.06z" clip-rule="evenodd"/></svg>
+                            </h3>
+                            <p class="pcard-desc">A phone line to the Claude Code agent on your Mac. Text it over Telegram from the train, send voice notes and PDFs, and the reply streams back from the same always-on session.</p>
+                            <div class="pcard-pills"><span class="pill">Claude Code</span><span class="pill">Telegram</span><span class="pill">macOS</span></div>
+                        </div>
+                    </a>
+
+                    <a href="https://aireadsthenews.co/" target="_blank" class="pcard">
+                        <div class="pcard-cover">
+                            <svg viewBox="0 0 480 300" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A morning newspaper beside a cup of coffee">
+                                <rect class="motif-bg" x="0" y="0" width="480" height="300"/>
+                                <!-- newspaper -->
+                                <rect x="72" y="46" width="236" height="208" rx="6" fill="var(--bg)" stroke="var(--accent)" stroke-width="2.5"/>
+                                <rect x="92" y="66" width="196" height="16" rx="3" class="motif-accent"/>
+                                <line x1="92" y1="94" x2="288" y2="94" stroke="var(--border)" stroke-width="1.5"/>
+                                <rect x="92" y="106" width="88" height="62" rx="4" class="motif-accent-s" stroke="var(--accent)" stroke-width="1.5"/>
+                                <g class="motif-dim" opacity="0.5">
+                                    <rect x="192" y="108" width="96" height="5" rx="2.5"/><rect x="192" y="120" width="84" height="5" rx="2.5"/>
+                                    <rect x="192" y="132" width="96" height="5" rx="2.5"/><rect x="192" y="144" width="70" height="5" rx="2.5"/>
+                                    <rect x="192" y="156" width="90" height="5" rx="2.5"/>
+                                    <rect x="92" y="184" width="196" height="5" rx="2.5"/><rect x="92" y="196" width="180" height="5" rx="2.5"/>
+                                    <rect x="92" y="208" width="196" height="5" rx="2.5"/><rect x="92" y="220" width="120" height="5" rx="2.5"/>
+                                </g>
+                                <!-- coffee -->
+                                <path d="M340 156 H 410 V 214 Q 410 236 388 236 H 362 Q 340 236 340 214 Z" class="motif-accent-s" stroke="var(--accent)" stroke-width="2.5"/>
+                                <path d="M410 172 Q 434 172 434 192 Q 434 210 410 208" fill="none" stroke="var(--accent)" stroke-width="2.5"/>
+                                <g fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round" opacity="0.55">
+                                    <path d="M362 140 q -8 -12 0 -24 q 8 -12 0 -24"/><path d="M388 140 q -8 -12 0 -24 q 8 -12 0 -24"/>
+                                </g>
+                            </svg>
+                        </div>
+                        <div class="pcard-body">
+                            <h3 class="pcard-title">Claude Reads the News
+                                <svg class="linkout" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 001.06 0l7.22-7.22v5.69a.75.75 0 001.5 0v-7.5a.75.75 0 00-.75-.75h-7.5a.75.75 0 000 1.5h5.69l-7.22 7.22a.75.75 0 000 1.06z" clip-rule="evenodd"/></svg>
+                            </h3>
+                            <p class="pcard-desc">Every morning Claude reads fifteen news feeds and writes a short, honest reaction to whatever caught its attention, with every article it read listed below. It has posted daily since April 2026.</p>
+                            <div class="pcard-pills"><span class="pill">LLMs</span><span class="pill">News</span><span class="pill">Automation</span></div>
+                        </div>
+                    </a>
 
                     <a href="https://maninae.github.io/please-remain-seated/" target="_blank" class="pcard">
                         <div class="pcard-cover">
@@ -555,12 +754,52 @@
         <section class="cat-section" id="learning">
             <div class="cat-head">
                 <h2>Learning</h2>
-                <span class="cat-count">9 projects</span>
+                <span class="cat-count">10 projects</span>
                 <span class="cat-rule"></span>
                 <span class="cat-desc">Interactive sites that teach ideas intuitively</span>
             </div>
             <div class="row-viewport">
                 <div class="row-track" data-dir="left">
+
+                    <a href="https://maninae.github.io/packet-run/" target="_blank" class="pcard">
+                        <div class="pcard-cover">
+                            <svg viewBox="0 0 480 300" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Five numbered packets travel a winding road under a storm cloud toward a glowing house">
+                                <rect class="motif-bg" x="0" y="0" width="480" height="300"/>
+                                <!-- the road home -->
+                                <path d="M20 250 C 120 250, 120 170, 220 170 S 330 110, 420 110" fill="none" stroke="var(--accent)" stroke-width="16" stroke-linecap="round" opacity="0.18"/>
+                                <path d="M20 250 C 120 250, 120 170, 220 170 S 330 110, 420 110" fill="none" stroke="var(--accent)" stroke-width="2" stroke-dasharray="8 8" opacity="0.6"/>
+                                <!-- storm cloud with a bolt -->
+                                <g class="motif-dim" opacity="0.55">
+                                    <circle cx="232" cy="66" r="22"/><circle cx="262" cy="56" r="28"/><circle cx="294" cy="68" r="20"/>
+                                    <rect x="218" y="66" width="90" height="22" rx="11"/>
+                                </g>
+                                <path d="M262 94 L 250 120 H 262 L 254 144" fill="none" stroke="var(--accent)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                                <!-- home -->
+                                <circle cx="438" cy="90" r="30" class="motif-accent-s"/>
+                                <path d="M418 108 V 88 L 438 72 L 458 88 V 108 Z" class="motif-accent"/>
+                                <!-- five packets on the road -->
+                                <g stroke="var(--accent)" stroke-width="2">
+                                    <rect x="52" y="234" width="24" height="24" rx="5" class="motif-accent-s"/>
+                                    <rect x="98" y="216" width="24" height="24" rx="5" class="motif-accent-s"/>
+                                    <rect x="146" y="182" width="24" height="24" rx="5" class="motif-accent"/>
+                                    <rect x="196" y="160" width="24" height="24" rx="5" class="motif-accent-s"/>
+                                    <rect x="330" y="118" width="24" height="24" rx="5" class="motif-accent"/>
+                                </g>
+                                <g class="motif-text" font-size="12" text-anchor="middle">
+                                    <text x="64" y="250">1</text><text x="110" y="232">2</text>
+                                    <text x="158" y="198" fill="var(--bg)">3</text><text x="208" y="176">4</text>
+                                    <text x="342" y="134" fill="var(--bg)">5</text>
+                                </g>
+                            </svg>
+                        </div>
+                        <div class="pcard-body">
+                            <h3 class="pcard-title">Packet Run
+                                <svg class="linkout" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 001.06 0l7.22-7.22v5.69a.75.75 0 001.5 0v-7.5a.75.75 0 00-.75-.75h-7.5a.75.75 0 000 1.5h5.69l-7.22 7.22a.75.75 0 000 1.06z" clip-rule="evenodd"/></svg>
+                            </h3>
+                            <p class="pcard-desc">You're a message trying to get home. Shatter into five packets and cross storms, oceans, and jammed cities using real networking moves. A roguelite for ages 9 to 12 where losing a fragment teaches retransmission.</p>
+                            <div class="pcard-pills"><span class="pill">Game</span><span class="pill">For Kids</span><span class="pill">Networking</span></div>
+                        </div>
+                    </a>
 
                     <a href="https://maninae.github.io/hole-foods/" target="_blank" class="pcard">
                         <div class="pcard-cover">
